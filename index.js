@@ -1,5 +1,5 @@
 const sessionName = "botkey";
-const donet = "https://saweria.co/sansekai";
+const donet = "https://github.com/laitung1122/Duong/tree/main";
 const {
   default: sansekaiConnect,
   useMultiFileAuthState,
@@ -221,10 +221,10 @@ async function startHisoka() {
       }
     } else if (connection === "open") {
       const botNumber = await client.decodeJid(client.user.id);
-      console.log(color("Bot success conneted to server", "green"));
-      console.log(color("Donate for creator https://saweria.co/sansekai", "yellow"));
-      console.log(color("Type /menu to see menu"));
-      client.sendMessage(botNumber, { text: `Bot started!\n\njangan lupa support ya bang :)\n${donet}` });
+      console.log(color("Bot đã kết nối tới whatsapp thành công", "green"));
+      console.log(color("Bot made by Dương Sú", "yellow"));
+      console.log(color("Ghi /help để xem menu"));
+      client.sendMessage(botNumber, { text: `Bot đã khởi động!\n\n*Lưu ý*: Cấm thay đổi mã code khi không được cho phép⚠️ Nếu không sẽ bị *BAN*\n${donet}` });
     }
     // console.log('Connected...', update)
   });
