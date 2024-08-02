@@ -4776,7 +4776,7 @@ end
 --Setting
 local SettingFarm = Tabs.Setting:AddSection("Farming")
 
-local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = true })
+local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = false })
 ToggleFast:OnChanged(function(Value)
     _G.FastNe = Value
 end)
@@ -4807,7 +4807,7 @@ spawn(function()
     end)
 end)
 
-    local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mob / Magnet",Description = "Gom Quái", Default = true })
+    local ToggleBringMob = Tabs.Setting:AddToggle("ToggleBringMob", {Title = "Enabled Bring Mob / Magnet",Description = "Gom Quái", Default = false })
     ToggleBringMob:OnChanged(function(Value)
         _G.BringMob = Value
     end)
@@ -5407,7 +5407,7 @@ spawn(function()
 end)
 
 
-local ToggleWalkonWater = Tabs.Player:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = true })
+local ToggleWalkonWater = Tabs.Player:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = false })
 ToggleWalkonWater:OnChanged(function(Value)
   _G.WalkonWater = Value
 end)
@@ -5425,7 +5425,7 @@ spawn(function()
 end)
 
 
-local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
+local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = false })
 ToggleSpeedRun:OnChanged(function(Value)
     InfAbility = Value
     if Value == false then
@@ -6453,7 +6453,7 @@ end
 elseif Third_Sea then
     Tabs.Raid:AddButton({
         Title = "Raid Lab",
-        Description = "Chổ Tập Kích",
+        Description = "Chỗ Tập Kích",
         Callback = function()
 		 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5075.50927734375, 314.5155029296875, -3150.0224609375))
            Tween2(CFrame.new(-5017.40869, 314.844055, -2823.0127, -0.925743818, 4.48217499e-08, -0.378151238, 4.55503146e-09, 1, 1.07377559e-07, 0.378151238, 9.7681621e-08, -0.925743818))
@@ -7362,7 +7362,7 @@ local Mastery = Tabs.Misc:AddSection("Day")
 
 Tabs.Misc:AddButton({
 	Title = "Remove Fog",
-	Description = "Xóa xương mù",
+	Description = "Xóa  mù",
 	Callback = function()
         NoFog()
     end
@@ -7452,7 +7452,12 @@ end
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Fluent:Notify({
     Title = "DƯƠNG API",
-    Content = "Đang tải script, chờ tí:))",
-    Durtion = 3
+    Content = "Tải script thành công!!",
+    Durtion = 5
 })
 warn("Đã chạy script thành công !!")
+Fluent:Notify({
+    Title = "DƯƠNG API",
+    Content = "Script làm bơi Dương coder",
+    Durtion = 5
+})
