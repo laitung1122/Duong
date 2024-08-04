@@ -6,7 +6,7 @@ local Window = Fluent:CreateWindow({
     Title = "EXPRERADOR | DƯƠNG MODDER",
     SubTitle = "Phiên bản v1.2",
     TabWidth = 160,
-    Size = UDim2.fromOffset(500, 320),
+    Size = UDim2.fromOffset(550, 320),
     Acrylic = false,
     Theme = "Dark",
     MinimizeKey = Enum.KeyCode.End
@@ -16,7 +16,7 @@ local Tabs = {
     Setting = Window:AddTab({ Title = "Cài đặt", Icon = "settings" }),
     Stats = Window:AddTab({ Title = "Nâng điểm", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
-    Teleport = Window:AddTab({ Title = "Dịch chuyển", Icon = "palmtree" }),
+    Teleport = Window:AddTab({ Title = "Island", Icon = "palmtree" }),
     Fruit = Window:AddTab({ Title = "Trái ác quỷ", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
     Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
