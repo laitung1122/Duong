@@ -14,13 +14,13 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "home" }),
     Setting = Window:AddTab({ Title = "Cài đặt", Icon = "settings" }),
-    Stats = Window:AddTab({ Title = "Nâng điểm", Icon = "plus-circle" }),
+    Stats = Window:AddTab({ Title = "Start", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
     Teleport = Window:AddTab({ Title = "Island", Icon = "palmtree" }),
-    Fruit = Window:AddTab({ Title = "Trái ác quỷ", Icon = "cherry" }),
+    Fruit = Window:AddTab({ Title = "Fruit", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
     Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
-    Shop = Window:AddTab({ Title = "Cửa hàng", Icon = "shopping-cart" }),
+    Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
 	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
     Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
 }
@@ -7381,7 +7381,7 @@ end
 --Hop
 
 if First_Sea or Second_Sea then
-    local Mastery = Tabs.Hop:AddSection("Sang sea 3 mới chạy :) tránh bị lỗi")
+    local Mastery = Tabs.Hop:AddSection("Sang sea 3 mới hoạt động,tránh bị lỗi:)) - Script by dương coder")
 end
 
 if Third_Sea then
