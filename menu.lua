@@ -7381,7 +7381,7 @@ end
 --Hop
 
 if First_Sea or Second_Sea then
-    local Mastery = Tabs.Hop:AddSection("Sang sea 3 mới chạy:)) tránh lỗi")
+    local Mastery = Tabs.Hop:AddSection("Sang sea 3 mới chạy:))")
 end
 
 if Third_Sea then
