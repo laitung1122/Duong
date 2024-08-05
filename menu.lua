@@ -13,13 +13,13 @@ local Window = Fluent:CreateWindow({
 })
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "home" }),
-    Setting = Window:AddTab({ Title = "Setting", Icon = "settings" }),
-    Stats = Window:AddTab({ Title = "Stats", Icon = "plus-circle" }),
-    Player = Window:AddTab({ Title = "Player", Icon = "box" }),
-    Teleport = Window:AddTab({ Title = "Island", Icon = "palmtree" }),
+    Setting = Window:AddTab({ Title = "Cài đặt", Icon = "settings" }),
+    Stats = Window:AddTab({ Title = "Điểm số", Icon = "plus-circle" }),
+    Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
+    Teleport = Window:AddTab({ Title = "Đảo", Icon = "palmtree" }),
     Fruit = Window:AddTab({ Title = "Fruit", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
-    Race = Window:AddTab({ Title = "Race V4", Icon = "chevrons-right" }),
+    Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
     Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
 	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
     Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
@@ -7462,5 +7462,10 @@ Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
     Durtion = 3
+})
+Fluent:Notify({
+    Title = "Facebook:",
+    Content = "Dương Lại tùng",
+    Durtion = 2
 })
 warn("Exprerador đã tải thành công !!")
