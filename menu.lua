@@ -3,8 +3,8 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 ----------------------------------------------------------------------------------------------------------------------------------------------
 local Window = Fluent:CreateWindow({
-    Title = "Exprerador | Dương Modder",
-    SubTitle = "Phiên bản v1.3(Fix lỗi vặt)",
+    Title = "Infinite Hub | Blox Fruits",
+    SubTitle = "Infinite",
     TabWidth = 160,
     Size = UDim2.fromOffset(500, 320),
     Acrylic = false,
@@ -2516,7 +2516,7 @@ ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
 ImageButton.Draggable = true
-ImageButton.Image = "http://www.roblox.com/asset/?id=18715936839"
+ImageButton.Image = "http://www.roblox.com/asset/?id=16906622093"
 ImageButton.MouseButton1Down:connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
 end)
@@ -4776,7 +4776,7 @@ end
 --Setting
 local SettingFarm = Tabs.Setting:AddSection("Farming")
 
-local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = false })
+local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = true })
 ToggleFast:OnChanged(function(Value)
     _G.FastNe = Value
 end)
@@ -4841,8 +4841,52 @@ end)
                 end)
              end
         end)
-       
+        --[[
+            task.spawn(function()
+                while task.wait() do
+             if _G.BringMob and bringmob then
+            pcall(function()
+                for i,v in pairs(game.Workspace.Enemies:GetChildren()) do
+                if v.Name == MonFarm and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 250 then
+                if InMyNetWork(v.HumanoidRootPart) then
+                v.HumanoidRootPart.CFrame = FarmPos
+                v.Humanoid.JumpPower = 0
+                v.Humanoid.WalkSpeed = 0
+                v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+                v.HumanoidRootPart.CanCollide = false
+                v.Head.CanCollide = false
+                end
+                end
+                end
+                end)
+              end
+              end
+              end)
+            
+            task.spawn(function()
+              while true do wait()
+              if setscriptable then
+              setscriptable(game.Players.LocalPlayer,"SimulationRadius",true)
+              end
+              if sethiddenproperty then
+              sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
+              end
+              end
+              end)
+            
+            function InMyNetWork(object)
+            if isnetworkowner then
+            return isnetworkowner(object)
+            else
+              if (object.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 250 then
+            return true
+            end
+            return false
+            end
+            end
+     ]]
          
+
     local ToggleBypassTP = Tabs.Setting:AddToggle("ToggleBypassTP", {Title = "Enabled Bypass Tp",Description = "Di Chuyển Dạng Reset", Default = false })
     ToggleBypassTP:OnChanged(function(Value)
         BypassTP = Value
@@ -4850,7 +4894,7 @@ end)
     Options.ToggleBypassTP:SetValue(false)
 
 
-local ToggleRemove = Tabs.Setting:AddToggle("ToggleRemove", {Title = " Enabled Remove Dame Text",Description = "Ẩn Dame Đánh Quái", Default = false })
+local ToggleRemove = Tabs.Setting:AddToggle("ToggleRemove", {Title = " Enabled Remove Dame Text",Description = "Ẩn Dame Đánh Quái", Default = true })
 ToggleRemove:OnChanged(function(Value)
     _G.RemoveDameText = Value
     end)
@@ -5241,7 +5285,7 @@ function getAllBladeHits(Sizes)
 	return Hits
 end
 
-local Teleport = Tabs.Player:AddSection("Aim bot(nhớ tắt hết tính năng khác tránh lỗi)")
+local Teleport = Tabs.Player:AddSection("Combat")
 
 
 local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
@@ -5269,7 +5313,7 @@ end)
 Options.ToggleShowFov:SetValue(false)
 
 
-local ToggleAimBotSkill = Tabs.Player:AddToggle("ToggleAimBotSkill", {Title = "Auto Aimbot Skill",Description = "Tự Động ngắm Skill(nhớ reset character)", Default = false })
+local ToggleAimBotSkill = Tabs.Player:AddToggle("ToggleAimBotSkill", {Title = "Auto Aimbot Skill",Description = "Tự Động ngắm Skill", Default = false })
 ToggleAimBotSkill:OnChanged(function(Value)
     _G.Aimbot_Skill_Fov = Value
 end)
@@ -5363,7 +5407,7 @@ spawn(function()
 end)
 
 
-local ToggleWalkonWater = Tabs.Player:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = false })
+local ToggleWalkonWater = Tabs.Player:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = true })
 ToggleWalkonWater:OnChanged(function(Value)
   _G.WalkonWater = Value
 end)
@@ -5381,7 +5425,7 @@ spawn(function()
 end)
 
 
-local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = false })
+local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
 ToggleSpeedRun:OnChanged(function(Value)
     InfAbility = Value
     if Value == false then
@@ -5454,8 +5498,148 @@ spawn(function()
 end)
 
 
+--[[
+local ToggleSoruNOCD = Tabs.Player:AddToggle("ToggleSoruNOCD", {Title = "Soru No Cooldown", Default = false })
+ToggleSoruNOCD:OnChanged(function(Value)
+    _G.SoruNoCd = Value
+	NoCooldown()
+end)
+Options.ToggleSoruNOCD:SetValue(false)
+function NoCooldown()
+	for i,v in next, getgc() do
+		if typeof(v) == "function" then
+			if getfenv(v).script == game.Players.LocalPlayer.Character:WaitForChild("Dodge") and _G.DashNoCd then
+				for i2,v2 in next, getupvalues(v) do
+					if tostring(v2) == "0.4" then
+						repeat wait(.1)
+							setupvalue(v,i2,0)
+						until not _G.DashNoCd
+					end
+				end
+			end
+			if getfenv(v).script == game.Players.LocalPlayer.Character:WaitForChild("Geppo") and _G.GeppoNoCd then
+				for i2,v2 in next, getupvalues(v) do
+					if tostring(v2) == "0" then
+						repeat wait(.1)
+							setupvalue(v,i2,0)
+						until not _G.GeppoNoCd
+					end
+				end
+			end
+			if getfenv(v).script == game.Players.LocalPlayer.Character:WaitForChild("Soru") and _G.SoruNoCd then
+				for i2,v2 in pairs(debug.getupvalues(v)) do
+					if type(v2) == 'table' then
+						if v2.LastUse then
+							repeat wait(_G.Fast_Delay)
+								setupvalue(v, i2, {LastAfter = 0,LastUse = 0})
+							until not _G.SoruNoCd
+						end
+					end
+				end
+			end
+		end
+	end
+end
+--------------------------------------------------------------------------------------------------------------------------------------------
+local ToggleGeppoNoCD = Tabs.Player:AddToggle("ToggleGeppoNoCD", {Title = "Geppo No Cooldown", Default = false })
+ToggleGeppoNoCD:OnChanged(function(Value)
+    _G.GeppoNoCd = Value
+		NoCooldown()
+end)
+Options.ToggleGeppoNoCD:SetValue(false)
+--------------------------------------------------------------------------------------------------------------------------------------------
+local ToggleDashNoCD = Tabs.Player:AddToggle("ToggleDashNoCD", {Title = "Dash No Cooldown", Default = false })
+ToggleDashNoCD:OnChanged(function(Value)
+    _G.DashNoCd = Value
+    DodgeNoCoolDown()
+end)
+Options.ToggleDashNoCD:SetValue(false)
+function DodgeNoCoolDown()
+    if _G.DashNoCd then
+        for i, v in next, getgc() do
+            if game.Players.LocalPlayer.Character.Dodge then
+                if typeof(v) == "function" and getfenv(v).script == game.Players.LocalPlayer.Character.Dodge then
+                    for i2, v2 in next, getupvalues(v) do
+                        if tostring(v2) == "0.4" then
+                            repeat
+                                wait(.1)
+                                setupvalue(v, i2, 0)
+                            until not _G.DashNoCd
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
 
+--------------------------------------------------------------------------------------------------------------------------------------------
+local ToggleSpeedHack = Tabs.Player:AddToggle("ToggleSpeedHack", {Title = "Speed Hack", Default = true })
+ToggleSpeedHack:OnChanged(function(Value)
+    _G.SpeedHack = Value
+    InfAbility()
+end)
+Options.ToggleSpeedHack:SetValue(true)
 
+function InfAbility()
+    if _G.SpeedHack then
+        if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Agility") then
+            local inf = Instance.new("ParticleEmitter")
+            inf.Acceleration = Vector3.new(0, 0, 0)
+            inf.Archivable = true
+            inf.Drag = 20
+            inf.EmissionDirection = Enum.NormalId.Top
+            inf.Enabled = true
+            inf.Lifetime = NumberRange.new(0.2, 0.2)
+            inf.LightInfluence = 0
+            inf.LockedToPart = true
+            inf.Name = "Agility"
+            inf.Rate = 500
+            local numberKeypoints2 = {
+                NumberSequenceKeypoint.new(0, 0),
+                NumberSequenceKeypoint.new(1, 4),
+            }
+
+            inf.Size = NumberSequence.new(numberKeypoints2)
+            inf.RotSpeed = NumberRange.new(999, 9999)
+            inf.Rotation = NumberRange.new(0, 0)
+            inf.Speed = NumberRange.new(30, 30)
+            inf.SpreadAngle = Vector2.new(360, 360)
+            inf.Texture = "rbxassetid://243098098"
+            inf.VelotyInheritance = 0
+            inf.ZOffset = 2
+            inf.Transparency = NumberSequence.new(0)
+            inf.Color = ColorSequence.new(Color3.fromRGB(0, 255, 255), Color3.fromRGB(0, 255, 255))
+            inf.Parent = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+        end
+    else
+        if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Agility") then
+            game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Agility"):Destroy()
+        end
+    end
+end
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+local ToggleWalkOnWater = Tabs.Player:AddToggle("ToggleWalkOnWater", {Title = "Wakl On Water", Default = true })
+ToggleWalkOnWater:OnChanged(function(Value)
+    _G.WalkWater = Value
+end)
+Options.ToggleWalkOnWater:SetValue(true)
+ 
+spawn(function()
+    while task.wait() do
+        pcall(function()
+            if _G.WalkWater then
+                game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,112,1000)
+            else
+                game:GetService("Workspace").Map["WaterBase-Plane"].Size = Vector3.new(1000,80,1000)
+            end
+        end)
+    end
+end)
+]]
+-----------------------------------------------------------------------------------------------------------------------------------------------
+--Teleport
 local Teleport = Tabs.Teleport:AddSection("Teleport World")
 
 Tabs.Teleport:AddButton({
@@ -7216,7 +7400,7 @@ spawn(function()
         elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709143733" then
             Hop()
             Fluent:Notify({
-                Title = "Dương Api",
+                Title = "Infinite Hub",
                 Content = "Turn Off Find Full Moon...",
                 SubContent = "", -- Optional
                 Duration = 5 -- Set to nil to make the notification not disappear
@@ -7224,7 +7408,7 @@ spawn(function()
         elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709150401" then
             Hop()
             Fluent:Notify({
-                Title = "Dương Api",
+                Title = "Infinite Hub",
                 Content = "Hop...",
                 SubContent = "", -- Optional
                 Duration = 5 -- Set to nil to make the notification not disappear
@@ -7232,7 +7416,7 @@ spawn(function()
         elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149680" then
             Hop()
             Fluent:Notify({
-                Title = "Dương Api",
+                Title = "Infinite Hub",
                 Content = "Hop...",
                 SubContent = "", -- Optional
                 Duration = 5 -- Set to nil to make the notification not disappear
@@ -7267,8 +7451,8 @@ end)
 end
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Fluent:Notify({
-    Title = "Dương Api",
-    Content = "Tải script thành công.",
+    Title = "Infinite Hub",
+    Content = "The script has been loaded.",
     Durtion = 3
 })
-warn("Script đã được tải vô mà chiến!!")
+warn("Infinite Hub Loading Completed !!")
