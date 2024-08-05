@@ -24,6 +24,13 @@ local Tabs = {
 	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
     Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
 }
+
+Fluent:Notify({
+    Title = "Dương Api",
+    Content = "Đang tải script, bình tĩnh m:)",
+    Durtion = 2
+})
+
 local Options = Fluent.Options
 do
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -1438,7 +1445,7 @@ for i,v in pairs(game:GetService'Players':GetChildren()) do
                         name.TextColor3 = Color3.new(255,0,0)
                     end
                 else
-                    v.Character.Head['NameEsp'..Number].TextLabel.Text = (v.Name ..' | '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' Distance\nHealth : ' .. round(v.Character.Humanoid.Health*100/v.Character.Humanoid.MaxHealth) .. '%')
+                    v.Character.Head['NameEsp'..Number].TextLabel.Text = (v.Name ..' | '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' m\nHealth : ' .. round(v.Character.Humanoid.Health*100/v.Character.Humanoid.MaxHealth) .. '%')
                 end
             else
                 if v.Character.Head:FindFirstChild('NameEsp'..Number) then
@@ -5291,9 +5298,9 @@ local Teleport = Tabs.Player:AddSection("Combat")
 local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
     Title = "Size Fov",
     Description = "Cỡ Fov",
-    Default = 100,
-    Min = 0,
-    Max = 500,
+    Default = 50,
+    Min = 30,
+    Max = 200,
     Rounding = 1,
     Callback = function(Value)
         _G.Select_Size_Fov = Value
@@ -7450,11 +7457,7 @@ spawn(function()
 end)
 end
 ----------------------------------------------------------------------------------------------------------------------------------------------
-Fluent:Notify({
-    Title = "Dương Api",
-    Content = "Đang tải script, bình tĩnh m:)",
-    Durtion = 2
-})
+
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
