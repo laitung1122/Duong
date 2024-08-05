@@ -3,8 +3,8 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 ----------------------------------------------------------------------------------------------------------------------------------------------
 local Window = Fluent:CreateWindow({
-    Title = "Infinite Hub | Blox Fruits",
-    SubTitle = "Infinite",
+    Title = "Exprerador | Dương Modder",
+    SubTitle = "Phiên bản v1.3(đã fix lỗi vặt)",
     TabWidth = 160,
     Size = UDim2.fromOffset(500, 320),
     Acrylic = false,
@@ -7451,8 +7451,13 @@ end)
 end
 ----------------------------------------------------------------------------------------------------------------------------------------------
 Fluent:Notify({
-    Title = "Infinite Hub",
-    Content = "The script has been loaded.",
-    Durtion = 3
+    Title = "Dương Api",
+    Content = "Đang tải script, bình tĩnh",
+    Durtion = 2
 })
-warn("Infinite Hub Loading Completed !!")
+Fluent:Notify({
+    Title = "Dương Api",
+    Content = "Đã tải script thành công!",
+    Durtion = 2
+})
+warn("Exprerador đã tải thành công !!")
