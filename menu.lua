@@ -2,11 +2,6 @@ local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 ----------------------------------------------------------------------------------------------------------------------------------------------
-Fluent:Notify({
-    Title = "Dương Api",
-    Content = "Đang tải script, bình tĩnh m:)",
-    Durtion = 2
-})
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
     SubTitle = "Phiên bản v1.3(đã fix lỗi vặt)",
@@ -4781,7 +4776,7 @@ end
 --Setting
 local SettingFarm = Tabs.Setting:AddSection("Farming")
 
-local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = false })
+local ToggleFast = Tabs.Setting:AddToggle("ToggleFast", {Title = "Enabled Fast Attack",Description = "Đánh Nhanh", Default = true })
 ToggleFast:OnChanged(function(Value)
     _G.FastNe = Value
 end)
@@ -5430,7 +5425,7 @@ spawn(function()
 end)
 
 
-local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = false })
+local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
 ToggleSpeedRun:OnChanged(function(Value)
     InfAbility = Value
     if Value == false then
@@ -7463,6 +7458,6 @@ Fluent:Notify({
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
-    Durtion = 5
+    Durtion = 3
 })
 warn("Exprerador đã tải thành công !!")
