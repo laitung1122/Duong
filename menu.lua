@@ -1,3 +1,9 @@
+Fluent:Notify({
+    Title = "Dương Api",
+    Content = "Đang tải script, bình tĩnh m:)",
+    Durtion = 2
+})
+
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
@@ -24,12 +30,6 @@ local Tabs = {
 	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
     Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
 }
-
-Fluent:Notify({
-    Title = "Dương Api",
-    Content = "Đang tải script, bình tĩnh m:)",
-    Durtion = 2
-})
 
 local Options = Fluent.Options
 do
