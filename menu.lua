@@ -1,14 +1,14 @@
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/giaodien.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 ----------------------------------------------------------------------------------------------------------------------------------------------
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
-    SubTitle = "Phiên bản v1.3(đã fix lỗi vặt)",
+    SubTitle = "Phiên bản v1.4(đã fix lỗi vặt)",
     TabWidth = 160,
     Size = UDim2.fromOffset(500, 320),
     Acrylic = false,
-    Theme = "Dark",
+    Theme = "Light",
     MinimizeKey = Enum.KeyCode.End
 })
 local Tabs = {
