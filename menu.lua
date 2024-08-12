@@ -3258,7 +3258,7 @@ spawn(function()
     ToggleSpawnCake:OnChanged(function(Value)
       _G.SpawnCakePrince = Value
     end)
-    Options.ToggleSpawnCake:SetValue(true)
+    Options.ToggleSpawnCake:SetValue(false)
 end
 
 spawn(function()
@@ -3658,7 +3658,7 @@ if Third_Sea then
 local ToggleNocliprock = Tabs.Main:AddToggle("ToggleNocliprock", {
     Title = "No Clip Rock",
     Description = "Đi xuyên Đá", 
-    Default = false })
+    Default = true })
 ToggleNocliprock:OnChanged(function(Value)
     _G.Nocliprock = Value
 end)
