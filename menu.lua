@@ -2543,7 +2543,7 @@ local listfastattack = {'Normal Attack','Fast Attack','Super Fast Attack'}
         Multi = false,
         Default = 1,
     })
-    DropdownDelayAttack:SetValue("Fast Attack")
+    DropdownDelayAttack:SetValue("Normal Attack")
     DropdownDelayAttack:OnChanged(function(Value)
     _G.FastAttackFaiFao_Mode = Value
 	if _G.FastAttackFaiFao_Mode == "Fast Attack" then
@@ -3254,7 +3254,7 @@ spawn(function()
     local ToggleSpawnCake = Tabs.Main:AddToggle("ToggleSpawnCake", {
         Title = "Auto Spawn Cake Prince",
         Description = "Tự Động Triệu Hồi Tư lệnh Bột", 
-        Default = true })
+        Default = false })
     ToggleSpawnCake:OnChanged(function(Value)
       _G.SpawnCakePrince = Value
     end)
@@ -3592,7 +3592,7 @@ end)
 end
 
 if Third_Sea then
-    local RoughSea = Tabs.Main:AddSection("Rough Sea")
+    local RoughSea = Tabs.Main:AddSection("Rough Sea(Beta)")
 
     local ToggleSailBoat = Tabs.Main:AddToggle("ToggleSailBoat", {Title = "Auto buy Boat",Description = "Mua Thuyền + Ngồi Vào", Default = false })
     ToggleSailBoat:OnChanged(function(Value)
@@ -4136,7 +4136,7 @@ spawn(function()
 
 
 if Third_Sea then
-    local Sea = Tabs.Main:AddSection("Sea Beast")
+    local Sea = Tabs.Main:AddSection("Sea Beast(Beta)")
 
 
 local ToggleSeaBeAst = Tabs.Main:AddToggle("ToggleSeaBeAst", {Title = "Auto Sea Beast",Description = "Treo + Đánh Thủy Quái", Default = false })
