@@ -17,6 +17,7 @@ local Tabs = {
     Stats = Window:AddTab({ Title = "Điểm số", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
     Teleport = Window:AddTab({ Title = "Đảo", Icon = "palmtree" }),
+    Esp = Window:AddTab({ Title = "Định Vị", Icon = "coffee"}),
     Fruit = Window:AddTab({ Title = "Fruit", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
     Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
@@ -6084,7 +6085,7 @@ spawn(function()
 end
 end)
 
-local Mastery = Tabs.Fruit:AddSection("Esp")
+local Mastery = Tabs.Esp:AddSection("Esp")
 
 
 local ToggleEspPlayer = Tabs.Fruit:AddToggle("ToggleEspPlayer", {Title = "Esp Player",Description = "Định vị người chơi", Default = false })
@@ -6096,7 +6097,7 @@ end)
 Options.ToggleEspPlayer:SetValue(false)
 
 
-local ToggleEspFruit = Tabs.Fruit:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "Định vị Trái", Default = false })
+local ToggleEspFruit = Tabs.Esp:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "Định vị Trái", Default = false })
 
 ToggleEspFruit:OnChanged(function(Value)
     DevilFruitESP = Value
@@ -6109,7 +6110,7 @@ Options.ToggleEspFruit:SetValue(false)
 
 
 
-local ToggleEspIsland = Tabs.Fruit:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "Định vị đảo", Default = false })
+local ToggleEspIsland = Tabs.Esp:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "Định vị đảo", Default = false })
 
 ToggleEspIsland:OnChanged(function(Value)
     IslandESP = Value
@@ -6120,7 +6121,7 @@ end)
 Options.ToggleEspIsland:SetValue(false)
 
 
-local ToggleEspFlower = Tabs.Fruit:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "Định vị Hoa", Default = false })
+local ToggleEspFlower = Tabs.Esp:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "Định vị Hoa", Default = false })
 
 ToggleEspFlower:OnChanged(function(Value)
     FlowerESP = Value
