@@ -2,6 +2,11 @@ local Fluent = loadstring(game:HttpGet("https://raw.githubusercontent.com/laitun
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/SaveManager.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 ----------------------------------------------------------------------------------------------------------------------------------------------
+Fluent:Notify({
+    Title = "Dương Api",
+    Content = "Đang tải script, bình tĩnh:))",
+    Duration = 2
+})
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
     SubTitle = "Phiên bản v1.4(đã fix lỗi vặt)",
@@ -7456,11 +7461,11 @@ end
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
-    Durtion = 3
+    Duration = 3
 })
 Fluent:Notify({
     Title = "Facebook:",
     Content = "Dương Lại tùng",
-    Durtion = 2
+    Duration = 3
 })
 warn("Exprerador đã tải thành công !!")
