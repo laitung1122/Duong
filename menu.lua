@@ -6907,6 +6907,13 @@ Tabs.Shop:AddButton({
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman")
 	end
 })
+Tabs.Shop:AddButton({
+	Title = "Sanguine Art",
+	Description = "Mua võ huyết quỷ thuật",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySanguineArt")
+	end
+})
 
 
 local Mastery = Tabs.Shop:AddSection("Misc Items")
