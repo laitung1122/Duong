@@ -3073,13 +3073,13 @@ if Third_Sea then
 local MiscFarm = Tabs.Main:AddSection("Bone Farm")
 
 local StatusBone = Tabs.Main:AddParagraph({
-    Title = "Bone Status",
+    Title = "Số lượng xương",
     Content = ""
 })
 	spawn(function()
 		pcall(function()
 			while wait() do
-				StatusBone:SetDesc("You Have : "..tostring(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check").." Bones"))
+				StatusBone:SetDesc("Bạn đang có : "..tostring(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check").." Xương"))
 			end
 		end)
 	end)
@@ -3179,11 +3179,11 @@ spawn(function()
 	while wait() do
 		pcall(function()
 			if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 88 then
-				Mob_Kill_Cake_Prince:SetDesc("Kill : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41).."")
+				Mob_Kill_Cake_Prince:SetDesc("Còn : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41).."")
 			elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 87 then
-				Mob_Kill_Cake_Prince:SetDesc("Kill : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40).."")
+				Mob_Kill_Cake_Prince:SetDesc("Còn : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40).."")
 			elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 86 then
-				Mob_Kill_Cake_Prince:SetDesc("Kill : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,39).." ")
+				Mob_Kill_Cake_Prince:SetDesc("Còn : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,39).." ")
 			else
 				Mob_Kill_Cake_Prince:SetDesc("Cake Prince : 🟢yes")
 			end
