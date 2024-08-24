@@ -18,6 +18,7 @@ local Window = Fluent:CreateWindow({
 })
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "home" }),
+    Item = Window:AddTab({ Title = "Vật phẩm", Icon = "sword"}),
     Setting = Window:AddTab({ Title = "Cài đặt", Icon = "settings" }),
     Stats = Window:AddTab({ Title = "Điểm số", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
@@ -2225,7 +2226,15 @@ function EquipTool(ToolSe)
 			game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
 		end
 	end
-    
+--select tools name
+    local function EquipToolName(NameTool)
+        local plrBag = Player.Backpack
+        local plrChar = Player.Character
+        local plrH = plrChar and plrChar:FindFirstChild("Humanoid")
+        if plrBag and plrH and plrBag:FindFirstChild(NameTool) then
+          plrH:EquipTool(plrBag[NameTool])
+        end
+      end
     --aimbot mastery
 
 	spawn(function()
@@ -2273,7 +2282,7 @@ spawn(function()
    spawn(function()
 			while task.wait() do
 				pcall(function()
-					if _G.TeleportIsland or _G.AutoEvoRace or AutoFarmChest or _G.chestsea2 or _G.chestsea3 or _G.CastleRaid or _G.CollectAzure or _G.TweenToKitsune or _G.AutoCandy or _G.GhostShip or _G.Ship or _G.SailBoat or _G.Auto_Holy_Torch or _G.FindMirageIsland or _G.TeleportPly or _G.Tweenfruit or _G.AutoFishCrew or _G.AutoShark or _G.AutoCakeV2 or _G.AutoMysticIsland or _G.AutoQuestRace or _G.AutoBuyBoat or _G.dao or _G.AutoMirage or AutoFarmAcient or _G.AutoQuestRace or Auto_Law or _G.AutoAllBoss or AutoTushita or _G.AutoHolyTorch or _G.AutoTerrorshark or _G.farmpiranya or _G.DriveMytic or _G.AutoCakeV2V2 or PirateShip or _G.AutoSeaBeast or _G.AutoNear or _G.BossRaid or _G.GrabChest or AutoCitizen or _G.Ectoplasm or AutoEvoRace or AutoBartilo or AutoFactory or BringChestz or BringFruitz or _G.AutoLevel or _G.Clip2 or AutoFarmNoQuest or _G.AutoBone or AutoFarmSelectMonsterQuest or AutoFarmSelectMonsterNoQuest or _G.AutoBoss or AutoFarmBossQuest or AutoFarmMasGun or AutoFarmMasDevilFruit or AutoFarmSelectArea or AutoSecondSea or AutoThirdSea or AutoDeathStep or AutoSuperhuman or AutoSharkman or AutoElectricClaw or AutoDragonTalon or AutoGodhuman or AutoRengoku or AutoBuddySword or AutoPole or AutoHallowSycthe or AutoCavander or AutoTushita or AutoDarkDagger or _G.CakePrince or _G.AutoElite or AutoRainbowHaki or AutoSaber or AutoFarmKen or AutoKenHop or AutoKenV2 or _G.AutoKillPlayerMelee or _G.AutoKillPlayerGun or _G.AutoKillPlayerFruit or AutoDungeon or AutoNextIsland or AutoAdvanceDungeon or Musketeer or RipIndra or Auto_Serpent_Bow or AutoTorch or AutoSoulGuitar or Auto_Cursed_Dual_Katana or _G.AutoMaterial or Auto_Quest_Yama_1 or Auto_Quest_Yama_2 or Auto_Quest_Yama_3 or Auto_Quest_Tushita_1 or Auto_Quest_Tushita_2 or Auto_Quest_Tushita_3 or _G.Factory or _G.SwanGlasses or AutoBartilo or AutoEvoRace or _G.Ectoplasm then
+					if _G.TeleportIsland or _G.AutoEvoRace or AutoFarmChest or _G.chestsea2 or _G.chestsea3 or _G.CastleRaid or _G.CollectAzure or _G.TweenToKitsune or _G.AutoCandy or _G.GhostShip or _G.Ship or _G.SailBoat or _G.Auto_Holy_Torch or _G.FindMirageIsland or _G.TeleportPly or _G.Tweenfruit or _G.AutoFishCrew or _G.AutoShark or _G.AutoCakeV2 or _G.AutoMysticIsland or _G.AutoQuestRace or _G.AutoBuyBoat or _G.dao or _G.AutoMirage or AutoFarmAcient or _G.AutoQuestRace or Auto_Law or _G.AutoAllBoss or AutoTushita or _G.AutoHolyTorch or _G.AutoTerrorshark or _G.farmpiranya or _G.DriveMytic or _G.AutoCakeV2V2 or PirateShip or _G.AutoSeaBeast or _G.AutoNear or _G.BossRaid or _G.GrabChest or AutoCitizen or _G.Ectoplasm or AutoEvoRace or AutoBartilo or AutoFactory or BringChestz or BringFruitz or _G.AutoLevel or _G.Clip2 or AutoFarmNoQuest or _G.AutoBone or AutoFarmSelectMonsterQuest or AutoFarmSelectMonsterNoQuest or _G.AutoBoss or AutoFarmBossQuest or AutoFarmMasGun or AutoFarmMasDevilFruit or AutoFarmSelectArea or AutoSecondSea or AutoThirdSea or AutoDeathStep or AutoSuperhuman or AutoSharkman or AutoElectricClaw or AutoDragonTalon or AutoGodhuman or AutoRengoku or AutoBuddySword or AutoPole or AutoHallowSycthe or AutoCavander or AutoTushita or AutoDarkDagger or _G.CakePrince or _G.AutoElite or AutoRainbowHaki or AutoSaber or AutoFarmKen or AutoKenHop or AutoKenV2 or _G.AutoKillPlayerMelee or _G.AutoKillPlayerGun or _G.AutoKillPlayerFruit or AutoDungeon or AutoNextIsland or AutoAdvanceDungeon or Musketeer or RipIndra or AutoCursedDualKatana or Auto_Serpent_Bow or AutoTorch or AutoSoulGuitar or Auto_Cursed_Dual_Katana or _G.AutoMaterial or Auto_Quest_Yama_1 or Auto_Quest_Yama_2 or Auto_Quest_Yama_3 or Auto_Quest_Tushita_1 or Auto_Quest_Tushita_2 or Auto_Quest_Tushita_3 or _G.Factory or _G.SwanGlasses or AutoBartilo or AutoEvoRace or _G.Ectoplasm then
 						if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 							local Noclip = Instance.new("BodyVelocity")
 							Noclip.Name = "BodyClip"
@@ -2293,7 +2302,7 @@ spawn(function()
 spawn(function()
   pcall(function()
     game:GetService("RunService").Stepped:Connect(function()
-      if _G.TeleportIsland or _G.AutoEvoRace or _G.CastleRaid or AutoFarmChest or _G.CollectAzure or _G.TweenToKitsune or _G.AutoCandy or _G.GhostShip or _G.Ship or _G.SailBoat or _G.Auto_Holy_Torch or _G.Tweenfruit or _G.FindMirageIsland or _G.TeleportPly or _G.AutoFishCrew or _G.AutoShark or _G.AutoMysticIsland or _G.AutoCakeV2 or _G.AutoQuestRace or _G.AutoBuyBoat or _G.dao or AutoFarmAcient or _G.AutoMirage or Auto_Law or _G.AutoQuestRace or _G.AutoAllBoss or _G.AutoHolyTorch or AutoTushita or _G.farmpiranya or _G.AutoTerrorshark or _G.AutoNear or _G.AutoCakeV2V2 or PirateShip or _G.AutoSeaBeast or _G.DriveMytic or _G.BossRaid or _G.GrabChest or AutoCitizen or _G.Ectoplasm or AutoEvoRace or AutoBartilo or AutoFactory or BringChestz or BringFruitz or _G.AutoLevel or _G.Clip2 or AutoFarmNoQuest or _G.AutoBone or AutoFarmSelectMonsterQuest or AutoFarmSelectMonsterNoQuest or _G.AutoBoss or AutoFarmBossQuest or AutoFarmMasGun or AutoFarmMasDevilFruit or AutoFarmSelectArea or AutoSecondSea or AutoThirdSea or AutoDeathStep or AutoSuperhuman or AutoSharkman or AutoElectricClaw or AutoDragonTalon or AutoGodhuman or AutoRengoku or AutoBuddySword or AutoPole or AutoHallowSycthe or AutoCavander or AutoTushita or AutoDarkDagger or _G.CakePrince or _G.AutoElite or AutoRainbowHaki or AutoSaber or AutoFarmKen or AutoKenHop or AutoKenV2 or _G.AutoKillPlayerMelee or _G.AutoKillPlayerGun or _G.AutoKillPlayerFruit or AutoDungeon or AutoNextIsland or AutoAdvanceDungeon or Musketeer or RipIndra or Auto_Serpent_Bow or AutoTorch or AutoSoulGuitar or Auto_Cursed_Dual_Katana or _G.AutoMaterial or Auto_Quest_Yama_1 or Auto_Quest_Yama_2 or Auto_Quest_Yama_3 or Auto_Quest_Tushita_1 or Auto_Quest_Tushita_2 or Auto_Quest_Tushita_3 or _G.Factory or _G.SwanGlasses or AutoBartilo or AutoEvoRace or _G.Ectoplasm then
+      if _G.TeleportIsland or _G.AutoEvoRace or _G.CastleRaid or AutoFarmChest or _G.CollectAzure or _G.TweenToKitsune or _G.AutoCandy or AutoCursedDualKatana or  _G.GhostShip or _G.Ship or _G.SailBoat or _G.Auto_Holy_Torch or _G.Tweenfruit or _G.FindMirageIsland or _G.TeleportPly or _G.AutoFishCrew or _G.AutoShark or _G.AutoMysticIsland or _G.AutoCakeV2 or _G.AutoQuestRace or _G.AutoBuyBoat or _G.dao or AutoFarmAcient or _G.AutoMirage or Auto_Law or _G.AutoQuestRace or _G.AutoAllBoss or _G.AutoHolyTorch or AutoTushita or _G.farmpiranya or _G.AutoTerrorshark or _G.AutoNear or _G.AutoCakeV2V2 or PirateShip or _G.AutoSeaBeast or _G.DriveMytic or _G.BossRaid or _G.GrabChest or AutoCitizen or _G.Ectoplasm or AutoEvoRace or AutoBartilo or AutoFactory or BringChestz or BringFruitz or _G.AutoLevel or _G.Clip2 or AutoFarmNoQuest or _G.AutoBone or AutoFarmSelectMonsterQuest or AutoFarmSelectMonsterNoQuest or _G.AutoBoss or AutoFarmBossQuest or AutoFarmMasGun or AutoFarmMasDevilFruit or AutoFarmSelectArea or AutoSecondSea or AutoThirdSea or AutoDeathStep or AutoSuperhuman or AutoSharkman or AutoElectricClaw or AutoDragonTalon or AutoGodhuman or AutoRengoku or AutoBuddySword or AutoPole or AutoHallowSycthe or AutoCavander or AutoTushita or AutoDarkDagger or _G.CakePrince or _G.AutoElite or AutoRainbowHaki or AutoSaber or AutoFarmKen or AutoKenHop or AutoKenV2 or _G.AutoKillPlayerMelee or _G.AutoKillPlayerGun or _G.AutoKillPlayerFruit or AutoDungeon or AutoNextIsland or AutoAdvanceDungeon or Musketeer or RipIndra or Auto_Serpent_Bow or AutoTorch or AutoSoulGuitar or Auto_Cursed_Dual_Katana or _G.AutoMaterial or Auto_Quest_Yama_1 or Auto_Quest_Yama_2 or Auto_Quest_Yama_3 or Auto_Quest_Tushita_1 or Auto_Quest_Tushita_2 or Auto_Quest_Tushita_3 or _G.Factory or _G.SwanGlasses or AutoBartilo or AutoEvoRace or _G.Ectoplasm then
       for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
       if v:IsA("BasePart") then
       v.CanCollide = false
@@ -2746,7 +2755,7 @@ end)
           if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChild("HumanoidRootPart").Position).Magnitude <= 5000 then
             repeat wait(_G.Fast_Delay)
                 AttackNoCoolDown()
-                bringmob = true
+                 = true
           AutoHaki()
           EquipTool(SelectWeapon)
           Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
@@ -5033,10 +5042,349 @@ SliderPosZ:OnChanged(function(Value)
      posZ = Value
 end)
 SliderPosZ:SetValue(0)
+-----------------------------------------------------------------------------------------------------------------------------------
+--Auto curse dual katana
 
+local function AutoCursedDualKatana()
+    local MasteryYama, MasteryTushita = 1, 1
+    local GoodProgress, EvilProgress = 0, 0
+    local YamaQuest_1, YamaQuest_2, YamaQuest_3
+    local TushitaQuest_1, TushitaQuest_2, TushitaQuest_3
+    local FinalQuest, FarmMastery
+    
+    local Enemies1 = workspace:WaitForChild("Enemies", 9e9)
+    local Enemies2 = ReplicatedStorage
+    local Remote = Enemies2:WaitForChild("Remotes", 9e9):WaitForChild("CommF_", 9e9)
+    local Map = workspace:WaitForChild("Map", 9e9)
+    local Turtle = Map:WaitForChild("Turtle", 9e9)
+    local Cursed = Turtle:WaitForChild("Cursed", 9e9)
+    
+    local function GetYamaEnemies()
+      local Distance = math.huge
+      local NPC = nil
+      local plrChar = Player and Player.Character and Player.Character.PrimaryPart
+      
+      for _,npc in pairs(Enemies1:GetChildren()) do
+        if npc:FindFirstChild("HazeESP") then
+          if plrChar and npc and npc:FindFirstChild("HumanoidRootPart") and (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude <= Distance then
+            Distance = (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude
+            NPC = npc
+          end
+        end
+      end
+      for _,npc in pairs(Enemies2:GetChildren()) do
+        if npc:FindFirstChild("HazeESP") then
+          if plrChar and npc and npc:FindFirstChild("HumanoidRootPart") and (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude <= Distance then
+            Distance = (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude
+            NPC = npc
+          end
+        end
+      end
+      return NPC
+    end
+    
+    local function GetMasteryEnemies()
+      local Distance = math.huge
+      local NPC = nil
+      local plrChar = Player and Player.Character and Player.Character.PrimaryPart
+      
+      for _,npc in pairs(Enemies1:GetChildren()) do
+        if npc.Name == "Reborn Skeleton" or npc.Name == "Living Zombie" or npc.Name == "Demonic Soul" or npc.Name == "Posessed Mummy" then
+          if plrChar and npc and npc:FindFirstChild("HumanoidRootPart") and (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude <= Distance then
+            Distance = (plrChar.Position - npc.HumanoidRootPart.Position).Magnitude
+            NPC = npc
+          end
+        end
+      end
+      return NPC
+    end
+    
+    -- Final Quest
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if FinalQuest then
+          
+        end
+      end
+    end)
+    
+    -- Yama Quest 1
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if YamaQuest_1 then
+          if not VerifyTool("Yama") then
+            FireRemote("LoadItem", "Yama")
+          else
+            local NPC = Enemies:FindFirstChild("Ghost")EquipToolName("Yama")
+            
+            if NPC and NPC:FindFirstChild("HumanoidRootPart") then
+              PlayerTP(NPC.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2))
+            else
+              PlayerTP(CFrame.new(5233, 7, 1105))
+            end
+          end
+        end
+      end
+    end)
+    
+    -- Yama Quest 2
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if YamaQuest_2 then
+          local Enemie = GetYamaEnemies()
+          
+          if Enemie and Enemie:FindFirstChild("HumanoidRootPart") then
+            PlayerTP(Enemie.HumanoidRootPart.CFrame + getgenv().FarmPos)
+            pcall(function()AttackNoCoolDown()AutoHaki()EquipTool()BringNPC(Enemie) end)
+          end
+        end
+      end
+    end)
+    
+    -- Yama Quest 3
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if YamaQuest_3 then
+          
+        end
+      end
+    end)
+    
+    -- Tushita Quest 1
+    task.spawn(function()
+      local NPCs = workspace:WaitForChild("NPCs", 9e9)
+      
+      local Boat1, Boat2, Boat3 = false, false, false
+      
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if TushitaQuest_1 then
+          local plrPP = Player and Player.Character and Player.Character.PrimaryPart
+          local NPC = NPCs:FindFirstChild("Luxury Boat Dealer")
+          
+          if not Boat1 and plrPP and NPC then
+            if (plrPP.Position - Vector3.new()).Magnitude < 5 then
+              FireRemote("CDKQuest", "BoatQuest", NPC)Boat1 = true
+            else
+              PlayerTP(CFrame.new(-9546, 21, 4686))
+            end
+          elseif not Boat2 and plrPP and NPC then
+            if (plrPP.Position - Vector3.new()).Magnitude < 5 then
+              FireRemote("CDKQuest", "BoatQuest", NPC)Boat2 = true
+            else
+              PlayerTP(CFrame.new(-6120, 16, -2250))
+            end
+          elseif not Boat3 and plrPP and NPC then
+            if (plrPP.Position - Vector3.new()).Magnitude < 5 then
+              FireRemote("CDKQuest", "BoatQuest", NPC)Boat3 = true
+            else
+              PlayerTP(CFrame.new(-9533, 7, -8372))
+            end
+          end
+        end
+      end
+    end)
+    
+    -- Tushita Quest 2
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if TushitaQuest_2 then
+          
+        end
+      end
+    end)
+    
+    -- Tushita Quest 3
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if TushitaQuest_3 then
+          
+        end
+      end
+    end)
+    
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if VerifyTool("Yama") then
+          local NewMastery = GetToolLevel("Yama")
+          if tonumber(NewMastery) then
+            MasteryYama = NewMastery
+          end
+        elseif VerifyTool("Tushita") then
+          local NewMastery = GetToolLevel("Tushita")
+          if tonumber(NewMastery) then
+            MasteryTushita = NewMastery
+          end
+        end
+      end
+    end)
+    
+    task.spawn(function()
+      while getgenv().AutoCursedDualKatana do task.wait()
+        if FarmMastery then
+          if MasteryYama >= 350 and MasteryTushita >= 350 then
+            break
+          end
+          if not VerifyTool("Yama") and MasteryYama < 350 then
+            Remote:InvokeServer("LoadItem", "Yama")
+          elseif not VerifyTool("Tushita") and MasteryTushita < 350 then
+            Remote:InvokeServer("LoadItem", "Tushita")
+          end
+          
+          local Enemie = GetMasteryEnemies()EquipToolName("Yama")EquipToolName("Tushita")
+          
+          if Enemie then
+            PlayerTP(Enemie.HumanoidRootPart.CFrame + getgenv().FarmPos)
+            pcall(function()AttackNoCoolDown()AutoHaki()EquipTool()BringNPC(Enemie, true)end)
+          else
+            PlayerT(CFrame.new(-9513, 164, 5786))
+          end
+        end
+      end
+    end)
+      
+    task.spawn(function()
+      local function ConvertNumber(Number)
+        local NumberStr = tostring(Number)
+        NumberStr = string.gsub(NumberStr, "2", "3")
+        NumberStr = string.gsub(NumberStr, "1", "2")
+        NumberStr = string.gsub(NumberStr, "0", "1")
+        NumberStr = string.gsub(NumberStr, "-2", "1")
+        NumberStr = string.gsub(NumberStr, "-4", "2")
+        NumberStr = string.gsub(NumberStr, "-6", "2")
+        return tonumber(NumberStr)
+      end
+      
+      while getgenv().AutoCursedDualKatana do task.wait(0.5)
+        local Progress = Remote:InvokeServer("CDKQuest", "Progress")
+        
+        GoodProgress = ConvertNumber(Progress.Good)
+        EvilProgress = ConvertNumber(Progress.Evil)
+      end
+    end)
+      
+    while getgenv().AutoCursedDualKatana do task.wait()
+      local Door = Cursed:FindFirstChild("Breakable")
+      
+      if MasteryTushita < 350 and MasteryYama < 350 then
+        FinalQuest, FarmMastery = false, true
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+      elseif Door then
+        Remote:InvokeServer("CDKQuest", "OpenDoor")
+        Remote:InvokeServer("CDKQuest", "OpenDoor", true)
+      elseif EvilProgress == 1 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = true, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Evil")Remote:InvokeServer("CDKQuest", "StartTrial", "Evil")
+      elseif EvilProgress == 2 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, true, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Evil")Remote:InvokeServer("CDKQuest", "StartTrial", "Evil")
+      elseif EvilProgress == 3 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, true
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Evil")Remote:InvokeServer("CDKQuest", "StartTrial", "Evil")
+      elseif GoodProgress == 1 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = true, false, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Good")Remote:InvokeServer("CDKQuest", "StartTrial", "Good")
+      elseif GoodProgress == 2 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, true, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Good")Remote:InvokeServer("CDKQuest", "StartTrial", "Good")
+      elseif GoodProgress == 3 then
+        FinalQuest, FarmMastery = false, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+        Remote:InvokeServer("CDKQuest", "Progress", "Good")Remote:InvokeServer("CDKQuest", "StartTrial", "Good")
+      else
+        FinalQuest, FarmMastery = true, false
+        YamaQuest_1, YamaQuest_2, YamaQuest_3 = false, false, false
+        TushitaQuest_1, TushitaQuest_2, TushitaQuest_3 = false, false, false
+      end
+    end
+  end
+
+--bringmob
+  local function BringNPC(Enemie, MultBring)
+
+    if not BringMobs or not BringMobsDistance then
+      local EnemiePP = Enemie.PrimaryPart
+      if EnemiePP then
+        EnemiePP.CFrame = EnePP2.CFrame
+        EnemiePP.CanCollide = false
+        EnemiePP.Size = Vector3.new(50, 50, 50)
+      end
+      return
+    end
+    local function Bring(_,NPC)
+      if MultBring or NPC.Name == Enemie.Name then
+        local EnemieH = NPC:FindFirstChild("Humanoid")
+        
+        if EnemieH and EnemieH.Health > 0 then
+          local EnePP1, EnePP2 = NPC.PrimaryPart, Enemie.PrimaryPart
+          
+          if EnePP1 and EnePP2 then
+            local Mag = (EnePP1.Position - EnePP2.Position).Magnitude
+            if Mag < BringMobsDistance and Mag >= 1 then
+              EnePP1.CFrame = EnePP2.CFrame
+              EnePP1.CanCollide = false
+              EnePP1.Size = Vector3.new(50, 50, 50)
+              EnemieH.WalkSpeed = 0
+              EnemieH.JumpPower = 0
+              EnemieH:ChangeState(14)
+              if EnemieH:FindFirstChild("Animator") then
+                EnemieH.Animator:Destroy()
+              end
+              if NPC:FindFirstChild("Head") and NPC.Head.CanCollide then
+                NPC.Head.CanCollide = false
+              end
+              sethiddenproperty(Player, "SimulationRadius",  math.huge)
+            end
+          end
+        end
+      end
+    end
+    
+    table.foreach(Enemies:GetChildren(), Bring)
+  end
+
+--Tp
+  local TeleportPos
+local function PlayerTP(Tween_Pos)
+  TeleportPos = Tween_Pos.p
+  local plrPP = Player.Character and Player.Character.PrimaryPart
+  if not plrPP then return end
+  local Distance = (plrPP.Position - Tween_Pos.p).Magnitude
+  local PortalPos = GetTPPos(Tween_Pos.p)
+  if (plrPP.Position - Tween_Pos.p).Magnitude > (Tween_Pos.p - PortalPos).Magnitude + 250 then
+    plrPP.CFrame = CFrame.new(PortalPos)
+    block.CFrame = CFrame.new(PortalPos)
+  elseif block then
+    if Distance <= 450 then
+      local tween = game:GetService("TweenService"):Create(block,
+      TweenInfo.new(Distance / tonumber(getgenv().TweenSpeed * 1.8), Enum.EasingStyle.Linear),
+      {CFrame = Tween_Pos}):Play()
+    else
+      local tween = game:GetService("TweenService"):Create(block,
+      TweenInfo.new(Distance / getgenv().TweenSpeed, Enum.EasingStyle.Linear),
+      {CFrame = Tween_Pos}):Play()
+    end
+  end
+end
+
+local function VerifyQuest(EnemieName)
+    local QuestActive = Player.PlayerGui.Main.Quest
+    local Text1 = QuestActive.Container.QuestTitle.Title.Text:gsub("-", ""):lower()
+    local Text2 = EnemieName:gsub("-", ""):lower()
+    return QuestActive.Visible and Text1:find(Text2)
+  end
 --------------------------------------------------------------------------------------------------------------------------------------------
-
-
 --Stats
 local ToggleMelee = Tabs.Stats:AddToggle("ToggleMelee", {Title = "Auto Melee",Description = "Nâng Melee", Default = false })
 ToggleMelee:OnChanged(function(Value)
@@ -5298,9 +5646,9 @@ local Teleport = Tabs.Player:AddSection("Combat")
 local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
     Title = "Size Fov",
     Description = "Cỡ Fov",
-    Default = 70,
+    Default = 100,
     Min = 0,
-    Max = 300,
+    Max = 500,
     Rounding = 1,
     Callback = function(Value)
         _G.Select_Size_Fov = Value
@@ -5310,7 +5658,7 @@ local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
 SlidershowFov:OnChanged(function(Value)
     _G.Select_Size_Fov = Value
 end)
-SlidershowFov:SetValue(70)
+SlidershowFov:SetValue(100)
 
 
 local ToggleShowFov = Tabs.Player:AddToggle("ToggleShowFov", {Title = "Show Fov",Description = "Hiện Fov", Default = false })
@@ -6916,7 +7264,7 @@ Tabs.Shop:AddButton({
 })
 
 
-local Mastery = Tabs.Shop:AddSection("Misc Items")
+local Mastery = Tabs.Shop:AddSection("Đổi tộc-Hoàn chỉ số")
 
 Tabs.Shop:AddButton({
 	Title = "Refund Stats",
@@ -6934,6 +7282,21 @@ Tabs.Shop:AddButton({
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","2")
 	end
 })
+Tabs.Shop:AddButton({
+	Title = "Cyborg",
+	Description = "Đổi tộc cyborg(nếu có)",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CyborgTrainer","Buy")
+	end
+})
+Tabs.Shop:AddButton({
+	Title = "Ghou;",
+	Description = "Đổi tộc quỷ(nếu có)",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Ectoplasm","Change", 4)
+	end
+})
+
 
 
 
@@ -7464,6 +7827,11 @@ spawn(function()
 end)
 end
 ----------------------------------------------------------------------------------------------------------------------------------------------
+local ToggleAutoDualKatana = Tabs.Item:AddToggle("Tự động làm nhiệm vụ", {Title = "Curse dual katana",Description = "Lây song kiếm", Default = false })
+ToggleAutoDualKatana:OnChanged(function(Value)
+    getgenv().AutoCursedDualKatana = Value
+end)
+Options.ToggleAutoDualKatana:SetValue(false)
 
 Fluent:Notify({
     Title = "Dương Api",
