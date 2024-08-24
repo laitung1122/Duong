@@ -2755,7 +2755,7 @@ end)
           if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChild("HumanoidRootPart").Position).Magnitude <= 5000 then
             repeat wait(_G.Fast_Delay)
                 AttackNoCoolDown()
-                 = true
+                bringmob = true
           AutoHaki()
           EquipTool(SelectWeapon)
           Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
