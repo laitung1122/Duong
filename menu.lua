@@ -6934,6 +6934,20 @@ Tabs.Shop:AddButton({
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","2")
 	end
 })
+Tabs.Shop:AddButton({
+	Title = "Cyborg",
+	Description = "Đổi tộc cyborg(nếu có)",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CyborgTrainer","Buy")
+	end
+})
+Tabs.Shop:AddButton({
+	Title = "Ghou;",
+	Description = "Đổi tộc quỷ(nếu có)",
+	Callback = function()
+		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Ectoplasm","Change", 4)
+	end
+})
 
 
 
