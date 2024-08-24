@@ -5371,15 +5371,15 @@ end)
 local Circle = Drawing.new("Circle")
 Circle.Color =  Color3.fromRGB(0, 244, 0)
 Circle.Thickness = 1
-Circle.Radius = 250
-Circle.NumSides = 460
+Circle.Radius = 2
+Circle.NumSides = 100
 Circle.Filled = false
 Circle.Transparency = 1
 
 game:GetService("RunService").Stepped:Connect(function()
     Circle.Radius = _G.Select_Size_Fov
-    Circle.Thickness = 1
-    Circle.NumSides = 460
+    Circle.Thickness = 20
+    Circle.NumSides = 100
     Circle.Position = game:GetService('UserInputService'):GetMouseLocation()
     if _G.Show_Fov then
         Circle.Visible = true
@@ -7301,7 +7301,7 @@ Tabs.Misc:AddButton({
 		tvk.FillDirectionMaxCells = 100
 		tvk.FillDirection = Enum.FillDirection.Horizontal
 	
-		local cac = { "Superhuman", "ElectricClaw", "DragonTalon", "SharkmanKarate", "DeathStep", "GodHuman" }
+		local cac = { "Superhuman", "ElectricClaw", "DragonTalon", "SharkmanKarate", "DeathStep", "GodHuman","SanguineArt" }
 		for k, v in pairs(cac) do
 			if ListHuhu[v] and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buy" .. v, true) == 1 then
 				local huhu = Instance.new("ImageLabel", MeleeG)
