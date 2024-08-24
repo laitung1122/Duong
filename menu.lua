@@ -5298,9 +5298,9 @@ local Teleport = Tabs.Player:AddSection("Combat")
 local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
     Title = "Size Fov",
     Description = "Cỡ Fov",
-    Default = 50,
-    Min = 30,
-    Max = 200,
+    Default = 70,
+    Min = 0,
+    Max = 300,
     Rounding = 1,
     Callback = function(Value)
         _G.Select_Size_Fov = Value
@@ -5371,15 +5371,15 @@ end)
 local Circle = Drawing.new("Circle")
 Circle.Color =  Color3.fromRGB(0, 244, 0)
 Circle.Thickness = 1
-Circle.Radius = 2
-Circle.NumSides = 100
+Circle.Radius = 250
+Circle.NumSides = 460
 Circle.Filled = false
 Circle.Transparency = 1
 
 game:GetService("RunService").Stepped:Connect(function()
     Circle.Radius = _G.Select_Size_Fov
-    Circle.Thickness = 20
-    Circle.NumSides = 100
+    Circle.Thickness = 1
+    Circle.NumSides = 460
     Circle.Position = game:GetService('UserInputService'):GetMouseLocation()
     if _G.Show_Fov then
         Circle.Visible = true
