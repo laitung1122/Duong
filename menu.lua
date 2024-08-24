@@ -7827,7 +7827,7 @@ spawn(function()
 end)
 end
 ----------------------------------------------------------------------------------------------------------------------------------------------
-local ToggleAutoDualKatana = Tabs.Item:AddToggle("Tự động làm nhiệm vụ", {Title = "Curse dual katana",Description = "Lây song kiếm", Default = false })
+local ToggleAutoDualKatana = Tabs.Item:AddToggle("Tự động làm nhiệm vụ(beta)", {Title = "Curse dual katana",Description = "Lây song kiếm", Default = false })
 ToggleAutoDualKatana:OnChanged(function(Value)
     getgenv().AutoCursedDualKatana = Value
 end)
