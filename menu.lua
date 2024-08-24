@@ -5310,7 +5310,7 @@ local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
 SlidershowFov:OnChanged(function(Value)
     _G.Select_Size_Fov = Value
 end)
-SlidershowFov:SetValue(100)
+SlidershowFov:SetValue(70)
 
 
 local ToggleShowFov = Tabs.Player:AddToggle("ToggleShowFov", {Title = "Show Fov",Description = "Hiện Fov", Default = false })
