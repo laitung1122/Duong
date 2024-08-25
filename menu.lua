@@ -5366,6 +5366,13 @@ spawn(function()
 		return old(...)
 	end)
 end)
+Tabs.Player:AddButton({
+    Title = "Aim POV",
+    Description = "Aim góc nhìn",
+    Callback = function()
+        loadstring(game:HttpGet("https://github.com/laitung1122/Score.M4/blob/main/aim1.lua"))()
+    end
+})
 
 
 local Circle = Drawing.new("Circle")
