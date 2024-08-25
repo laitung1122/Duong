@@ -6949,7 +6949,7 @@ Tabs.Shop:AddButton({
 	end
 })
 Tabs.Shop:AddButton({
-	Title = "Ghou;",
+	Title = "Ghoul",
 	Description = "Đổi tộc quỷ(nếu có)",
 	Callback = function()
 		game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Ectoplasm","Change", 4)
