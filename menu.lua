@@ -22,7 +22,7 @@ local Tabs = {
     Stats = Window:AddTab({ Title = "Điểm số", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
     Teleport = Window:AddTab({ Title = "Đảo", Icon = "palmtree" }),
-    Esp = Window:AddTab({ Title = "Định Vị", Icon = "coffee"}),
+    Sea = Window:AddTab({ Title = "Sea", Icon = "anchor"}),
     Fruit = Window:AddTab({ Title = "Fruit", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
     Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
@@ -1243,47 +1243,7 @@ for i,v in pairs(game.Workspace:GetChildren()) do
     end)
 end
 end
-function UpdateFlowerChams() 
-for i,v in pairs(game.Workspace:GetChildren()) do
-    pcall(function()
-        if v.Name == "Flower2" or v.Name == "Flower1" then
-            if FlowerESP then 
-                if not v:FindFirstChild('NameEsp'..Number) then
-                    local bill = Instance.new('BillboardGui',v)
-                    bill.Name = 'NameEsp'..Number
-                    bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                    bill.Size = UDim2.new(1,200,1,30)
-                    bill.Adornee = v
-                    bill.AlwaysOnTop = true
-                    local name = Instance.new('TextLabel',bill)
-                    name.Font = Enum.Font.GothamSemibold
-                    name.FontSize = "Size14"
-                    name.TextWrapped = true
-                    name.Size = UDim2.new(1,0,1,0)
-                    name.TextYAlignment = 'Top'
-                    name.BackgroundTransparency = 1
-                    name.TextStrokeTransparency = 0.5
-                    name.TextColor3 = Color3.fromRGB(255, 0, 0)
-                    if v.Name == "Flower1" then 
-                        name.Text = ("Blue Flower" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                        name.TextColor3 = Color3.fromRGB(0, 0, 255)
-                    end
-                    if v.Name == "Flower2" then
-                        name.Text = ("Red Flower" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                        name.TextColor3 = Color3.fromRGB(255, 0, 0)
-                    end
-                else
-                    v['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                end
-            else
-                if v:FindFirstChild('NameEsp'..Number) then
-                v:FindFirstChild('NameEsp'..Number):Destroy()
-                end
-            end
-        end   
-    end)
-end
-end
+
 function UpdateRealFruitChams() 
 for i,v in pairs(game.Workspace.AppleSpawner:GetChildren()) do
     if v:IsA("Tool") then
@@ -1375,40 +1335,6 @@ for i,v in pairs(game.Workspace.BananaSpawner:GetChildren()) do
         end 
     end
 end
-end
-
-function UpdateIslandESP() 
-    for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].Locations:GetChildren()) do
-        pcall(function()
-            if IslandESP then 
-                if v.Name ~= "Sea" then
-                    if not v:FindFirstChild('NameEsp') then
-                        local bill = Instance.new('BillboardGui',v)
-                        bill.Name = 'NameEsp'
-                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                        bill.Size = UDim2.new(1,200,1,30)
-                        bill.Adornee = v
-                        bill.AlwaysOnTop = true
-                        local name = Instance.new('TextLabel',bill)
-                        name.Font = "GothamBold"
-                        name.FontSize = "Size14"
-                        name.TextWrapped = true
-                        name.Size = UDim2.new(1,0,1,0)
-                        name.TextYAlignment = 'Top'
-                        name.BackgroundTransparency = 1
-                        name.TextStrokeTransparency = 0.5
-                        name.TextColor3 = Color3.fromRGB(7, 236, 240)
-                    else
-                        v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                    end
-                end
-            else
-                if v:FindFirstChild('NameEsp') then
-                    v:FindFirstChild('NameEsp'):Destroy()
-                end
-            end
-        end)
-    end
 end
 
 function isnil(thing)
@@ -1456,86 +1382,7 @@ for i,v in pairs(game:GetService'Players':GetChildren()) do
     end)
 end
 end
-function UpdateChestChams() 
-for i,v in pairs(game.Workspace:GetChildren()) do
-    pcall(function()
-        if string.find(v.Name,"Chest") then
-            if ChestESP then
-                if string.find(v.Name,"Chest") then
-                    if not v:FindFirstChild('NameEsp'..Number) then
-                        local bill = Instance.new('BillboardGui',v)
-                        bill.Name = 'NameEsp'..Number
-                        bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                        bill.Size = UDim2.new(1,200,1,30)
-                        bill.Adornee = v
-                        bill.AlwaysOnTop = true
-                        local name = Instance.new('TextLabel',bill)
-                        name.Font = Enum.Font.GothamSemibold
-                        name.FontSize = "Size14"
-                        name.TextWrapped = true
-                        name.Size = UDim2.new(1,0,1,0)
-                        name.TextYAlignment = 'Top'
-                        name.BackgroundTransparency = 1
-                        name.TextStrokeTransparency = 0.5
-                        if v.Name == "Chest1" then
-                            name.TextColor3 = Color3.fromRGB(109, 109, 109)
-                            name.Text = ("Chest 1" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                        end
-                        if v.Name == "Chest2" then
-                            name.TextColor3 = Color3.fromRGB(173, 158, 21)
-                            name.Text = ("Chest 2" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                        end
-                        if v.Name == "Chest3" then
-                            name.TextColor3 = Color3.fromRGB(85, 255, 255)
-                            name.Text = ("Chest 3" ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                        end
-                    else
-                        v['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' m')
-                    end
-                end
-            else
-                if v:FindFirstChild('NameEsp'..Number) then
-                    v:FindFirstChild('NameEsp'..Number):Destroy()
-                end
-            end
-        end
-    end)
-end
-end
-function UpdateDevilChams() 
-for i,v in pairs(game.Workspace:GetChildren()) do
-    pcall(function()
-        if DevilFruitESP then
-            if string.find(v.Name, "Fruit") then   
-                if not v.Handle:FindFirstChild('NameEsp'..Number) then
-                    local bill = Instance.new('BillboardGui',v.Handle)
-                    bill.Name = 'NameEsp'..Number
-                    bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                    bill.Size = UDim2.new(1,200,1,30)
-                    bill.Adornee = v.Handle
-                    bill.AlwaysOnTop = true
-                    local name = Instance.new('TextLabel',bill)
-                    name.Font = Enum.Font.GothamSemibold
-                    name.FontSize = "Size14"
-                    name.TextWrapped = true
-                    name.Size = UDim2.new(1,0,1,0)
-                    name.TextYAlignment = 'Top'
-                    name.BackgroundTransparency = 1
-                    name.TextStrokeTransparency = 0.5
-                    name.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-                else
-                    v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-                end
-            end
-        else
-            if v.Handle:FindFirstChild('NameEsp'..Number) then
-                v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
-            end
-        end
-    end)
-end
-end
+ 
 function UpdateFlowerChams() 
 for i,v in pairs(game.Workspace:GetChildren()) do
     pcall(function()
@@ -1577,98 +1424,7 @@ for i,v in pairs(game.Workspace:GetChildren()) do
     end)
 end
 end
-function UpdateRealFruitChams() 
-for i,v in pairs(game.Workspace.AppleSpawner:GetChildren()) do
-    if v:IsA("Tool") then
-        if RealFruitESP then 
-            if not v.Handle:FindFirstChild('NameEsp'..Number) then
-                local bill = Instance.new('BillboardGui',v.Handle)
-                bill.Name = 'NameEsp'..Number
-                bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                bill.Size = UDim2.new(1,200,1,30)
-                bill.Adornee = v.Handle
-                bill.AlwaysOnTop = true
-                local name = Instance.new('TextLabel',bill)
-                name.Font = Enum.Font.GothamSemibold
-                name.FontSize = "Size14"
-                name.TextWrapped = true
-                name.Size = UDim2.new(1,0,1,0)
-                name.TextYAlignment = 'Top'
-                name.BackgroundTransparency = 1
-                name.TextStrokeTransparency = 0.5
-                name.TextColor3 = Color3.fromRGB(255, 0, 0)
-                name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            else
-                v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..' '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            end
-        else
-            if v.Handle:FindFirstChild('NameEsp'..Number) then
-                v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
-            end
-        end 
-    end
-end
-for i,v in pairs(game.Workspace.PineappleSpawner:GetChildren()) do
-    if v:IsA("Tool") then
-        if RealFruitESP then 
-            if not v.Handle:FindFirstChild('NameEsp'..Number) then
-                local bill = Instance.new('BillboardGui',v.Handle)
-                bill.Name = 'NameEsp'..Number
-                bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                bill.Size = UDim2.new(1,200,1,30)
-                bill.Adornee = v.Handle
-                bill.AlwaysOnTop = true
-                local name = Instance.new('TextLabel',bill)
-                name.Font = Enum.Font.GothamSemibold
-                name.FontSize = "Size14"
-                name.TextWrapped = true
-                name.Size = UDim2.new(1,0,1,0)
-                name.TextYAlignment = 'Top'
-                name.BackgroundTransparency = 1
-                name.TextStrokeTransparency = 0.5
-                name.TextColor3 = Color3.fromRGB(255, 174, 0)
-                name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            else
-                v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..' '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            end
-        else
-            if v.Handle:FindFirstChild('NameEsp'..Number) then
-                v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
-            end
-        end 
-    end
-end
-for i,v in pairs(game.Workspace.BananaSpawner:GetChildren()) do
-    if v:IsA("Tool") then
-        if RealFruitESP then 
-            if not v.Handle:FindFirstChild('NameEsp'..Number) then
-                local bill = Instance.new('BillboardGui',v.Handle)
-                bill.Name = 'NameEsp'..Number
-                bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                bill.Size = UDim2.new(1,200,1,30)
-                bill.Adornee = v.Handle
-                bill.AlwaysOnTop = true
-                local name = Instance.new('TextLabel',bill)
-                name.Font = Enum.Font.GothamSemibold
-                name.FontSize = "Size14"
-                name.TextWrapped = true
-                name.Size = UDim2.new(1,0,1,0)
-                name.TextYAlignment = 'Top'
-                name.BackgroundTransparency = 1
-                name.TextStrokeTransparency = 0.5
-                name.TextColor3 = Color3.fromRGB(251, 255, 0)
-                name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            else
-                v.Handle['NameEsp'..Number].TextLabel.Text = (v.Name ..' '.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude/3) ..' m')
-            end
-        else
-            if v.Handle:FindFirstChild('NameEsp'..Number) then
-                v.Handle:FindFirstChild('NameEsp'..Number):Destroy()
-            end
-        end 
-    end
-end
-end
+
 
 spawn(function()
 while wait() do
@@ -3509,7 +3265,7 @@ spawn(function()
     end)
 end)
 
-      local ToggleEspKitsune = Tabs.Main:AddToggle("ToggleEspKitsune", {Title = "Esp Kitsune Island",Description = "Định vị Đảo kisune", Default = false })
+      local ToggleEspKitsune = Tabs.Setting:AddToggle("ToggleEspKitsune", {Title = "Esp Kitsune Island",Description = "Định vị Đảo kisune", Default = false })
       ToggleEspKitsune:OnChanged(function(Value)
         KitsuneIslandEsp = Value
         while KitsuneIslandEsp do wait()
@@ -3598,7 +3354,7 @@ end)
 end
 
 if Third_Sea then
-    local RoughSea = Tabs.Main:AddSection("Rough Sea(Beta)")
+    local RoughSea = Tabs.Sea:AddSection("Rough Sea(Beta)")
 
     local ToggleSailBoat = Tabs.Main:AddToggle("ToggleSailBoat", {Title = "Auto buy Boat",Description = "Mua Thuyền + Ngồi Vào", Default = false })
     ToggleSailBoat:OnChanged(function(Value)
@@ -3661,7 +3417,7 @@ if Third_Sea then
 	end)
 	
 	
-local ToggleNocliprock = Tabs.Main:AddToggle("ToggleNocliprock", {
+local ToggleNocliprock = Tabs.Sea:AddToggle("ToggleNocliprock", {
     Title = "No Clip Rock",
     Description = "Đi xuyên Đá", 
     Default = true })
@@ -3700,7 +3456,7 @@ spawn(function()
 end)
 
 	
-	local SetSpeedBoatSlider = Tabs.Main:AddSlider("SliderSpeedBoat", {
+	local SetSpeedBoatSlider = Tabs.Sea:AddSlider("SliderSpeedBoat", {
 	Title = "Set Speed boat",
 	Description = "Chỉnh tốc độ thuyền",
 	Default = 300,
@@ -3718,7 +3474,7 @@ end)
 
 SetSpeedBoatSlider:SetValue(300)
 
-local SpeedBoatToggle = Tabs.Main:AddToggle("SpeedBoat_Toggle", {Title = "Speed Boat",Description = "Tốc độ thuyền", Default = false })
+local SpeedBoatToggle = Tabs.Sea:AddToggle("SpeedBoat_Toggle", {Title = "Speed Boat",Description = "Tốc độ thuyền", Default = false })
 Options.SpeedBoat_Toggle:SetValue(false)
 
 SpeedBoatToggle:OnChanged(function(value)
@@ -3736,8 +3492,24 @@ game:GetService("RunService").RenderStepped:Connect(function()
 end)
 
 
+local ToggleAutoW = Tabs.Sea:AddToggle("ToggleAutoW", {Title = "Auto Press W",Description = "Tự Động đi thẳng", Default = false })
+ToggleAutoW:OnChanged(function(Value)
+    _G.AutoW = Value
+    end)
+ Options.ToggleAutoW:SetValue(false)
+ spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.AutoW then
+                game:GetService("VirtualInputManager"):SendKeyEvent(true,"W",false,game)
+            end
+        end)
+    end
+    end)
 
-    local ToggleTerrorshark = Tabs.Main:AddToggle("ToggleTerrorshark", {Title = " Kill Terrorshark",Description = "Đánh Terrorshark", Default = false })
+
+
+    local ToggleTerrorshark = Tabs.Sea:AddToggle("ToggleTerrorshark", {Title = " Kill Terrorshark",Description = "Đánh Terrorshark", Default = false })
 
     ToggleTerrorshark:OnChanged(function(Value)
         _G.AutoTerrorshark = Value
@@ -3778,7 +3550,7 @@ end)
 
 
 
-     local TogglePiranha = Tabs.Main:AddToggle("TogglePiranha", {Title = " Kill Piranha",Description = "Đánh Piranha", Default = false })
+     local TogglePiranha = Tabs.Sea:AddToggle("TogglePiranha", {Title = " Kill Piranha",Description = "Đánh Piranha", Default = false })
 
      TogglePiranha:OnChanged(function(Value)
         _G.farmpiranya = Value
@@ -3820,7 +3592,7 @@ end)
 
 
 
-     local ToggleShark = Tabs.Main:AddToggle("ToggleShark", {Title = " Kill Shark",Description = "Đánh Cá", Default = false })
+     local ToggleShark = Tabs.Sea:AddToggle("ToggleShark", {Title = " Kill Shark",Description = "Đánh Cá", Default = false })
      ToggleShark:OnChanged(function(Value)
         _G.AutoShark = Value
      end)
@@ -3861,7 +3633,7 @@ end)
 
 
 
-    local ToggleFishCrew = Tabs.Main:AddToggle("ToggleFishCrew", {Title = " Kill Fish Crew",Description = "Đánh Fish Crew", Default = false })
+    local ToggleFishCrew = Tabs.Sea:AddToggle("ToggleFishCrew", {Title = " Kill Fish Crew",Description = "Đánh Fish Crew", Default = false })
     ToggleFishCrew:OnChanged(function(Value)
        _G.AutoFishCrew = Value
     end)
@@ -3907,7 +3679,7 @@ end)
 
 
 
-    local ToggleShip = Tabs.Main:AddToggle("ToggleShip", {Title = "Kill Ship",Description = "Đánh Thuyền Hải Tặc", Default = false })
+    local ToggleShip = Tabs.Sea:AddToggle("ToggleShip", {Title = "Kill Ship",Description = "Đánh Thuyền Hải Tặc", Default = false })
     ToggleShip:OnChanged(function(Value)
         _G.Ship = Value
        end)
@@ -3947,7 +3719,7 @@ end)
 
 
 
-    local ToggleGhostShip = Tabs.Main:AddToggle("ToggleGhostShip", {Title = "Kill Ghost Ship",Description = "Đánh Thuyền Ma",Default = false })
+    local ToggleGhostShip = Tabs.Sea:AddToggle("ToggleGhostShip", {Title = "Kill Ghost Ship",Description = "Đánh Thuyền Ma",Default = false })
     ToggleGhostShip:OnChanged(function(Value)
         _G.GhostShip = Value
        end)
@@ -4142,7 +3914,7 @@ spawn(function()
 
 
 if Third_Sea then
-    local Sea = Tabs.Main:AddSection("Sea Beast(Beta)")
+    local Sea = Tabs.Sea:AddSection("Sea Beast(Beta)")
 
 
 local ToggleSeaBeAst = Tabs.Main:AddToggle("ToggleSeaBeAst", {Title = "Auto Sea Beast",Description = "Treo + Đánh Thủy Quái", Default = false })
@@ -4258,21 +4030,6 @@ ToggleSeaBeAst:OnChanged(function(Value)
                 end
             end)
         end
-    end)
-
-local ToggleAutoW = Tabs.Main:AddToggle("ToggleAutoW", {Title = "Auto Press W",Description = "Tự Động Nhấn W", Default = false })
-ToggleAutoW:OnChanged(function(Value)
-    _G.AutoW = Value
-    end)
- Options.ToggleAutoW:SetValue(false)
- spawn(function()
-    while wait() do
-        pcall(function()
-            if _G.AutoW then
-                game:GetService("VirtualInputManager"):SendKeyEvent(true,"W",false,game)
-            end
-        end)
-    end
     end)
 
 
@@ -6097,10 +5854,13 @@ spawn(function()
 end
 end)
 
-local Mastery = Tabs.Esp:AddSection("Esp")
+Tabs.Setting:AddParagraph({
+    Title = "Định vị",
+    Content = "Định vị mọi thứ xung quanh"
+})
 
 
-local ToggleEspPlayer = Tabs.Esp:AddToggle("ToggleEspPlayer", {Title = "Esp Player",Description = "Định vị người chơi", Default = false })
+local ToggleEspPlayer = Tabs.Setting:AddToggle("ToggleEspPlayer", {Title = "Esp player",Description = "Định vị người chơi", Default = false })
 
 ToggleEspPlayer:OnChanged(function(Value)
     ESPPlayer = Value
@@ -6109,7 +5869,7 @@ end)
 Options.ToggleEspPlayer:SetValue(false)
 
 
-local ToggleEspFruit = Tabs.Esp:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "Định vị Trái", Default = false })
+local ToggleEspFruit = Tabs.Setting:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "Định vị Trái", Default = false })
 
 ToggleEspFruit:OnChanged(function(Value)
     DevilFruitESP = Value
@@ -6122,7 +5882,7 @@ Options.ToggleEspFruit:SetValue(false)
 
 
 
-local ToggleEspIsland = Tabs.Esp:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "Định vị đảo", Default = false })
+local ToggleEspIsland = Tabs.Setting:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "Định vị đảo", Default = false })
 
 ToggleEspIsland:OnChanged(function(Value)
     IslandESP = Value
@@ -6133,7 +5893,7 @@ end)
 Options.ToggleEspIsland:SetValue(false)
 
 
-local ToggleEspFlower = Tabs.Esp:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "Định vị Hoa", Default = false })
+local ToggleEspFlower = Tabs.Setting:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "Định vị Hoa", Default = false })
 
 ToggleEspFlower:OnChanged(function(Value)
     FlowerESP = Value
