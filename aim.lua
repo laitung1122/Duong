@@ -24,7 +24,7 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7
-Main.Position = UDim2.new(0.5, -131.5, 0, 10)  -- Centered horizontally, near the top
+Main.Position = UDim2.new(0, 10, 0, 10)  -- Sát mép trên và bên trái màn hình
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 local MainCorner = Instance.new("UICorner")
@@ -146,14 +146,14 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
         end
     end
 end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait(0.1) do  -- Update every 0.5 seconds
+    while wait(0.5) do  -- Update every 0.5 seconds
         if Playersaimbot then
             local player = Players:FindFirstChild(Playersaimbot)
             if player and player.Character then
