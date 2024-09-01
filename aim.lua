@@ -128,7 +128,7 @@ local function findClosestPlayer()
     return closestPlayer
 end
 
--- Cập nhật GUI và khóa mục tiêu
+-- Cập nhật GUI và khóa mục tiêu với aim skill
 RunService.RenderStepped:Connect(function()
     local closestPlayer = findClosestPlayer()
     if closestPlayer then
@@ -140,10 +140,11 @@ RunService.RenderStepped:Connect(function()
             Healthgreen:TweenSize(UDim2.new(character.Humanoid.Health / character.Humanoid.MaxHealth, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 
-            -- Tự động aim vào người chơi gần nhất
+            -- Tự động aim skill vào người chơi gần nhất
             local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
             if humanoidRootPart then
-                CurrentCamera.CFrame = CFrame.new(CurrentCamera.CFrame.Position, humanoidRootPart.Position)
+                -- Mã để thực hiện aim skill vào mục tiêu
+                -- Ví dụ: sử dụng kỹ năng cụ thể của bạn khi đối tượng trong phạm vi
             end
         end
     end
