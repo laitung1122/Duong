@@ -6,9 +6,10 @@ local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 
 local CurrentCamera = Workspace.CurrentCamera
-local Playersaimbot = nil
+local LockedTarget = nil
+local SkillActivated = false
 
--- Xóa bỏ GUI trước đó nếu có
+-- Xóa GUI trước đó nếu có
 if CoreGui:FindFirstChild("infoplayers") then
     CoreGui.infoplayers:Destroy()
 end
@@ -23,7 +24,7 @@ local Main = Instance.new("Frame")
 Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Main.BackgroundTransparency = 0.7 -- Làm mờ menu hơn một chút
+Main.BackgroundTransparency = 0.8 -- Làm mờ menu hơn
 Main.Position = UDim2.new(0.01, 0, 0.3, 0)
 Main.Size = UDim2.new(0, 263, 0, 80)
 
@@ -128,11 +129,24 @@ local function findClosestPlayer()
     return closestPlayer
 end
 
--- Cập nhật GUI và khóa mục tiêu với aim skill
+-- Kích hoạt aim skill khi khóa mục tiêu
+local function activateSkillOnTarget(target)
+    if target then
+        local humanoidRootPart = target.Character and target.Character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            -- Đây là nơi bạn có thể thêm mã để kích hoạt kỹ năng vào mục tiêu
+            -- Ví dụ: Sử dụng lệnh để ngắm và bắn kỹ năng vào mục tiêu
+            print("Kích hoạt skill vào: " .. target.Name)
+            SkillActivated = true
+        end
+    end
+end
+
+-- Cập nhật GUI và khóa mục tiêu
 RunService.RenderStepped:Connect(function()
     local closestPlayer = findClosestPlayer()
     if closestPlayer then
-        Playersaimbot = closestPlayer.Name
+        LockedTarget = closestPlayer.Name
         local character = closestPlayer.Character
         if character and character:FindFirstChild("Humanoid") then
             NamePlayers.Text = "Name | " .. closestPlayer.Name
@@ -140,12 +154,8 @@ RunService.RenderStepped:Connect(function()
             Healthgreen:TweenSize(UDim2.new(character.Humanoid.Health / character.Humanoid.MaxHealth, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 
-            -- Tự động aim skill vào người chơi gần nhất
-            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-            if humanoidRootPart then
-                -- Mã để thực hiện aim skill vào mục tiêu
-                -- Ví dụ: sử dụng kỹ năng cụ thể của bạn khi đối tượng trong phạm vi
-            end
+            -- Tự động kích hoạt aim skill vào người chơi gần nhất
+            activateSkillOnTarget(closestPlayer)
         end
     end
 end)
