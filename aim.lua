@@ -14,7 +14,7 @@ if CoreGui:FindFirstChild("infoplayers") then
     CoreGui.infoplayers:Destroy()
 end
 
--- Tạo GUI
+-- Tạo GUI aimbot
 local infoplayers = Instance.new("ScreenGui")
 infoplayers.Name = "infoplayers"
 infoplayers.Parent = CoreGui
@@ -26,19 +26,10 @@ Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7 -- Làm mờ menu hơn một chút
 
--- Điều chỉnh vị trí của menu tùy thuộc vào kiểu thiết bị và độ rộng màn hình
-local function getPositionForScreen()
-    if UserInputService.TouchEnabled then
-        -- Đối với thiết bị cảm ứng (điện thoại), đặt menu gần trên cùng và căn chỉnh sang bên trái một chút
-        return UDim2.new(0.5, -130, 0.05, 0)  -- Điều chỉnh giá trị 0.5 và -130 để căn chỉnh menu theo ý muốn
-    else
-        -- Đối với các màn hình khác
-        return UDim2.new(0.01, 0, 0.3, 0)
-    end
-end
-
-Main.Position = getPositionForScreen()
+-- Điều chỉnh vị trí menu
+Main.Position = UDim2.new(0.25, 0, 0, 0) -- Căn chỉnh menu sát mép trên và dịch sang trái một nửa khoảng cách từ giữa đến mép bên trái
 Main.Size = UDim2.new(0, 263, 0, 80)
+Main.AnchorPoint = Vector2.new(0.5, 0)  -- Căn giữa theo phương đứng
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.Parent = Main
@@ -47,7 +38,7 @@ local Profile = Instance.new("Frame")
 Profile.Name = "Profile"
 Profile.Parent = Main
 Profile.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Profile.BackgroundTransparency = 0.5 -- Adjust transparency of the background
+Profile.BackgroundTransparency = 0.5
 Profile.Position = UDim2.new(0.057, 0, 0.149, 0)
 Profile.Size = UDim2.new(0, 60, 0, 60)
 
@@ -59,7 +50,7 @@ local ImageProfile = Instance.new("ImageLabel")
 ImageProfile.Name = "ImageProfile"
 ImageProfile.Parent = Profile
 ImageProfile.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-ImageProfile.BackgroundTransparency = 0.7 -- Adjust transparency of the background
+ImageProfile.BackgroundTransparency = 0.7
 ImageProfile.Position = UDim2.new(0, 1, 0, 1)
 ImageProfile.Size = UDim2.new(0, 58, 0, 58)
 ImageProfile.Image = ''
@@ -123,6 +114,45 @@ Healthgreen.Size = UDim2.new(0, 155, 0, 8)
 local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
 
+-- Hiển thị thông báo chào mừng
+local function showWelcomeMessage()
+    local welcomeMessage = Instance.new("TextLabel")
+    welcomeMessage.Name = "WelcomeMessage"
+    welcomeMessage.Parent = infoplayers
+    welcomeMessage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    welcomeMessage.BackgroundTransparency = 0.8
+    welcomeMessage.Position = UDim2.new(0.5, 0, 0.5, 0)
+    welcomeMessage.AnchorPoint = Vector2.new(0.5, 0.5)
+    welcomeMessage.Size = UDim2.new(0, 300, 0, 50)
+    welcomeMessage.Text = "Aimbot made by lại tùng dương"
+    welcomeMessage.TextColor3 = Color3.fromRGB(0, 0, 0)
+    welcomeMessage.TextSize = 20
+    welcomeMessage.Font = Enum.Font.FredokaOne
+    welcomeMessage.TextStrokeTransparency = 0.5
+    welcomeMessage.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+    welcomeMessage.TextWrapped = true
+    welcomeMessage.TextXAlignment = Enum.TextXAlignment.Center
+    welcomeMessage.TextYAlignment = Enum.TextYAlignment.Center
+    welcomeMessage.ZIndex = 10
+
+    -- Hiệu ứng phóng to và thu nhỏ
+    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local tweenGoal = {Size = UDim2.new(0, 300, 0, 50)}
+    local tween = game:GetService("TweenService"):Create(welcomeMessage, tweenInfo, tweenGoal)
+    tween:Play()
+    
+    wait(3)  -- Hiển thị thông báo trong 3 giây
+
+    local tweenInfoHide = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+    local tweenGoalHide = {Size = UDim2.new(0, 0, 0, 0)}
+    local tweenHide = game:GetService("TweenService"):Create(welcomeMessage, tweenInfoHide, tweenGoalHide)
+    tweenHide:Play()
+
+    tweenHide.Completed:Connect(function()
+        welcomeMessage:Destroy()
+    end)
+end
+
 -- Function to update the aimbot
 local function updateAimbot()
     while wait(0.5) do  -- Update every 0.5 seconds
@@ -156,11 +186,14 @@ local function updatePlayerInfo()
                 pcall(function()
                     Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
                 end)
-                ImageProfile.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size370x370)
+                ImageProfile.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
             end
         end
     end
 end
+
+-- Hiển thị thông báo chào mừng
+showWelcomeMessage()
 
 -- Update aimbot
 spawn(updateAimbot)
@@ -222,3 +255,4 @@ mouse.Button1Down:Connect(function()
         end
     end)
 end)
+
