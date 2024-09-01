@@ -24,10 +24,11 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7
-Main.Position = UDim2.new(0.01, 0, 0.01, 0)
+Main.Position = UDim2.new(0.5, -131.5, 0, 10)  -- Centered horizontally, near the top
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 10)
 MainCorner.Parent = Main
 
 local MainBorder = Instance.new("UIStroke")
@@ -44,7 +45,7 @@ Profile.Position = UDim2.new(0, 0, 0, 0)
 Profile.Size = UDim2.new(1, 0, 1, 0)
 
 local ProfileCorner = Instance.new("UICorner")
-ProfileCorner.CornerRadius = UDim.new(0, 100)
+ProfileCorner.CornerRadius = UDim.new(0, 10)
 ProfileCorner.Parent = Profile
 
 local HealthPlayers = Instance.new("TextLabel")
@@ -54,22 +55,22 @@ HealthPlayers.BackgroundTransparency = 1.0
 HealthPlayers.Position = UDim2.new(0.1, 0, 0.3, 0)
 HealthPlayers.Size = UDim2.new(0, 200, 0, 22)
 HealthPlayers.Font = Enum.Font.FredokaOne
-HealthPlayers.Text = "Health | N/A"
+HealthPlayers.Text = "Health: N/A"
 HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
 HealthPlayers.TextSize = 19.0
 HealthPlayers.TextXAlignment = Enum.TextXAlignment.Left
 
-local loackplayerslabel = Instance.new("TextLabel")
-loackplayerslabel.Name = "loackplayerslabel"
-loackplayerslabel.Parent = Profile
-loackplayerslabel.BackgroundTransparency = 1.0
-loackplayerslabel.Position = UDim2.new(0.1, 0, 0.6, 0)
-loackplayerslabel.Size = UDim2.new(0, 200, 0, 22)
-loackplayerslabel.Font = Enum.Font.FredokaOne
-loackplayerslabel.Text = "Lock Players | OFF"
-loackplayerslabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-loackplayerslabel.TextSize = 19.0
-loackplayerslabel.TextXAlignment = Enum.TextXAlignment.Left
+local LockPlayersLabel = Instance.new("TextLabel")
+LockPlayersLabel.Name = "LockPlayersLabel"
+LockPlayersLabel.Parent = Profile
+LockPlayersLabel.BackgroundTransparency = 1.0
+LockPlayersLabel.Position = UDim2.new(0.1, 0, 0.6, 0)
+LockPlayersLabel.Size = UDim2.new(0, 200, 0, 22)
+LockPlayersLabel.Font = Enum.Font.FredokaOne
+LockPlayersLabel.Text = "Lock Players: OFF"
+LockPlayersLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+LockPlayersLabel.TextSize = 19.0
+LockPlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local NamePlayers = Instance.new("TextLabel")
 NamePlayers.Name = "NamePlayers"
@@ -78,7 +79,7 @@ NamePlayers.BackgroundTransparency = 1.0
 NamePlayers.Position = UDim2.new(0.1, 0, 0.1, 0)
 NamePlayers.Size = UDim2.new(0, 200, 0, 22)
 NamePlayers.Font = Enum.Font.FredokaOne
-NamePlayers.Text = "Name | N/A"
+NamePlayers.Text = "Name: N/A"
 NamePlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
 NamePlayers.TextSize = 19.0
 NamePlayers.TextXAlignment = Enum.TextXAlignment.Left
@@ -152,17 +153,26 @@ end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait(0.5) do  -- Update every 0.5 seconds
+    while wait(0.1) do  -- Update every 0.5 seconds
         if Playersaimbot then
             local player = Players:FindFirstChild(Playersaimbot)
             if player and player.Character then
-                NamePlayers.Text = "Name | " .. player.Name
-                HealthPlayers.Text = "Health | " .. math.floor(player.Character.Humanoid.Health) .. "/" .. player.Character.Humanoid.MaxHealth
+                NamePlayers.Text = "Name: " .. player.Name
+                HealthPlayers.Text = "Health: " .. math.floor(player.Character.Humanoid.Health) .. "/" .. player.Character.Humanoid.MaxHealth
                 local hp = player.Character.Humanoid.Health / player.Character.Humanoid.MaxHealth
                 pcall(function()
                     Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
                 end)
             end
+        end
+    end
+end
+
+-- Function to clear game effects
+local function clearGameEffects()
+    for _, obj in pairs(workspace:GetDescendants()) do
+        if obj:IsA("ParticleEmitter") and obj.Name == "Dash" then
+            obj:Destroy()
         end
     end
 end
@@ -175,6 +185,9 @@ spawn(updatePlayerInfo)
 
 -- Show notification
 spawn(showNotification)
+
+-- Clear game effects
+spawn(clearGameEffects)
 
 -- Handle server communication
 spawn(function()
