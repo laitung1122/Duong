@@ -203,26 +203,6 @@ spawn(updateAimbot)
 -- Update player info
 spawn(updatePlayerInfo)
 
--- Input handling
-UserInputService.InputBegan:Connect(function(io, p)
-    if io.KeyCode == getgenv().setting['LockPlayersBind'] then
-        if getgenv().setting['LockPlayers'] then
-            loackplayerslabel.Text = "Lock Players | OFF"
-            getgenv().setting['LockPlayers'] = false
-        else
-            loackplayerslabel.Text = "Lock Players | ON"
-            getgenv().setting['LockPlayers'] = true
-        end
-    end
-    if io.KeyCode == getgenv().setting['resetPlayersBind'] then
-        Playersaimbot = nil
-        PlayersPosition = nil
-        ImageProfile.Image = ''
-        NamePlayers.Text = "Name | N/A"
-        HealthPlayers.Text = "Health | N/A"
-    end
-end)
-
 -- Handle server communication
 spawn(function()
     local gg = getrawmetatable(game)
