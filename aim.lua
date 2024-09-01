@@ -24,7 +24,7 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7
-Main.Position = UDim2.new(0, 10, 0, 10)  -- Sát mép trên và bên trái màn hình
+Main.Position = UDim2.new(0, 20, 0, 10)  -- Di chuyển menu sang phải một chút
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 local MainCorner = Instance.new("UICorner")
@@ -59,18 +59,6 @@ HealthPlayers.Text = "Health: N/A"
 HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
 HealthPlayers.TextSize = 19.0
 HealthPlayers.TextXAlignment = Enum.TextXAlignment.Left
-
-local LockPlayersLabel = Instance.new("TextLabel")
-LockPlayersLabel.Name = "LockPlayersLabel"
-LockPlayersLabel.Parent = Profile
-LockPlayersLabel.BackgroundTransparency = 1.0
-LockPlayersLabel.Position = UDim2.new(0.1, 0, 0.6, 0)
-LockPlayersLabel.Size = UDim2.new(0, 200, 0, 22)
-LockPlayersLabel.Font = Enum.Font.FredokaOne
-LockPlayersLabel.Text = "Lock Players: OFF"
-LockPlayersLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-LockPlayersLabel.TextSize = 19.0
-LockPlayersLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local NamePlayers = Instance.new("TextLabel")
 NamePlayers.Name = "NamePlayers"
@@ -135,7 +123,7 @@ local function updateAimbot()
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= LocalPlayer.Name then
                 local pos = CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                 local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1000 then
+                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 320 then  -- Giảm phạm vi xuống còn 500m
                     if magnitude < closestMagnitude then
                         closestMagnitude = magnitude
                         closestPlayer = v
@@ -146,7 +134,7 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(20, 20, 20)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1)
         end
     end
 end
@@ -168,15 +156,6 @@ local function updatePlayerInfo()
     end
 end
 
--- Function to clear game effects
-local function clearGameEffects()
-    for _, obj in pairs(workspace:GetDescendants()) do
-        if obj:IsA("ParticleEmitter") and obj.Name == "Dash" then
-            obj:Destroy()
-        end
-    end
-end
-
 -- Update aimbot
 spawn(updateAimbot)
 
@@ -185,9 +164,6 @@ spawn(updatePlayerInfo)
 
 -- Show notification
 spawn(showNotification)
-
--- Clear game effects
-spawn(clearGameEffects)
 
 -- Handle server communication
 spawn(function()
@@ -219,7 +195,7 @@ mouse.Button1Down:Connect(function()
                 [1] = PlayersPosition,
                 [2] = Players:FindFirstChild(Playersaimbot).Character.HumanoidRootPart
             }
-            LocalPlayer.Character[LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteFunctionShoot:InvokeServer(unpack(args))
+            LocalPlayer.Character[LocalPlayer.Character:FindFirstChild("Humanoid")].Target = args[2]
         end
     end)
 end)
