@@ -24,8 +24,8 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.5  -- Làm mờ nền hơn
-Main.Position = UDim2.new(0, 20, 0, 10)  -- Di chuyển menu sang phải thêm một chút
-Main.Size = UDim2.new(0, 260, 0, 100)  -- Kích thước menu gần giống như ban đầu
+Main.Position = UDim2.new(0, 70, 0, 10)  -- Di chuyển menu sang phải thêm một chút
+Main.Size = UDim2.new(0, 260, 0, 70)  -- Kích thước menu gần giống như ban đầu
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.CornerRadius = UDim.new(0, 10)  -- Bo cong nhẹ
