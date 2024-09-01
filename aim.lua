@@ -31,7 +31,7 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.4  -- Adjust transparency
-Main.Position = UDim2.new(0, 10, 0, 40)
+Main.Position = UDim2.new(0, 70, 0, 20)
 Main.Size = UDim2.new(0, 260, 0, 80)
 
 MainCorner.Name = "MainCorner"
