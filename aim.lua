@@ -1,3 +1,4 @@
+-- Khởi tạo biến
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -24,18 +25,12 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.5  -- Làm mờ nền hơn
-Main.Position = UDim2.new(0, 70, 0, 10)  -- Di chuyển menu sang phải thêm một chút
-Main.Size = UDim2.new(0, 260, 0, 70)  -- Kích thước menu gần giống như ban đầu
+Main.Position = UDim2.new(0.01, 0, 0.3, 0)  -- Di chuyển menu lên giữa màn hình phía trên
+Main.Size = UDim2.new(0, 263, 0, 70)  -- Kích thước menu gần giống như ban đầu
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.CornerRadius = UDim.new(0, 10)  -- Bo cong nhẹ
 MainCorner.Parent = Main
-
--- Xóa phần đường kẻ viền
--- local MainBorder = Instance.new("UIStroke")
--- MainBorder.Color = Color3.fromRGB(255, 255, 255)
--- MainBorder.Thickness = 2
--- MainBorder.Parent = Main
 
 local Profile = Instance.new("Frame")
 Profile.Name = "Profile"
@@ -137,7 +132,7 @@ local function updateAimbot()
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= LocalPlayer.Name then
                 local pos = CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                 local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 500 then  -- Giảm phạm vi xuống còn 500m
+                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 320 then  -- Giảm phạm vi xuống còn 500m
                     if magnitude < closestMagnitude then
                         closestMagnitude = magnitude
                         closestPlayer = v
@@ -148,28 +143,28 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            NamePlayers.Text = "Name: " .. closestPlayer.Name
-            HealthPlayers.Text = "Health: " .. math.floor(closestPlayer.Character.Humanoid.Health) .. "/" .. closestPlayer.Character.Humanoid.MaxHealth
+            NamePlayers.Text = "Tên: " .. closestPlayer.Name
+            HealthPlayers.Text = "Hp: " .. math.floor(closestPlayer.Character.Humanoid.Health) .. "/" .. closestPlayer.Character.Humanoid.MaxHealth
             ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
             local hp = closestPlayer.Character.Humanoid.Health / closestPlayer.Character.Humanoid.MaxHealth
             pcall(function()
                 Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             end)
             -- Kích thước của HumanoidRootPart
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
         end
     end
 end
 
--- Update aimbot
+-- Cập nhật aimbot
 spawn(updateAimbot)
 
--- Show notification
+-- Hiển thị thông báo
 spawn(function()
     showNotification()
 end)
 
--- Handle server communication
+-- Xử lý giao tiếp với server
 spawn(function()
     local gg = getrawmetatable(game)
     local old = gg.__namecall
@@ -191,7 +186,7 @@ spawn(function()
     end)
 end)
 
--- Handle mouse click for aimbot
+-- Xử lý nhấp chuột cho aimbot
 mouse.Button1Down:Connect(function()
     pcall(function()
         if Playersaimbot then
