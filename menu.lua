@@ -21,11 +21,11 @@ local Tabs = {
     Setting = Window:AddTab({ Title = "Cài đặt", Icon = "settings" }),
     Stats = Window:AddTab({ Title = "Điểm số", Icon = "plus-circle" }),
     Player = Window:AddTab({ Title = "PvP", Icon = "box" }),
+    Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
     Teleport = Window:AddTab({ Title = "Đảo", Icon = "palmtree" }),
     Sea = Window:AddTab({ Title = "Sea", Icon = "anchor"}),
     Fruit = Window:AddTab({ Title = "Fruit", Icon = "cherry" }),
     Raid = Window:AddTab({ Title = "Raid", Icon = "swords" }),
-    Race = Window:AddTab({ Title = "Tộc V4", Icon = "chevrons-right" }),
     Shop = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
 	Misc = Window:AddTab({ Title = "Misc", Icon = "list-plus" }),
     Hop = Window:AddTab({ Title = "Hop", Icon = "wifi" }),
@@ -4158,7 +4158,7 @@ end)
 
  Options.ToggleMirage:SetValue(false)
 
- local AutoW = Tabs.Main:AddToggle("AutoW", {Title = "Auto Press W",Description = "Nhấn Phím W", Default = false })
+ local AutoW = Tabs.Main:AddToggle("AutoW", {Title = "Auto ",Description = "Nhấn Phím W", Default = false })
  AutoW:OnChanged(function(Value)
     _G.AutoW = Value
      end)
@@ -5224,10 +5224,10 @@ end)
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-local Mastery = Tabs.Player:AddSection("Misc")
+local Mastery = Tabs.Setting:AddSection("Misc")
 
 
-local ToggleNoClip = Tabs.Player:AddToggle("ToggleNoClip", {Title = "No Clip",Description = "Xuyên Tường", Default = false })
+local ToggleNoClip = Tabs.Setting:AddToggle("ToggleNoClip", {Title = "No Clip",Description = "Xuyên Tường", Default = false })
 ToggleNoClip:OnChanged(function(value)
     _G.LOf = value
 end)
@@ -5247,7 +5247,7 @@ spawn(function()
 end)
 
 
-local ToggleWalkonWater = Tabs.Player:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = true })
+local ToggleWalkonWater = Tabs.Setting:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = true })
 ToggleWalkonWater:OnChanged(function(Value)
   _G.WalkonWater = Value
 end)
@@ -5265,7 +5265,7 @@ spawn(function()
 end)
 
 
-local ToggleSpeedRun = Tabs.Player:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
+local ToggleSpeedRun = Tabs.Setting:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
 ToggleSpeedRun:OnChanged(function(Value)
     InfAbility = Value
     if Value == false then
