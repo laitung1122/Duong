@@ -1,3 +1,7 @@
+-- Khởi tạo biến aimbot
+_G.Aimbot_Skill_Fov = false
+_G.Aim_Players = nil
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -8,11 +12,6 @@ local UserInputService = game:GetService("UserInputService")
 local CurrentCamera = Workspace.CurrentCamera
 local LockedTarget = nil
 local SkillActivated = false
-
--- Xóa GUI trước đó nếu có
-if CoreGui:FindFirstChild("infoplayers") then
-    CoreGui.infoplayers:Destroy()
-end
 
 -- Tạo GUI
 local infoplayers = Instance.new("ScreenGui")
@@ -108,6 +107,26 @@ Healthgreen.Size = UDim2.new(0, 155, 0, 8)
 local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
 
+-- Cập nhật GUI và khóa mục tiêu
+RunService.RenderStepped:Connect(function()
+    if _G.Aimbot_Skill_Fov then
+        local closestPlayer = findClosestPlayer()
+        if closestPlayer then
+            LockedTarget = closestPlayer.Name
+            local character = closestPlayer.Character
+            if character and character:FindFirstChild("Humanoid") then
+                NamePlayers.Text = "Name | " .. closestPlayer.Name
+                HealthPlayers.Text = "Health | " .. math.floor(character.Humanoid.Health) .. "/" .. character.Humanoid.MaxHealth
+                Healthgreen:TweenSize(UDim2.new(character.Humanoid.Health / character.Humanoid.MaxHealth, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
+                ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+
+                -- Tự động kích hoạt aim skill vào người chơi gần nhất
+                activateSkillOnTarget(closestPlayer)
+            end
+        end
+    end
+end)
+
 -- Tìm và khóa vào đối tượng gần nhất
 local function findClosestPlayer()
     local closestPlayer = nil
@@ -142,28 +161,32 @@ local function activateSkillOnTarget(target)
     end
 end
 
--- Cập nhật GUI và khóa mục tiêu
-RunService.RenderStepped:Connect(function()
-    local closestPlayer = findClosestPlayer()
-    if closestPlayer then
-        LockedTarget = closestPlayer.Name
-        local character = closestPlayer.Character
-        if character and character:FindFirstChild("Humanoid") then
-            NamePlayers.Text = "Name | " .. closestPlayer.Name
-            HealthPlayers.Text = "Health | " .. math.floor(character.Humanoid.Health) .. "/" .. character.Humanoid.MaxHealth
-            Healthgreen:TweenSize(UDim2.new(character.Humanoid.Health / character.Humanoid.MaxHealth, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
-            ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-
-            -- Tự động kích hoạt aim skill vào người chơi gần nhất
-            activateSkillOnTarget(closestPlayer)
-        end
+-- Xử lý đầu vào của người dùng để bật/tắt chức năng khóa mục tiêu
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.L then  -- Thay đổi KeyCode theo nhu cầu
+        _G.Aimbot_Skill_Fov = not _G.Aimbot_Skill_Fov
+        loackplayerslabel.Text = "Lock Players | " .. (_G.Aimbot_Skill_Fov and "ON" or "OFF")
     end
 end)
 
--- Xử lý đầu vào của người dùng để bật/tắt chức năng khóa mục tiêu
-UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == getgenv().setting.LockPlayersBind then
-        getgenv().setting.LockPlayers = not getgenv().setting.LockPlayers
-        loackplayerslabel.Text = "Lock Players | " .. (getgenv().setting.LockPlayers and "ON" or "OFF")
-    end
+-- Thay đổi hàm __namecall để kích hoạt kỹ năng tự động
+spawn(function()
+    local gg = getrawmetatable(game)
+    local old = gg.__namecall
+    setreadonly(gg, false)
+    gg.__namecall = newcclosure(function(...)
+        local method = getnamecallmethod()
+        local args = {...}
+        if tostring(method) == "FireServer" then
+            if tostring(args[1]) == "RemoteEvent" then
+                if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+                    if _G.Aimbot_Skill_Fov and _G.Aim_Players then
+                        args[2] = _G.Aim_Players.Character.HumanoidRootPart.Position
+                        return old(unpack(args))
+                    end
+                end
+            end
+        end
+        return old(...)
+    end)
 end)
