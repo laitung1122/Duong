@@ -5118,11 +5118,10 @@ function getAllBladeHits(Sizes)
 	return Hits
 end
 
-local Teleport = Tabs.Player:AddSection("Combat")
-
-Tab.Player:AddParagraph({
+local Teleport = Tabs.Player:AddSection("Chiến đấu")
+Tabs.Player:AddParagraph({
     Title = "Lưu ý!",
-    Content = "Bật aim bot nên bật 1 cái chọn cái nào cx được\nTránh kín màn khó nhìn kk :))"
+    Content = "Sử dụng aim nên sử dụng 1 trong 2 loại\n tránh mất tầm nhìn."
 })
 
 Tabs.Player:AddButton({
