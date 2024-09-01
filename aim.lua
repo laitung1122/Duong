@@ -24,8 +24,8 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7
-Main.Position = UDim2.new(0, 70, 0, 10)  -- Di chuyển menu sang phải thêm một chút
-Main.Size = UDim2.new(0, 263, 0, 100)  -- Chỉnh sửa kích thước để tạo hình chữ nhật
+Main.Position = UDim2.new(0, 20, 0, 10)  -- Di chuyển menu sang phải thêm một chút
+Main.Size = UDim2.new(0, 240, 0, 90)  -- Giảm kích thước menu
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.CornerRadius = UDim.new(0, 10)  -- Bo cong nhẹ
@@ -54,7 +54,7 @@ ImageProfile.Parent = Profile
 ImageProfile.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 ImageProfile.BackgroundTransparency = 0.5
 ImageProfile.Position = UDim2.new(0, 10, 0, 10)
-ImageProfile.Size = UDim2.new(0, 80, 0, 80)
+ImageProfile.Size = UDim2.new(0, 60, 0, 60)
 ImageProfile.Image = ''
 
 local ImageProfileCorner = Instance.new("UICorner")
@@ -65,32 +65,32 @@ local NamePlayers = Instance.new("TextLabel")
 NamePlayers.Name = "NamePlayers"
 NamePlayers.Parent = Profile
 NamePlayers.BackgroundTransparency = 1.0
-NamePlayers.Position = UDim2.new(0.4, 0, 0.2, 0)
-NamePlayers.Size = UDim2.new(0, 200, 0, 30)
+NamePlayers.Position = UDim2.new(0.2, 0, 0.1, 0)
+NamePlayers.Size = UDim2.new(0, 170, 0, 20)
 NamePlayers.Font = Enum.Font.FredokaOne
-NamePlayers.Text = "Tên: N/A"
+NamePlayers.Text = "Name: N/A"
 NamePlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
-NamePlayers.TextSize = 19.0
+NamePlayers.TextSize = 16.0
 NamePlayers.TextXAlignment = Enum.TextXAlignment.Left
 
 local HealthPlayers = Instance.new("TextLabel")
 HealthPlayers.Name = "HealthPlayers"
 HealthPlayers.Parent = Profile
 HealthPlayers.BackgroundTransparency = 1.0
-HealthPlayers.Position = UDim2.new(0.4, 0, 0.5, 0)
-HealthPlayers.Size = UDim2.new(0, 200, 0, 22)
+HealthPlayers.Position = UDim2.new(0.2, 0, 0.3, 0)
+HealthPlayers.Size = UDim2.new(0, 170, 0, 20)
 HealthPlayers.Font = Enum.Font.FredokaOne
 HealthPlayers.Text = "Health: N/A"
 HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
-HealthPlayers.TextSize = 19.0
+HealthPlayers.TextSize = 16.0
 HealthPlayers.TextXAlignment = Enum.TextXAlignment.Left
 
 local Healthbar = Instance.new("Frame")
 Healthbar.Name = "Healthbar"
 Healthbar.Parent = Profile
 Healthbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Healthbar.Position = UDim2.new(0.1, 0, 0.8, 0)
-Healthbar.Size = UDim2.new(0, 155, 0, 8)
+Healthbar.Position = UDim2.new(0.2, 0, 0.5, 0)
+Healthbar.Size = UDim2.new(0, 170, 0, 8)
 
 local HealthbarCorner = Instance.new("UICorner")
 HealthbarCorner.Parent = Healthbar
@@ -99,7 +99,7 @@ local Healthgreen = Instance.new("Frame")
 Healthgreen.Name = "Healthgreen"
 Healthgreen.Parent = Healthbar
 Healthgreen.BackgroundColor3 = Color3.fromRGB(0, 227, 110)
-Healthgreen.Size = UDim2.new(0, 155, 0, 8)
+Healthgreen.Size = UDim2.new(0, 170, 0, 8)
 
 local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
@@ -147,7 +147,6 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)  -- Thay đổi kích thước HumanoidRootPart
             NamePlayers.Text = "Tên: " .. closestPlayer.Name
             HealthPlayers.Text = "Hp: " .. math.floor(closestPlayer.Character.Humanoid.Health) .. "/" .. closestPlayer.Character.Humanoid.MaxHealth
             ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
@@ -155,6 +154,8 @@ local function updateAimbot()
             pcall(function()
                 Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             end)
+            -- Kích thước của HumanoidRootPart
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
         end
     end
 end
