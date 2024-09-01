@@ -136,7 +136,7 @@ local function updateAimbot()
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= LocalPlayer.Name then
                 local pos = CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                 local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 320 then  -- Giảm phạm vi xuống còn 500m
+                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 500 then  -- Giảm phạm vi xuống còn 500m
                     if magnitude < closestMagnitude then
                         closestMagnitude = magnitude
                         closestPlayer = v
@@ -147,15 +147,15 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            NamePlayers.Text = "Tên: " .. closestPlayer.Name
-            HealthPlayers.Text = "Hp: " .. math.floor(closestPlayer.Character.Humanoid.Health) .. "/" .. closestPlayer.Character.Humanoid.MaxHealth
+            NamePlayers.Text = "Name: " .. closestPlayer.Name
+            HealthPlayers.Text = "Health: " .. math.floor(closestPlayer.Character.Humanoid.Health) .. "/" .. closestPlayer.Character.Humanoid.MaxHealth
             ImageProfile.Image = Players:GetUserThumbnailAsync(closestPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
             local hp = closestPlayer.Character.Humanoid.Health / closestPlayer.Character.Humanoid.MaxHealth
             pcall(function()
                 Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             end)
             -- Kích thước của HumanoidRootPart
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
         end
     end
 end
@@ -164,7 +164,9 @@ end
 spawn(updateAimbot)
 
 -- Show notification
-spawn(showNotification)
+spawn(function()
+    showNotification()
+end)
 
 -- Handle server communication
 spawn(function()
