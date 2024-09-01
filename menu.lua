@@ -3265,49 +3265,6 @@ spawn(function()
     end)
 end)
 
-      local ToggleEspKitsune = Tabs.Setting:AddToggle("ToggleEspKitsune", {Title = "Esp Kitsune Island",Description = "Định vị Đảo kisune", Default = false })
-      ToggleEspKitsune:OnChanged(function(Value)
-        KitsuneIslandEsp = Value
-        while KitsuneIslandEsp do wait()
-            UpdateIslandKisuneESP() 
-        end
-    end)
-      Options.ToggleEspKitsune:SetValue(false)
-
-      function UpdateIslandKisuneESP() 
-        for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].Locations:GetChildren()) do
-            pcall(function()
-                if KitsuneIslandEsp then 
-                    if v.Name == "Kitsune Island" then
-                        if not v:FindFirstChild('NameEsp') then
-                            local bill = Instance.new('BillboardGui',v)
-                            bill.Name = 'NameEsp'
-                            bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                            bill.Size = UDim2.new(1,200,1,30)
-                            bill.Adornee = v
-                            bill.AlwaysOnTop = true
-                            local name = Instance.new('TextLabel',bill)
-                            name.Font = "Code"
-                            name.FontSize = "Size14"
-                            name.TextWrapped = true
-                            name.Size = UDim2.new(1,0,1,0)
-                            name.TextYAlignment = 'Top'
-                            name.BackgroundTransparency = 1
-                            name.TextStrokeTransparency = 0.5
-                            name.TextColor3 = Color3.fromRGB(80, 245, 245)
-                        else
-                            v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
-                        end
-                    end
-                else
-                    if v:FindFirstChild('NameEsp') then
-                        v:FindFirstChild('NameEsp'):Destroy()
-                    end
-                end
-            end)
-        end
-    end
-
       local ToggleTPKitsune = Tabs.Main:AddToggle("ToggleTPKitsune", {Title = "Tween To Kitsune Island",Description = "Di Chuyển Đến Đảo Kisune", Default = false })
       ToggleTPKitsune:OnChanged(function(Value)
         _G.TweenToKitsune = Value
@@ -3356,7 +3313,7 @@ end
 if Third_Sea then
     local RoughSea = Tabs.Sea:AddSection("Rough Sea(Beta)")
 
-    local ToggleSailBoat = Tabs.Main:AddToggle("ToggleSailBoat", {Title = "Auto buy Boat",Description = "Mua Thuyền + Ngồi Vào", Default = false })
+    local ToggleSailBoat = Tabs.Sea:AddToggle("ToggleSailBoat", {Title = "Auto buy Boat",Description = "Mua Thuyền + Ngồi Vào", Default = false })
     ToggleSailBoat:OnChanged(function(Value)
         _G.SailBoat = Value
     end)
@@ -3917,7 +3874,7 @@ if Third_Sea then
     local Sea = Tabs.Sea:AddSection("Sea Beast(Beta)")
 
 
-local ToggleSeaBeAst = Tabs.Main:AddToggle("ToggleSeaBeAst", {Title = "Auto Sea Beast",Description = "Treo + Đánh Thủy Quái", Default = false })
+local ToggleSeaBeAst = Tabs.Sea:AddToggle("ToggleSeaBeAst", {Title = "Auto Sea Beast",Description = "Treo + Đánh Thủy Quái", Default = false })
 
 ToggleSeaBeAst:OnChanged(function(Value)
     _G.AutoSeaBeast = Value
@@ -4035,9 +3992,9 @@ ToggleSeaBeAst:OnChanged(function(Value)
 
 
 
-    local AutoMysticIsland = Tabs.Main:AddSection("Mirage Island")
+    local AutoMysticIsland = Tabs.Race:AddSection("Mirage Island")
 
-    local StatusMirage = Tabs.Main:AddParagraph({
+    local StatusMirage = Tabs.Race:AddParagraph({
         Title = "Status",
         Content = "Status:"
     })
@@ -4083,7 +4040,7 @@ ToggleSeaBeAst:OnChanged(function(Value)
         end)
     end)
 
-    Tabs.Main:AddButton({
+    Tabs.Race:AddButton({
         Title = "Tween to Mirage Island",
         Description = "Bay Đến Đảo Bí Ẩn",
         Callback = function()
@@ -4108,7 +4065,7 @@ ToggleSeaBeAst:OnChanged(function(Value)
     end
 
 
-    Tabs.Main:AddButton({
+    Tabs.Race:AddButton({
         Title = "Tween to Highest Point",
         Description = "Bay đến Chỗ Cao Nhất",
         Callback = function()
@@ -4135,7 +4092,7 @@ ToggleSeaBeAst:OnChanged(function(Value)
         end
     end
 
-local ToggleTweenGear = Tabs.Main:AddToggle("ToggleTweenGear", {Title = "Tween To Gear",Description = "Nhặt Bánh Răng", Default = false })
+local ToggleTweenGear = Tabs.Race:AddToggle("ToggleTweenGear", {Title = "Tween To Gear",Description = "Nhặt Bánh Răng", Default = false })
 ToggleTweenGear:OnChanged(function(Value)
     _G.TweenToGear = Value
 end) 
@@ -4162,7 +4119,7 @@ spawn(function()
 
 
 
-    local Togglelockmoon = Tabs.Main:AddToggle("Togglelockmoon", {Title = "Lock Moon and Use Race Skill",Description = "Nhìn Trăng + Bật Tộc", Default = false })
+    local Togglelockmoon = Tabs.Race:AddToggle("Togglelockmoon", {Title = "Lock Moon and Use Race Skill",Description = "Nhìn Trăng + Bật Tộc", Default = false })
     Togglelockmoon:OnChanged(function(Value)
         _G.AutoLockMoon = Value
     end) 
@@ -4296,41 +4253,153 @@ if Third_Sea then
         end)
 
 
-        local ToggleTushita = Tabs.Main:AddToggle("ToggleTushita", {Title = "Auto Tushita",Description = "Đánh Boss Longma để láy Tushita", Default = false })
+        local ToggleTushita = Tabs.Main:AddToggle("ToggleTushita", {Title = "Auto Tushita",Description = "Tự động lấy Tushita", Default = false })
         ToggleTushita:OnChanged(function(Value)
             AutoTushita = Value
         end)
         Options.ToggleTushita:SetValue(false)
-           spawn(function()
-                   while wait() do
-                               if AutoTushita then
-                                   if game:GetService("Workspace").Enemies:FindFirstChild("Longma") then
-                                       for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                           if v.Name == ("Longma" or v.Name == "Longma") and v.Humanoid.Health > 0 and v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") then
-                                            repeat wait(_G.Fast_Delay)
-                                                AttackNoCoolDown()
-                                                   AutoHaki()
-                                                   if not game.Players.LocalPlayer.Character:FindFirstChild(SelectWeapon) then
-                                                       wait()
-                                                       EquipTool(SelectWeapon)
-                                                   end
-                                                   FarmPos = v.HumanoidRootPart.CFrame
-                                                     --Click
-                                                   v.HumanoidRootPart.Size = Vector3.new(60,60,60)
-                                                   v.Humanoid.JumpPower = 0
-                                                   v.Humanoid.WalkSpeed = 0
-                                                   v.HumanoidRootPart.CanCollide = false
-                                                   v.Humanoid:ChangeState(11)
-                                                   Tween(v.HumanoidRootPart.CFrame * Pos)
-                                               until not AutoTushita or not v.Parent or v.Humanoid.Health <= 0
-                                           end
-                                       end
-                                   else
-                                       Tween(CFrame.new(-10238.875976563, 389.7912902832, -9549.7939453125))
-                                   end
-                               end
-                           end
-                   end)
+        local FaiFaoTushita = CFrame.new(-10238.875976563, 389.7912902832, -9549.7939453125)
+        spawn(function()
+            while task.wait(.1) do
+                if AutoTushita then
+                    pcall(function()
+                        autoTushita()
+                    end)
+                end
+            end
+        end)
+        function enemyrip()
+            Tween(CFrame.new(-5332.30371, 423.985413, -2673.48218))
+            wait()
+            if game.Workspace.Enemies:FindFirstChild("rip_indra True Form") then
+                local mobs = game.Workspace.Enemies:GetChildren()
+                for i,v in pairs(mobs) do
+                    if v.Name == "rip_indra True Form" and v:IsA("Model") and v:FindFirstChild("Humanoid") and
+                        v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                        return v
+                    end
+                end
+            end
+            return game.ReplicatedStorage:FindFirstChild("rip_indra True Form")
+        end
+        function enemyEliteBoss()
+            if game.Workspace.Enemies:FindFirstChild("Deandre") or game.Workspace.Enemies:FindFirstChild("Urban") or game.Workspace.Enemies:FindFirstChild("Diablo") then
+                local mobs = game.Workspace.Enemies:GetChildren()
+                for i,v in pairs(mobs) do
+                    if v.Name == "Deandre" or v.Name == "Diablo" or v.Name == "Urban"  and v:IsA("Model") and v:FindFirstChild("Humanoid") and
+                        v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                        return v
+                    end
+                end
+            end
+            return game.ReplicatedStorage:FindFirstChild("Deandre") or game.ReplicatedStorage:FindFirstChild("Urban") or game.ReplicatedStorage:FindFirstChild("Diablo")
+        end
+        function enemylongma()
+            Tween(CFrame.new(-10171.7051, 406.981995, -9552.31738))
+            if game.Workspace.Enemies:FindFirstChild("Longma") then
+                local mobs = game.Workspace.Enemies:GetChildren()
+                for i,v in pairs(mobs) do
+                    if v.Name == "Longma" and v:IsA("Model") and v:FindFirstChild("Humanoid") and
+                        v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                        return v
+                    end
+                end
+            end
+            return game.ReplicatedStorage:FindFirstChild("Longma")
+        end
+        function autoTushita()
+            if not game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") and not game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") then
+                if game.Workspace.Enemies:FindFirstChild("Deandre") or game.Workspace.Enemies:FindFirstChild("Urban") or game.Workspace.Enemies:FindFirstChild("Diablo") or game.ReplicatedStorage:FindFirstChild("Deandre") or game.ReplicatedStorage:FindFirstChild("Urban") or game.ReplicatedStorage:FindFirstChild("Diablo") then
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                        repeat Tween(CFrame.new(5420.49219, 314.446045, -2823.07373)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                        wait(1)
+                        repeat Tween(CFrame.new(5420.49219, 314.446045, -2823.07373)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                        wait(1.1)
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
+                        wait(1)
+                    elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                        CheckLevel()
+                        AutoHaki()
+                        pcall(function()
+                            EquipTool(SelectWeapon)
+                            pcall(function()
+                                local v = enemyEliteBoss()
+                                v.HumanoidRootPart.CanCollide = false
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
+                                Click()
+                            end)
+                        end)
+                    end
+                else
+                    Tween(CFrame.new(-12554.9443, 337.194092, -7501.44727))
+                end
+            elseif game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") then
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("activateColor","Winter Sky")
+                wait(0.5)
+                repeat Tween(CFrame.new(-5420.16602, 1084.9657, -2666.8208)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-5420.16602, 1084.9657, -2666.8208)).Magnitude <= 10
+                wait(0.5)
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("activateColor","Pure Red")
+                wait(0.5)
+                repeat Tween(CFrame.new(-5414.41357, 309.865753, -2212.45776)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-5414.41357, 309.865753, -2212.45776)).Magnitude <= 10
+                wait(0.5)
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("activateColor","Snow White")
+                wait(0.5)
+                repeat Tween(CFrame.new(-4971.47559, 331.565765, -3720.02954)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-4971.47559, 331.565765, -3720.02954)).Magnitude <= 10
+                wait(0.5)
+                EquipTool("God's Chalice")
+                wait(0.5)
+                repeat Tween(CFrame.new(-5560.27295, 313.915466, -2663.89795)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-5560.27295, 313.915466, -2663.89795)).Magnitude <= 10
+                wait(0.5)
+                repeat Tween(CFrame.new(-5561.37451, 313.342529, -2663.4948)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(1)
+                repeat Tween(CFrame.new(5154.17676, 141.786423, 911.046326)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(0.2)
+                repeat Tween(CFrame.new(5148.03613, 162.352493, 910.548218)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(1)
+                EquipTool("Holy Torch")
+                wait(1)
+                wait(0.4)
+                repeat Tween(CFrame.new(-10752.7695, 412.229523, -9366.36328)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(0.4)
+                repeat Tween(CFrame.new(-11673.4111, 331.749023, -9474.34668)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(0.4)
+                repeat Tween(CFrame.new(-12133.3389, 519.47522, -10653.1904)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(0.4)
+                repeat Tween(CFrame.new(-13336.5, 485.280396, -6983.35254)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(0.4)
+                repeat Tween(CFrame.new(-13487.4131, 334.84845, -7926.34863)) wait() until not AutoTushita or (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(5420.49219, 314.446045, -2823.07373)).Magnitude <= 10
+                wait(1)
+            elseif game.Workspace.Enemies:FindFirstChild("Longma") or game.ReplicatedStorage:FindFirstChild("Longma") then
+                pcall(function()
+                    EquipTool(SelectWeapon)
+                    AutoHaki()
+                    pcall(function()
+                        local v = enemylongma()
+                        v.HumanoidRootPart.CanCollide = false
+                        v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
+                        Click()
+                    end)
+                end)
+            elseif game.Workspace.Enemies:FindFirstChild("rip_indra True Form")  or game.ReplicatedStorage:FindFirstChild("rip_indra True Form") then
+                pcall(function()
+                    EquipTool(SelectWeapon)
+                    AutoHaki()
+                    pcall(function()
+                        local v = enemyrip()
+                        v.HumanoidRootPart.CanCollide = false
+                        v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                        Tween(v.HumanoidRootPart.CFrame * CFrame.new(posX,posY,posZ))
+                        Click()
+                    end)
+                end)
+            else
+                Tween(CFrame.new(-12554.9443, 337.194092, -7501.44727))
+            end
+        end
+
+
 
 
                    local ToggleHoly = Tabs.Main:AddToggle("ToggleHoly", {Title = "Auto Holy Torch",Description = "Thắp Duốc lấy Tushita", Default = false })
@@ -4741,7 +4810,7 @@ ToggleF:OnChanged(function(Value)
 Options.ToggleF:SetValue(false)
 
 
-local Pos = Tabs.Setting:AddSection("m Farm")
+local Pos = Tabs.Setting:AddSection("Vị trí farm(giỏi toán)")
 
 local SliderPosX = Tabs.Setting:AddSlider("SliderPosX", {
     Title = "Pos X",
@@ -5854,11 +5923,7 @@ spawn(function()
 end
 end)
 
-Tabs.Setting:AddParagraph({
-    Title = "Định vị",
-    Content = "Định vị mọi thứ xung quanh"
-})
-
+local Pos = Tabs.Setting:AddSection("Định vị")
 
 local ToggleEspPlayer = Tabs.Setting:AddToggle("ToggleEspPlayer", {Title = "Esp player",Description = "Định vị người chơi", Default = false })
 
@@ -5900,6 +5965,49 @@ ToggleEspFlower:OnChanged(function(Value)
 	UpdateFlowerChams() 
 end)
 Options.ToggleEspFlower:SetValue(false)
+
+local ToggleEspKitsune = Tabs.Setting:AddToggle("ToggleEspKitsune", {Title = "Esp Kitsune Island",Description = "Định vị Đảo kisune", Default = false })
+ToggleEspKitsune:OnChanged(function(Value)
+  KitsuneIslandEsp = Value
+  while KitsuneIslandEsp do wait()
+      UpdateIslandKisuneESP() 
+  end
+end)
+Options.ToggleEspKitsune:SetValue(false)
+
+function UpdateIslandKisuneESP() 
+  for i,v in pairs(game:GetService("Workspace")["_WorldOrigin"].Locations:GetChildren()) do
+      pcall(function()
+          if KitsuneIslandEsp then 
+              if v.Name == "Kitsune Island" then
+                  if not v:FindFirstChild('NameEsp') then
+                      local bill = Instance.new('BillboardGui',v)
+                      bill.Name = 'NameEsp'
+                      bill.ExtentsOffset = Vector3.new(0, 1, 0)
+                      bill.Size = UDim2.new(1,200,1,30)
+                      bill.Adornee = v
+                      bill.AlwaysOnTop = true
+                      local name = Instance.new('TextLabel',bill)
+                      name.Font = "Code"
+                      name.FontSize = "Size14"
+                      name.TextWrapped = true
+                      name.Size = UDim2.new(1,0,1,0)
+                      name.TextYAlignment = 'Top'
+                      name.BackgroundTransparency = 1
+                      name.TextStrokeTransparency = 0.5
+                      name.TextColor3 = Color3.fromRGB(80, 245, 245)
+                  else
+                      v['NameEsp'].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Position).Magnitude/3) ..' M')
+                  end
+              end
+          else
+              if v:FindFirstChild('NameEsp') then
+                  v:FindFirstChild('NameEsp'):Destroy()
+              end
+          end
+      end)
+  end
+end
 
 
 spawn(function()
