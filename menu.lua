@@ -5120,78 +5120,19 @@ end
 
 local Teleport = Tabs.Player:AddSection("Combat")
 
+Tab.Player:AddParagraph({
+    Title = "Lưu ý!",
+    Content = "Bật aim bot nên bật 1 cái chọn cái nào cx được\nTránh kín màn khó nhìn kk :))"
+})
 
-local SlidershowFov = Tabs.Player:AddSlider("SlidershowFov", {
-    Title = "Size Fov",
-    Description = "Cỡ Fov",
-    Default = 70,
-    Min = 0,
-    Max = 300,
-    Rounding = 1,
-    Callback = function(Value)
-        _G.Select_Size_Fov = Value
+Tabs.Player:AddButton({
+    Title = "Aim Skill",
+    Description = "Aim Chiêu thức (beta)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim.lua"))()
     end
 })
 
-SlidershowFov:OnChanged(function(Value)
-    _G.Select_Size_Fov = Value
-end)
-SlidershowFov:SetValue(70)
-
-
-local ToggleShowFov = Tabs.Player:AddToggle("ToggleShowFov", {Title = "Show Fov",Description = "Hiện Fov", Default = false })
-ToggleShowFov:OnChanged(function(value)
-    _G.Show_Fov = value
-end)
-Options.ToggleShowFov:SetValue(false)
-
-
-local ToggleAimBotSkill = Tabs.Player:AddToggle("ToggleAimBotSkill", {Title = "Auto Aimbot Skill",Description = "Tự Động ngắm Skill", Default = false })
-ToggleAimBotSkill:OnChanged(function(Value)
-    _G.Aimbot_Skill_Fov = Value
-end)
-Options.ToggleAimBotSkill:SetValue(false)
-local lp = game:GetService('Players').LocalPlayer
-local mouse = lp:GetMouse()
-spawn(function()
-	while wait() do
-		if _G.Aimbot_Skill_Fov then
-			pcall(function()
-				local MaxDist, Closest = math.huge
-				for i,v in pairs(game:GetService("Players"):GetChildren()) do 
-					local Head = v.Character:FindFirstChild("HumanoidRootPart")
-					local Pos, Vis = game.Workspace.CurrentCamera.WorldToScreenPoint(game.Workspace.CurrentCamera, Head.Position)
-					local MousePos, TheirPos = Vector2.new(mouse.X, mouse.Y), Vector2.new(Pos.X, Pos.Y)
-					local Dist = (TheirPos - MousePos).Magnitude
-					if Dist < MaxDist and Dist <= _G.Select_Size_Fov and v.Name ~= game.Players.LocalPlayer.Name then
-						MaxDist = Dist
-						_G.Aim_Players = v
-					end
-				end
-			end)
-		end
-	end
-end)
-spawn(function()
-	local gg = getrawmetatable(game)
-	local old = gg.__namecall
-	setreadonly(gg,false)
-	gg.__namecall = newcclosure(function(...)
-		local method = getnamecallmethod()
-		local args = {...}
-		if tostring(method) == "FireServer" then
-			if tostring(args[1]) == "RemoteEvent" then
-				if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
-					if _G.Aimbot_Skill_Fov then
-						args[2] = _G.Aim_Players.Character.HumanoidRootPart.Position
-						return old(unpack(args))
-					end
-				end
-			end
-		end
-		return old(...)
-	end)
-end)
 Tabs.Player:AddButton({
     Title = "Aim POV",
     Description = "Aim góc nhìn",
@@ -5199,27 +5140,6 @@ Tabs.Player:AddButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim1.lua"))()
     end
 })
-
-
-local Circle = Drawing.new("Circle")
-Circle.Color =  Color3.fromRGB(0, 244, 0)
-Circle.Thickness = 1
-Circle.Radius = 250
-Circle.NumSides = 460
-Circle.Filled = false
-Circle.Transparency = 1
-
-game:GetService("RunService").Stepped:Connect(function()
-    Circle.Radius = _G.Select_Size_Fov
-    Circle.Thickness = 1
-    Circle.NumSides = 460
-    Circle.Position = game:GetService('UserInputService'):GetMouseLocation()
-    if _G.Show_Fov then
-        Circle.Visible = true
-    else
-        Circle.Visible = false
-    end
-end)
 
 
 
