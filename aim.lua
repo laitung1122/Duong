@@ -3,7 +3,6 @@ local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
-local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 
 local CurrentCamera = Workspace.CurrentCamera
@@ -26,8 +25,6 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7 -- Làm mờ menu hơn một chút
-
--- Điều chỉnh vị trí menu
 Main.Position = UDim2.new(0.25, 0, 0, 0) -- Căn chỉnh menu sát mép trên và dịch sang trái một nửa khoảng cách từ giữa đến mép bên trái
 Main.Size = UDim2.new(0, 263, 0, 80)
 Main.AnchorPoint = Vector2.new(0.5, 0)  -- Căn giữa theo phương đứng
@@ -155,22 +152,56 @@ local function showWelcomeMessage()
     end)
 end
 
+-- Tạo beam nối giữa camera và người chơi gần nhất
+local function createBeamToPlayer(player)
+    local beam = Instance.new("Beam")
+    beam.Name = "PlayerBeam"
+    beam.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
+    beam.Width0 = 0.1
+    beam.Width1 = 0.1
+    beam.FaceCamera = true
+
+    local attachment0 = Instance.new("Attachment")
+    attachment0.Name = "Attachment0"
+    attachment0.Parent = CurrentCamera
+    attachment0.Position = Vector3.new(0, 0, 0)
+
+    local attachment1 = Instance.new("Attachment")
+    attachment1.Name = "Attachment1"
+    attachment1.Parent = player.Character.HumanoidRootPart
+    attachment1.Position = Vector3.new(0, 0, 0)
+
+    beam.Attachment0 = attachment0
+    beam.Attachment1 = attachment1
+    beam.Parent = Workspace.CurrentCamera
+end
+
 -- Function to update the aimbot
 local function updateAimbot()
-    while wait(0.1) do  -- Update every 0.5 seconds
+    while wait(0.5) do  -- Update every 0.5 seconds
+        local closestPlayer = nil
+        local minDistance = 1000  -- Max distance of 1000 units
+
         for i, v in pairs(Players:GetPlayers()) do
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= LocalPlayer.Name then
                 local pos = CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                 local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
                 if magnitude < (1000 * 6 - 8) / 2 then
-                    if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1000 then
-                        if not getgenv().setting['LockPlayers'] then
-                            Playersaimbot = v.Name
-                            PlayersPosition = v.Character.HumanoidRootPart.Position
-                            v.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
-                        end
+                    local distance = (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+                    if distance <= minDistance then
+                        minDistance = distance
+                        closestPlayer = v
                     end
                 end
+            end
+        end
+
+        if closestPlayer then
+            createBeamToPlayer(closestPlayer)
+            if not getgenv().setting['LockPlayers'] then
+                Playersaimbot = closestPlayer.Name
+                PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
+                closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
             end
         end
     end
@@ -178,7 +209,7 @@ end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait(0.1) do  -- Update every 0.5 seconds
+    while wait(0.5) do  -- Update every 0.5 seconds
         if Playersaimbot then
             local player = Players:FindFirstChild(Playersaimbot)
             if player and player.Character then
@@ -194,7 +225,7 @@ local function updatePlayerInfo()
     end
 end
 
--- Hiển thị thông báo chào mừng
+-- Hiển thị thông báo chào mừng với hiệu ứng
 showWelcomeMessage()
 
 -- Update aimbot
