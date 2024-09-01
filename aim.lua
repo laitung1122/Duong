@@ -28,90 +28,93 @@ infoplayers.Name = "infoplayers"
 infoplayers.Parent = game:GetService("CoreGui")
 infoplayers.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
+local Main = Instance.new("Frame")
 Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Main.BackgroundTransparency = 0.5  -- Adjust transparency of the background
+Main.BackgroundTransparency = 0.7 -- Làm mờ menu hơn một chút
 Main.Position = UDim2.new(0.01, 0, 0.3, 0)
 Main.Size = UDim2.new(0, 263, 0, 80)
 
-MainCorner.Name = "MainCorner"
+local MainCorner = Instance.new("UICorner")
 MainCorner.Parent = Main
 
+local Profile = Instance.new("Frame")
 Profile.Name = "Profile"
 Profile.Parent = Main
 Profile.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Profile.Position = UDim2.new(0.0570342205, 0, 0.149425298, 0)
+Profile.Position = UDim2.new(0.057, 0, 0.149, 0)
 Profile.Size = UDim2.new(0, 60, 0, 60)
 
+local ProfileCorner = Instance.new("UICorner")
 ProfileCorner.CornerRadius = UDim.new(0, 100)
-ProfileCorner.Name = "ProfileCorner"
 ProfileCorner.Parent = Profile
 
+local ImageProfile = Instance.new("ImageLabel")
 ImageProfile.Name = "ImageProfile"
 ImageProfile.Parent = Profile
 ImageProfile.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 ImageProfile.Position = UDim2.new(0, 1, 0, 1)
 ImageProfile.Size = UDim2.new(0, 58, 0, 58)
-ImageProfile.Image = ''
 
+local ImageProfileCorner = Instance.new("UICorner")
 ImageProfileCorner.CornerRadius = UDim.new(0, 100)
-ImageProfileCorner.Name = "ImageProfileCorner"
 ImageProfileCorner.Parent = ImageProfile
 
+local HealthPlayers = Instance.new("TextLabel")
 HealthPlayers.Name = "HealthPlayers"
 HealthPlayers.Parent = Profile
-HealthPlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-HealthPlayers.Position = UDim2.new(1.24220526, 0, 0.377586216, 0)
+HealthPlayers.BackgroundTransparency = 1.0
+HealthPlayers.Position = UDim2.new(1.242, 0, 0.378, 0)
 HealthPlayers.Size = UDim2.new(0, 173, 0, 22)
 HealthPlayers.Font = Enum.Font.FredokaOne
 HealthPlayers.Text = "Health | N/A"
 HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
-HealthPlayers.TextSize = 19.000
+HealthPlayers.TextSize = 19.0
 HealthPlayers.TextXAlignment = Enum.TextXAlignment.Left
-HealthPlayers.TextYAlignment = Enum.TextYAlignment.Bottom
 
+local loackplayerslabel = Instance.new("TextLabel")
 loackplayerslabel.Name = "loackplayerslabel"
 loackplayerslabel.Parent = Profile
-loackplayerslabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+loackplayerslabel.BackgroundTransparency = 1.0
 loackplayerslabel.Position = UDim2.new(0.1, 0, 1.1, 0)
 loackplayerslabel.Size = UDim2.new(0, 173, 0, 22)
 loackplayerslabel.Font = Enum.Font.FredokaOne
 loackplayerslabel.Text = "Lock Players | OFF"
 loackplayerslabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-loackplayerslabel.TextSize = 19.000
+loackplayerslabel.TextSize = 19.0
 loackplayerslabel.TextXAlignment = Enum.TextXAlignment.Left
-loackplayerslabel.TextYAlignment = Enum.TextYAlignment.Bottom
 
+local NamePlayers = Instance.new("TextLabel")
 NamePlayers.Name = "NamePlayers"
 NamePlayers.Parent = Profile
-NamePlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-NamePlayers.Position = UDim2.new(1.24220526, 0, 0.0109195411, 0)
+NamePlayers.BackgroundTransparency = 1.0
+NamePlayers.Position = UDim2.new(1.242, 0, 0.011, 0)
 NamePlayers.Size = UDim2.new(0, 173, 0, 22)
 NamePlayers.Font = Enum.Font.FredokaOne
 NamePlayers.Text = "Name | N/A"
 NamePlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
-NamePlayers.TextSize = 19.000
+NamePlayers.TextSize = 19.0
 NamePlayers.TextXAlignment = Enum.TextXAlignment.Left
-NamePlayers.TextYAlignment = Enum.TextYAlignment.Bottom
 
+local Healthbar = Instance.new("Frame")
 Healthbar.Name = "Healthbar"
 Healthbar.Parent = Profile
 Healthbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Healthbar.Position = UDim2.new(1.23333335, 0, 0.850000024, 0)
+Healthbar.Position = UDim2.new(1.233, 0, 0.85, 0)
 Healthbar.Size = UDim2.new(0, 155, 0, 8)
 
-HealthbarCorner.Name = "HealthbarCorner"
+local HealthbarCorner = Instance.new("UICorner")
 HealthbarCorner.Parent = Healthbar
 
+local Healthgreen = Instance.new("Frame")
 Healthgreen.Name = "Healthgreen"
 Healthgreen.Parent = Healthbar
 Healthgreen.BackgroundColor3 = Color3.fromRGB(0, 227, 110)
 Healthgreen.Size = UDim2.new(0, 155, 0, 8)
 
-HealthgreenCorner.Name = "HealthgreenCorner"
+local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
-
 -- Function to update the aimbot
 local function updateAimbot()
     while wait(0.5) do  -- Update every 0.5 seconds
