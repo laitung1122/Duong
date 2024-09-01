@@ -31,6 +31,7 @@ infoplayers.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Main.BackgroundTransparency = 0.5  -- Adjust transparency
 Main.Position = UDim2.new(0.01, 0, 0.3, 0)
 Main.Size = UDim2.new(0, 263, 0, 80)
 
@@ -40,6 +41,7 @@ MainCorner.Parent = Main
 Profile.Name = "Profile"
 Profile.Parent = Main
 Profile.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Profile.BackgroundTransparency = 0.7  -- Adjust transparency
 Profile.Position = UDim2.new(0.0570342205, 0, 0.149425298, 0)
 Profile.Size = UDim2.new(0, 60, 0, 60)
 
@@ -50,7 +52,7 @@ ProfileCorner.Parent = Profile
 ImageProfile.Name = "ImageProfile"
 ImageProfile.Parent = Profile
 ImageProfile.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-ImageProfile.BackgroundTransparency = 0
+ImageProfile.BackgroundTransparency = 0.7  -- Adjust transparency
 ImageProfile.Position = UDim2.new(0, 1, 0, 1)
 ImageProfile.Size = UDim2.new(0, 58, 0, 58)
 ImageProfile.Image = ''
@@ -62,7 +64,7 @@ ImageProfileCorner.Parent = ImageProfile
 HealthPlayers.Name = "HealthPlayers"
 HealthPlayers.Parent = Profile
 HealthPlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-HealthPlayers.BackgroundTransparency = 1.000
+HealthPlayers.BackgroundTransparency = 0.7  -- Adjust transparency
 HealthPlayers.Position = UDim2.new(1.24220526, 0, 0.377586216, 0)
 HealthPlayers.Size = UDim2.new(0, 173, 0, 22)
 HealthPlayers.Font = Enum.Font.FredokaOne
@@ -75,7 +77,7 @@ HealthPlayers.TextYAlignment = Enum.TextYAlignment.Bottom
 loackplayerslabel.Name = "loackplayerslabel"
 loackplayerslabel.Parent = Profile
 loackplayerslabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-loackplayerslabel.BackgroundTransparency = 1.000
+loackplayerslabel.BackgroundTransparency = 0.7  -- Adjust transparency
 loackplayerslabel.Position = UDim2.new(0.1, 0, 1.1, 0)
 loackplayerslabel.Size = UDim2.new(0, 173, 0, 22)
 loackplayerslabel.Font = Enum.Font.FredokaOne
@@ -88,7 +90,7 @@ loackplayerslabel.TextYAlignment = Enum.TextYAlignment.Bottom
 NamePlayers.Name = "NamePlayers"
 NamePlayers.Parent = Profile
 NamePlayers.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-NamePlayers.BackgroundTransparency = 1.000
+NamePlayers.BackgroundTransparency = 0.7  -- Adjust transparency
 NamePlayers.Position = UDim2.new(1.24220526, 0, 0.0109195411, 0)
 NamePlayers.Size = UDim2.new(0, 173, 0, 22)
 NamePlayers.Font = Enum.Font.FredokaOne
@@ -101,6 +103,7 @@ NamePlayers.TextYAlignment = Enum.TextYAlignment.Bottom
 Healthbar.Name = "Healthbar"
 Healthbar.Parent = Profile
 Healthbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Healthbar.BackgroundTransparency = 0.7  -- Adjust transparency
 Healthbar.Position = UDim2.new(1.23333335, 0, 0.850000024, 0)
 Healthbar.Size = UDim2.new(0, 155, 0, 8)
 
@@ -117,7 +120,7 @@ HealthgreenCorner.Parent = Healthgreen
 
 -- Function to update the aimbot
 local function updateAimbot()
-    while wait() do
+    while wait(1.5) do  -- Update every 1.5 seconds
         for i, v in pairs(players:GetPlayers()) do
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= localPlayer.Name then
                 local pos = currentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
@@ -138,7 +141,7 @@ end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait() do
+    while wait(1.5) do  -- Update every 1.5 seconds
         if Playersaimbot then
             local player = players:FindFirstChild(Playersaimbot)
             if player and player.Character then
@@ -182,7 +185,20 @@ game:GetService("UserInputService").InputBegan:Connect(function(io, p)
     end
 end)
 
--- Aim at the selected player
+-- Update the aimbot target
+spawn(function()
+    while wait() do
+        if Playersaimbot then
+            for i, v in pairs(players:GetChildren()) do
+                if v.Name == Playersaimbot then
+                    PlayersPosition = v.Character.HumanoidRootPart.Position
+                end
+            end
+        end
+    end
+end)
+
+-- Handle server communication
 spawn(function()
     local gg = getrawmetatable(game)
     local old = gg.__namecall
@@ -204,15 +220,15 @@ spawn(function()
     end)
 end)
 
--- Shoot at the aimed player
+-- Handle mouse click for aimbot
 mouse.Button1Down:Connect(function()
     pcall(function()
         if Playersaimbot then
             local args = {
                 [1] = PlayersPosition,
-                [2] = game:GetService("Players"):FindFirstChild(Playersaimbot).Character.HumanoidRootPart
+                [2] = players:FindFirstChild(Playersaimbot).Character.HumanoidRootPart
             }
-            game:GetService("Players").LocalPlayer.Character[game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteFunctionShoot:InvokeServer(unpack(args))
+            players.LocalPlayer.Character[players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name].RemoteFunctionShoot:InvokeServer(unpack(args))
         end
     end)
 end)
