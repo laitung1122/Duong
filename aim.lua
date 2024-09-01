@@ -25,7 +25,19 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7 -- Làm mờ menu hơn một chút
-Main.Position = UDim2.new(0.01, 0, 0.3, 0)
+
+-- Điều chỉnh vị trí của menu tùy thuộc vào kiểu thiết bị và độ rộng màn hình
+local function getPositionForScreen()
+    if UserInputService.TouchEnabled then
+        -- Đối với thiết bị cảm ứng (điện thoại), đặt menu gần trên cùng và căn chỉnh sang bên trái một chút
+        return UDim2.new(0.5, -130, 0.05, 0)  -- Điều chỉnh giá trị 0.5 và -130 để căn chỉnh menu theo ý muốn
+    else
+        -- Đối với các màn hình khác
+        return UDim2.new(0.01, 0, 0.3, 0)
+    end
+end
+
+Main.Position = getPositionForScreen()
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 local MainCorner = Instance.new("UICorner")
@@ -144,7 +156,7 @@ local function updatePlayerInfo()
                 pcall(function()
                     Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
                 end)
-                ImageProfile.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+                ImageProfile.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size370x370)
             end
         end
     end
