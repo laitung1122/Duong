@@ -24,7 +24,7 @@ Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 Main.BackgroundTransparency = 0.7
-Main.Position = UDim2.new(0, 20, 0, 10)  -- Di chuyển menu sang phải một chút
+Main.Position = UDim2.new(0, 40, 0, 10)  -- Di chuyển menu sang phải thêm một chút
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 local MainCorner = Instance.new("UICorner")
@@ -109,7 +109,7 @@ local function showNotification()
     -- Animation for notification
     notification:TweenSize(UDim2.new(0.5, 0, 0.1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
     wait(3)
-    notification:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.5, true)
+    notification:TweenSize(UDim2.new(0.5, 0, 0.1, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 0.5, true)
     wait(0.5)
     notification:Destroy()
 end
@@ -123,7 +123,7 @@ local function updateAimbot()
             if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= LocalPlayer.Name then
                 local pos = CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                 local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 320 then  -- Giảm phạm vi xuống còn 500m
+                if (v.Character.HumanoidRootPart.Position - LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 500 then  -- Giảm phạm vi xuống còn 500m
                     if magnitude < closestMagnitude then
                         closestMagnitude = magnitude
                         closestPlayer = v
@@ -134,19 +134,19 @@ local function updateAimbot()
         if closestPlayer then
             Playersaimbot = closestPlayer.Name
             PlayersPosition = closestPlayer.Character.HumanoidRootPart.Position
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(5, 5, 5)
         end
     end
 end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait(0.1) do  -- Update every 0.5 seconds
+    while wait(0.5) do  -- Update every 0.5 seconds
         if Playersaimbot then
             local player = Players:FindFirstChild(Playersaimbot)
             if player and player.Character then
-                NamePlayers.Text = "Name: " .. player.Name
-                HealthPlayers.Text = "Health: " .. math.floor(player.Character.Humanoid.Health) .. "/" .. player.Character.Humanoid.MaxHealth
+                NamePlayers.Text = "Tên: " .. player.Name
+                HealthPlayers.Text = "Hp: " .. math.floor(player.Character.Humanoid.Health) .. "/" .. player.Character.Humanoid.MaxHealth
                 local hp = player.Character.Humanoid.Health / player.Character.Humanoid.MaxHealth
                 pcall(function()
                     Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
