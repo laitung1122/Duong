@@ -23,18 +23,19 @@ local Main = Instance.new("Frame")
 Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Main.BackgroundTransparency = 0.7
+Main.BackgroundTransparency = 0.5  -- Làm mờ nền hơn
 Main.Position = UDim2.new(0, 20, 0, 10)  -- Di chuyển menu sang phải thêm một chút
-Main.Size = UDim2.new(0, 240, 0, 90)  -- Giảm kích thước menu
+Main.Size = UDim2.new(0, 260, 0, 100)  -- Kích thước menu gần giống như ban đầu
 
 local MainCorner = Instance.new("UICorner")
 MainCorner.CornerRadius = UDim.new(0, 10)  -- Bo cong nhẹ
 MainCorner.Parent = Main
 
-local MainBorder = Instance.new("UIStroke")
-MainBorder.Color = Color3.fromRGB(255, 255, 255)
-MainBorder.Thickness = 2
-MainBorder.Parent = Main
+-- Xóa phần đường kẻ viền
+-- local MainBorder = Instance.new("UIStroke")
+-- MainBorder.Color = Color3.fromRGB(255, 255, 255)
+-- MainBorder.Thickness = 2
+-- MainBorder.Parent = Main
 
 local Profile = Instance.new("Frame")
 Profile.Name = "Profile"
@@ -66,7 +67,7 @@ NamePlayers.Name = "NamePlayers"
 NamePlayers.Parent = Profile
 NamePlayers.BackgroundTransparency = 1.0
 NamePlayers.Position = UDim2.new(0.2, 0, 0.1, 0)
-NamePlayers.Size = UDim2.new(0, 170, 0, 20)
+NamePlayers.Size = UDim2.new(0, 160, 0, 20)
 NamePlayers.Font = Enum.Font.FredokaOne
 NamePlayers.Text = "Name: N/A"
 NamePlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -78,7 +79,7 @@ HealthPlayers.Name = "HealthPlayers"
 HealthPlayers.Parent = Profile
 HealthPlayers.BackgroundTransparency = 1.0
 HealthPlayers.Position = UDim2.new(0.2, 0, 0.3, 0)
-HealthPlayers.Size = UDim2.new(0, 170, 0, 20)
+HealthPlayers.Size = UDim2.new(0, 160, 0, 20)
 HealthPlayers.Font = Enum.Font.FredokaOne
 HealthPlayers.Text = "Health: N/A"
 HealthPlayers.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -90,7 +91,7 @@ Healthbar.Name = "Healthbar"
 Healthbar.Parent = Profile
 Healthbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Healthbar.Position = UDim2.new(0.2, 0, 0.5, 0)
-Healthbar.Size = UDim2.new(0, 170, 0, 8)
+Healthbar.Size = UDim2.new(0, 160, 0, 8)
 
 local HealthbarCorner = Instance.new("UICorner")
 HealthbarCorner.Parent = Healthbar
@@ -99,7 +100,7 @@ local Healthgreen = Instance.new("Frame")
 Healthgreen.Name = "Healthgreen"
 Healthgreen.Parent = Healthbar
 Healthgreen.BackgroundColor3 = Color3.fromRGB(0, 227, 110)
-Healthgreen.Size = UDim2.new(0, 170, 0, 8)
+Healthgreen.Size = UDim2.new(0, 160, 0, 8)
 
 local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
@@ -155,7 +156,7 @@ local function updateAimbot()
                 Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             end)
             -- Kích thước của HumanoidRootPart
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
         end
     end
 end
