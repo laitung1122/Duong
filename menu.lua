@@ -5129,6 +5129,11 @@ Tabs.Player:AddButton({
     Title = "Aim Skill",
     Description = "Aim Chiêu thức (beta)",
     Callback = function()
+        getgenv().setting = {
+            LockPlayers = false,
+            LockPlayersBind = Enum.KeyCode.L,
+            resetPlayersBind = Enum.KeyCode.P,
+        }
         loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim.lua"))()
     end
 })
