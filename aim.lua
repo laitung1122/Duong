@@ -155,7 +155,7 @@ local function updateAimbot()
                 Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
             end)
             -- Kích thước của HumanoidRootPart
-            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(100, 100, 100)
+            closestPlayer.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
         end
     end
 end
