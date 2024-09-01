@@ -4,6 +4,7 @@ local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
 
 local CurrentCamera = Workspace.CurrentCamera
 local Playersaimbot = nil
@@ -114,7 +115,7 @@ Healthgreen.Size = UDim2.new(0, 155, 0, 8)
 local HealthgreenCorner = Instance.new("UICorner")
 HealthgreenCorner.Parent = Healthgreen
 
--- Hiển thị thông báo chào mừng
+-- Hiển thị thông báo chào mừng với hiệu ứng
 local function showWelcomeMessage()
     local welcomeMessage = Instance.new("TextLabel")
     welcomeMessage.Name = "WelcomeMessage"
@@ -123,7 +124,7 @@ local function showWelcomeMessage()
     welcomeMessage.BackgroundTransparency = 0.8
     welcomeMessage.Position = UDim2.new(0.5, 0, 0.5, 0)
     welcomeMessage.AnchorPoint = Vector2.new(0.5, 0.5)
-    welcomeMessage.Size = UDim2.new(0, 300, 0, 50)
+    welcomeMessage.Size = UDim2.new(0, 0, 0, 0)
     welcomeMessage.Text = "Aimbot made by lại tùng dương"
     welcomeMessage.TextColor3 = Color3.fromRGB(0, 0, 0)
     welcomeMessage.TextSize = 20
@@ -135,17 +136,18 @@ local function showWelcomeMessage()
     welcomeMessage.TextYAlignment = Enum.TextYAlignment.Center
     welcomeMessage.ZIndex = 10
 
-    -- Hiệu ứng phóng to và thu nhỏ
-    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-    local tweenGoal = {Size = UDim2.new(0, 300, 0, 50)}
-    local tween = game:GetService("TweenService"):Create(welcomeMessage, tweenInfo, tweenGoal)
-    tween:Play()
-    
+    -- Hiệu ứng phóng to
+    local tweenInfoShow = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local tweenGoalShow = {Size = UDim2.new(0, 300, 0, 50)}
+    local tweenShow = TweenService:Create(welcomeMessage, tweenInfoShow, tweenGoalShow)
+    tweenShow:Play()
+
     wait(3)  -- Hiển thị thông báo trong 3 giây
 
+    -- Hiệu ứng thu nhỏ và ẩn
     local tweenInfoHide = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
     local tweenGoalHide = {Size = UDim2.new(0, 0, 0, 0)}
-    local tweenHide = game:GetService("TweenService"):Create(welcomeMessage, tweenInfoHide, tweenGoalHide)
+    local tweenHide = TweenService:Create(welcomeMessage, tweenInfoHide, tweenGoalHide)
     tweenHide:Play()
 
     tweenHide.Completed:Connect(function()
@@ -255,4 +257,3 @@ mouse.Button1Down:Connect(function()
         end
     end)
 end)
-
