@@ -30,8 +30,8 @@ infoplayers.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Main.Name = "Main"
 Main.Parent = infoplayers
 Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Main.BackgroundTransparency = 0.3  -- Adjust transparency
-Main.Position = UDim2.new(0, 70, 0, 40)
+Main.BackgroundTransparency = 0.2  -- Adjust transparency
+Main.Position = UDim2.new(0, 60, 0, 60)
 Main.Size = UDim2.new(0, 263, 0, 80)
 
 MainCorner.Name = "MainCorner"
