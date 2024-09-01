@@ -178,7 +178,7 @@ end
 
 -- Function to update the aimbot
 local function updateAimbot()
-    while wait(0.5) do  -- Update every 0.5 seconds
+    while wait(0.1) do  -- Update every 0.5 seconds
         local closestPlayer = nil
         local minDistance = 1000  -- Max distance of 1000 units
 
@@ -209,7 +209,7 @@ end
 
 -- Function to update UI with player information
 local function updatePlayerInfo()
-    while wait(0.5) do  -- Update every 0.5 seconds
+    while wait(0.1) do  -- Update every 0.5 seconds
         if Playersaimbot then
             local player = Players:FindFirstChild(Playersaimbot)
             if player and player.Character then
