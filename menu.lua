@@ -5154,10 +5154,6 @@ local aimbotEnabled = false
 local targetPlayer = nil
 local targetPosition = nil
 
--- Handle aimbot toggle button
-local Tabs = -- Your code to get the Tabs object
-local Options = Tabs.Setting -- Assuming Setting is the menu tab
-
 local ToggleAimbot = Tabs.Player:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt aimbot", Default = false})
 ToggleAimbot:OnChanged(function(value)
     aimbotEnabled = value
