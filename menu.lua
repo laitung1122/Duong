@@ -5145,37 +5145,76 @@ Tabs.Player:AddButton({
     end
 })
 
-local ToggleAimbot = Tabs.Settings:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt Aimbot", Default = false })
-ToggleAimbot:OnChanged(function(value)
-    _G.AimbotEnabled = value
-end)
-Options.ToggleAimbot:SetValue(false)
-
-local mouse = game.Players.LocalPlayer:GetMouse()
 local players = game:GetService("Players")
 local localPlayer = players.LocalPlayer
 local currentCamera = game:GetService("Workspace").CurrentCamera
+local mouse = localPlayer:GetMouse()
 
-spawn(function()
+local aimbotEnabled = false
+local targetPlayer = nil
+local targetPosition = nil
+
+-- Handle aimbot toggle button
+local Tabs = -- Your code to get the Tabs object
+local Options = Tabs.Setting -- Assuming Setting is the menu tab
+
+local ToggleAimbot = Tabs.Player:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt aimbot", Default = false})
+ToggleAimbot:OnChanged(function(value)
+    aimbotEnabled = value
+end)
+
+-- Function to update the aimbot
+local function updateAimbot()
     while true do
-        wait(0.1)
-        if _G.AimbotEnabled then
-            local closestPlayer, closestDistance = nil, math.huge
+        wait(0.1)  -- Update every 0.1 seconds
+        
+        if aimbotEnabled then
+            local closestPlayer = nil
+            local shortestDistance = math.huge
+
             for _, player in pairs(players:GetPlayers()) do
                 if player.Character and player.Character:FindFirstChild('HumanoidRootPart') and player.Name ~= localPlayer.Name then
-                    local pos = currentCamera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
-                    local distance = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                    if distance < closestDistance then
-                        closestDistance = distance
-                        closestPlayer = player
+                    local playerPosition = player.Character.HumanoidRootPart.Position
+                    local distance = (playerPosition - localPlayer.Character.HumanoidRootPart.Position).magnitude
+                    
+                    if distance <= 1000 then
+                        local screenPos = currentCamera:WorldToViewportPoint(playerPosition)
+                        local screenDistance = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+
+                        if screenDistance < shortestDistance then
+                            shortestDistance = screenDistance
+                            closestPlayer = player
+                            targetPosition = playerPosition
+                        end
                     end
                 end
             end
-            if closestPlayer then
-                -- Set the aimbot target to the closest player
-                local targetPosition = closestPlayer.Character.HumanoidRootPart.Position
-                -- Optional: Add additional aimbot logic here (e.g., aiming at the target)
-            end
+
+            targetPlayer = closestPlayer
+        end
+    end
+end
+
+-- Update the aimbot target and perform aiming
+spawn(function()
+    while true do
+        wait()  -- Runs every frame
+        if aimbotEnabled and targetPlayer then
+            local targetPos = currentCamera:WorldToViewportPoint(targetPosition)
+            mouse.X = targetPos.X
+            mouse.Y = targetPos.Y
+        end
+    end
+end)
+
+-- Optional: Handle mouse click for aimbot
+mouse.Button1Down:Connect(function()
+    if aimbotEnabled and targetPlayer then
+        local tool = localPlayer.Character:FindFirstChildOfClass("Tool")
+        if tool and tool:FindFirstChild("RemoteFunctionShoot") then
+            pcall(function()
+                tool.RemoteFunctionShoot:InvokeServer(targetPosition, targetPlayer.Character.HumanoidRootPart)
+            end)
         end
     end
 end)
