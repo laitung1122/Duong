@@ -5137,6 +5137,13 @@ Tabs.Player:AddButton({
     end
 })
 
+Tabs.Player:AddButton({
+    Title = "Aim POV",
+    Description = "Aim góc nhìn",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim1.lua"))()
+    end
+})
 
 local ToggleAimbot = Tabs.Settings:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt Aimbot", Default = false })
 ToggleAimbot:OnChanged(function(value)
@@ -5172,15 +5179,6 @@ spawn(function()
         end
     end
 end)
-
-
-Tabs.Player:AddButton({
-    Title = "Aim POV",
-    Description = "Aim góc nhìn",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim1.lua"))()
-    end
-})
 
 
 
