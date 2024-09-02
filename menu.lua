@@ -5145,25 +5145,20 @@ Tabs.Player:AddButton({
     end
 })
 
-local players = game:GetService("Players")
-local localPlayer = players.LocalPlayer
-local currentCamera = game:GetService("Workspace").CurrentCamera
-local mouse = localPlayer:GetMouse()
-
-local aimbotEnabled = false
-local targetPlayer = nil
-local targetPosition = nil
 
 local ToggleAimbot = Tabs.Player:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt aimbot", Default = false})
 ToggleAimbot:OnChanged(function(value)
     aimbotEnabled = value
+    if not aimbotEnabled then
+        -- Clear target if aimbot is disabled
+        targetPlayer = nil
+        targetPosition = nil
+    end
 end)
 
 -- Function to update the aimbot
 local function updateAimbot()
-    while true do
-        wait(0.1)  -- Update every 0.1 seconds
-        
+    while wait(0.1) do  -- Update every 0.1 seconds
         if aimbotEnabled then
             local closestPlayer = nil
             local shortestDistance = math.huge
@@ -5172,7 +5167,7 @@ local function updateAimbot()
                 if player.Character and player.Character:FindFirstChild('HumanoidRootPart') and player.Name ~= localPlayer.Name then
                     local playerPosition = player.Character.HumanoidRootPart.Position
                     local distance = (playerPosition - localPlayer.Character.HumanoidRootPart.Position).magnitude
-                    
+
                     if distance <= 1000 then
                         local screenPos = currentCamera:WorldToViewportPoint(playerPosition)
                         local screenDistance = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
@@ -5191,29 +5186,63 @@ local function updateAimbot()
     end
 end
 
--- Update the aimbot target and perform aiming
+-- Update the aimbot target
 spawn(function()
-    while true do
-        wait()  -- Runs every frame
+    while wait() do
         if aimbotEnabled and targetPlayer then
-            local targetPos = currentCamera:WorldToViewportPoint(targetPosition)
-            mouse.X = targetPos.X
-            mouse.Y = targetPos.Y
+            targetPosition = targetPlayer.Character.HumanoidRootPart.Position
         end
     end
 end)
 
--- Optional: Handle mouse click for aimbot
-mouse.Button1Down:Connect(function()
-    if aimbotEnabled and targetPlayer then
-        local tool = localPlayer.Character:FindFirstChildOfClass("Tool")
-        if tool and tool:FindFirstChild("RemoteFunctionShoot") then
-            pcall(function()
-                tool.RemoteFunctionShoot:InvokeServer(targetPosition, targetPlayer.Character.HumanoidRootPart)
-            end)
+-- Handle server communication
+spawn(function()
+    local gg = getrawmetatable(game)
+    local old = gg.__namecall
+    setreadonly(gg, false)
+    gg.__namecall = newcclosure(function(...)
+        local method = getnamecallmethod()
+        local args = {...}
+        if tostring(method) == "FireServer" then
+            if tostring(args[1]) == "RemoteEvent" then
+                if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+                    if aimbotEnabled and targetPosition then
+                        args[2] = targetPosition
+                        return old(unpack(args))
+                    end
+                end
+            end
         end
+        return old(...)
+    end)
+end)
+
+-- Handle mouse click for aimbot
+mouse.Button1Down:Connect(function()
+    pcall(function()
+        if aimbotEnabled and targetPlayer then
+            local tool = localPlayer.Character:FindFirstChildOfClass("Tool")
+            if tool and tool:FindFirstChild("RemoteFunctionShoot") then
+                local args = {
+                    [1] = targetPosition,
+                    [2] = targetPlayer.Character.HumanoidRootPart
+                }
+                tool.RemoteFunctionShoot:InvokeServer(unpack(args))
+            end
+        end
+    end)
+end)
+
+-- Input handling for resetting the aimbot
+game:GetService("UserInputService").InputBegan:Connect(function(io, p)
+    if io.KeyCode == getgenv().setting['resetPlayersBind'] then
+        targetPlayer = nil
+        targetPosition = nil
     end
 end)
+
+-- Start updating aimbot
+spawn(updateAimbot)
 
 
 
