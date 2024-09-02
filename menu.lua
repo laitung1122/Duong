@@ -5136,70 +5136,42 @@ Tabs.Player:AddButton({
         loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim.lua"))()
     end
 })
--- Thêm toggle để bật/tắt Aimbot vào tab "Main"
-local AimbotToggle = Tabs.Main:AddToggle("Aimbot nearest(beta)", { Title = "Aim nhưng không có thông số", Default = false })
 
--- Thêm callback để cập nhật giá trị của toggle
-AimbotToggle:OnChanged(function()
-    Options.AimbotEnabled.Value = not Options.AimbotEnabled.Value
-    print("Đã chạy aim", Options.AimbotEnabled.Value)
+
+local ToggleAimbot = Tabs.Settings:AddToggle("ToggleAimbot", {Title = "Aimbot", Description = "Kích hoạt Aimbot", Default = false })
+ToggleAimbot:OnChanged(function(value)
+    _G.AimbotEnabled = value
 end)
+Options.ToggleAimbot:SetValue(false)
 
-Options.AimbotEnabled = { Value = false }  -- Tùy chọn lưu trữ trạng thái của Aimbot
+local mouse = game.Players.LocalPlayer:GetMouse()
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local currentCamera = game:GetService("Workspace").CurrentCamera
 
--- Function để cập nhật aimbot
-local function updateAimbot()
-    while wait(0.1) do  -- Cập nhật mỗi 0.1 giây
-        if Options.AimbotEnabled.Value then
-            for i, v in pairs(players:GetPlayers()) do
-                if v.Character and v.Character:FindFirstChild('HumanoidRootPart') and v.Name ~= localPlayer.Name then
-                    local pos = currentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
-                    local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                    if magnitude < (1000 * 6 - 8) / 2 then
-                        if (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).magnitude <= 1000 then
-                            Playersaimbot = v.Name
-                            PlayersPosition = v.Character.HumanoidRootPart.Position
-                        end
+spawn(function()
+    while true do
+        wait(0.1)
+        if _G.AimbotEnabled then
+            local closestPlayer, closestDistance = nil, math.huge
+            for _, player in pairs(players:GetPlayers()) do
+                if player.Character and player.Character:FindFirstChild('HumanoidRootPart') and player.Name ~= localPlayer.Name then
+                    local pos = currentCamera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
+                    local distance = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+                    if distance < closestDistance then
+                        closestDistance = distance
+                        closestPlayer = player
                     end
                 end
             end
-        else
-            Playersaimbot = nil
-            PlayersPosition = nil
-            ImageProfile.Image = ''
-            NamePlayers.Text = "Tên | N/A"
-            HealthPlayers.Text = "Hp | N/A"
-        end
-    end
-end
-
--- Bắt đầu cập nhật aimbot
-spawn(updateAimbot)
-
--- Function để cập nhật thông tin người chơi
-local function updatePlayerInfo()
-    while wait(0.1) do  -- Cập nhật mỗi 0.1 giây
-        if Options.AimbotEnabled.Value and Playersaimbot then
-            local player = players:FindFirstChild(Playersaimbot)
-            if player and player.Character then
-                NamePlayers.Text = "Tên | " .. player.Name
-                HealthPlayers.Text = "Hp | " .. math.floor(player.Character.Humanoid.Health) .. "/" .. player.Character.Humanoid.MaxHealth
-                local hp = player.Character.Humanoid.Health / player.Character.Humanoid.MaxHealth
-                pcall(function()
-                    Healthgreen:TweenSize(UDim2.new(hp, 0, 0, 8), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.15)
-                end)
-                ImageProfile.Image = players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+            if closestPlayer then
+                -- Set the aimbot target to the closest player
+                local targetPosition = closestPlayer.Character.HumanoidRootPart.Position
+                -- Optional: Add additional aimbot logic here (e.g., aiming at the target)
             end
-        else
-            ImageProfile.Image = ''
-            NamePlayers.Text = "Tên | N/A"
-            HealthPlayers.Text = "Hp | N/A"
         end
     end
-end
-
--- Bắt đầu cập nhật thông tin người chơi
-spawn(updatePlayerInfo)
+end)
 
 
 Tabs.Player:AddButton({
