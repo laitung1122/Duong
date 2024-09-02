@@ -115,7 +115,6 @@ local function updateAimbot()
                     if (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).magnitude <= 1000 then
                         Playersaimbot = v.Name
                         PlayersPosition = v.Character.HumanoidRootPart.Position
-                        v.Character.HumanoidRootPart.Size = Vector3.new(3, 3, 3)
                     end
                 end
             end
