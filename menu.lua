@@ -5212,17 +5212,17 @@ spawn(function()
                     return OldHook(self, V1, V2, ...)
                 end)
 
+                -- Hàm xác định AimBotPart
+                Module["AimBotPart"] = function(RootPart)
+                    local Mouse = require(MouseModule)
+                    Mouse.Hit = CFrame.new(RootPart.Position)
+                    Mouse.Target = RootPart
+                    AimBotPart = { RootPart, RootPart.Position }
+                end
+
             end
         end
     end)
-end)
-    
-    Module["AimBotPart"] = function(RootPart)
-        local Mouse = require(MouseModule)
-        Mouse.Hit = CFrame.new(RootPart.Position)
-        Mouse.Target = RootPart
-        AimBotPart = ({ RootPart, RootPart.Position })
-    end
 end)
 
 
