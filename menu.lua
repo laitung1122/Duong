@@ -5145,6 +5145,104 @@ Tabs.Player:AddButton({
     end
 })
 
+-- Toggle cho AimBot với tích hợp dịch vụ game
+local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Auto AimBot", Description = "Tự động nhắm mục tiêu", Default = false })
+ToggleAimBot:OnChanged(function(Value)
+    _G.EnabledAimBot = Value
+end)
+Options.ToggleAimBot:SetValue(false)
+
+task.spawn(function() -- Aim Bot
+    local AimBotPart, NearestPlayer
+    local MouseModule = game:GetService("ReplicatedStorage"):WaitForChild("Mouse")
+    local Skills = {"Z", "X", "C", "V", "F"} -- Aimbot Skills
+    
+    task.spawn(function() -- Get Nearest Player
+        local function CheckTeam(plr)
+            return tostring(plr.Team) == "Pirates" or (tostring(plr.Team) ~= tostring(game:GetService("Players").LocalPlayer.Team))
+        end
+     
+        local function GetNear()
+            local Distance, Nearest = math.huge, false
+            for _,plr in pairs(game:GetService("Players"):GetPlayers()) do
+                if (plr ~= game:GetService("Players").LocalPlayer) and CheckTeam(plr) then
+                    local plrPP = plr.Character and plr.Character.PrimaryPart
+                    local Mag = plrPP and game:GetService("Players").LocalPlayer:DistanceFromCharacter(plrPP.Position)
+                    
+                    if Mag and Mag <= Distance then
+                        Distance, Nearest = Mag, ({
+                            ["Position"] = (plrPP.Position),
+                            ["PrimaryPart"] = plrPP,
+                            ["DistanceFromCharacter"] = Mag
+                        })
+                    end
+                end
+            end
+            NearestPlayer = Nearest
+        end
+        
+        game:GetService("RunService").Stepped:Connect(GetNear)
+    end)
+    
+    task.spawn(function() -- Enable Aim Bot
+        local OldHook
+        OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
+            local Method = getnamecallmethod():lower()
+            if tostring(self) == "RemoteEvent" and Method == "fireserver" then
+                if typeof(V1) == "Vector3" then
+                    if AimBotPart then
+                        if AutoFarmSea or AutoWoodPlanks or Sea2_AutoFarmSea or AutoFarmMastery then
+                            if SeaAimBotSkill or AimBotSkill then
+                                local part = AimBotPart[1]
+                                return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
+                            end
+                        end
+                    end
+                    if AimbotPlayer and NearestPlayer then
+                        local pp = NearestPlayer.PrimaryPart
+                        return OldHook(self, pp and pp.Position or NearestPlayer.Position, V2, ...)
+                    end
+                end
+            elseif Method == "invokeserver" then
+                if type(V1) == "string" then
+                    if V1 == "TAP" and typeof(V2) == "Vector3" then
+                        if AimbotTap and NearestPlayer then
+                            local pp = NearestPlayer.PrimaryPart
+                            return OldHook(self, "TAP", pp and pp.Position or NearestPlayer.Position, ...)
+                        end
+                    else
+                        local Enemie = ...
+                        if table.find(Skills, V1) and typeof(V2) == "Vector3" and not Enemie then
+                            if AimBotPart then
+                                if AutoFarmSea or AutoWoodPlanks or Sea2_AutoFarmSea or AutoFarmMastery then
+                                    if SeaAimBotSkill or AimBotSkill then
+                                        local part = AimBotPart[1]
+                                        return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
+                                    end
+                                end
+                            end
+                            if AimbotPlayer and NearestPlayer then
+                                local pp = NearestPlayer.PrimaryPart
+                                if pp then
+                                    return OldHook(self, V1, pp.Position, pp, ...)
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            return OldHook(self, V1, V2, ...)
+        end)
+    end)
+    
+    Module["AimBotPart"] = function(RootPart)
+        local Mouse = require(MouseModule)
+        Mouse.Hit = CFrame.new(RootPart.Position)
+        Mouse.Target = RootPart
+        AimBotPart = ({ RootPart, RootPart.Position })
+    end
+end)
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
