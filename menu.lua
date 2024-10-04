@@ -5217,10 +5217,18 @@ spawn(function()
 
                 -- Theo dõi phím nhấn và thả
                 local UserInputService = game:GetService("UserInputService")
+                
                 UserInputService.InputBegan:Connect(function(input, gameProcessed)
                     if gameProcessed then return end
                     if table.find(Skills, input.KeyCode.Name) then
                         ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+
+                        -- Nếu kỹ năng là Z, X, C, V, F, kích hoạt ngay lập tức
+                        if input.KeyCode.Name == "Z" or input.KeyCode.Name == "X" or input.KeyCode.Name == "C" or input.KeyCode.Name == "V" or input.KeyCode.Name == "F" then
+                            -- Kích hoạt kỹ năng ngay lập tức
+                            local pp = NearestPlayer
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp.Position)
+                        end
                     end
                 end)
 
@@ -5234,7 +5242,6 @@ spawn(function()
         end
     end)
 end)
-
 --------------------------------------------------------------------------------------------------------------------------------------------
 local Mastery = Tabs.Setting:AddSection("Misc")
 
