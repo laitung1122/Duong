@@ -5192,7 +5192,8 @@ spawn(function()
                     local Method = getnamecallmethod():lower()
                     if tostring(self) == "RemoteEvent" and Method == "fireserver" then
                         if typeof(V1) == "Vector3" then
-                            if AimBotPart then
+                            if AimBotPart and NearestPlayer then
+                                -- Trả về vị trí AimBotPart nếu nó tồn tại
                                 local part = AimBotPart
                                 return OldHook(self, part and part.Position or AimBotPart.Position, V2, ...)
                             end
@@ -5224,7 +5225,6 @@ spawn(function()
         end
     end)
 end)
-
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
