@@ -5162,6 +5162,7 @@ spawn(function()
                 local LocalPlayer = Players.LocalPlayer
                 local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
                 local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot
+                local ActiveSkills = {} -- Bảng để theo dõi kỹ năng đang hoạt động
 
                 -- Hàm kiểm tra đội của người chơi
                 local function CheckTeam(plr)
@@ -5191,22 +5192,15 @@ spawn(function()
                 OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
                     local Method = getnamecallmethod():lower()
                     if tostring(self) == "RemoteEvent" and Method == "fireserver" then
-                        if typeof(V1) == "Vector3" then
-                            if AimBotPart and NearestPlayer then
-                                -- Trả về vị trí AimBotPart nếu nó tồn tại
-                                local part = AimBotPart
-                                return OldHook(self, part and part.Position or AimBotPart.Position, V2, ...)
-                            end
-                        end
-                        if NearestPlayer then
+                        if typeof(V1) == "Vector3" and NearestPlayer then
                             local pp = NearestPlayer
-                            return OldHook(self, pp and pp.Position or NearestPlayer.Position, V2, ...)
+                            return OldHook(self, pp.Position, V2, ...)
                         end
                     elseif Method == "invokeserver" then
-                        if type(V1) == "string" and table.find(Skills, V1) and typeof(V2) == "Vector3" then
-                            if NearestPlayer then
+                        if type(V1) == "string" and table.find(Skills, V1) then
+                            if ActiveSkills[V1] and NearestPlayer then
                                 local pp = NearestPlayer
-                                return OldHook(self, V1, pp and pp.Position, pp, ...)
+                                return OldHook(self, V1, pp.Position, pp, ...)
                             end
                         end
                     end
@@ -5221,11 +5215,25 @@ spawn(function()
                     AimBotPart = { RootPart, RootPart.Position }
                 end
 
+                -- Theo dõi phím nhấn và thả
+                local UserInputService = game:GetService("UserInputService")
+                UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+                    end
+                end)
+
+                UserInputService.InputEnded:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+                    end
+                end)
             end
         end
     end)
 end)
-
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 local Mastery = Tabs.Setting:AddSection("Misc")
