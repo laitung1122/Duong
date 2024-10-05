@@ -10,7 +10,7 @@ Fluent:Notify({
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
     SubTitle = "Phiên bản v1.4(đã fix lỗi vặt)",
-    TabWidth = 160,
+    TabWidth = 90,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = false,
     Theme = "Light",
