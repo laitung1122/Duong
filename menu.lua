@@ -5133,125 +5133,42 @@ Tabs.Player:AddButton({
 })
 
 -- Thêm AimBot vào menu
-local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Aim Bot", Description = "Bật/Tắt Aim Bot", Default = false})
+local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Aim Bot", Description = "Tự động bật Aim Bot", Default = false })
 ToggleAimBot:OnChanged(function(Value)
-    _G.AimBotEnabled = Value
-    if not Value then
-        -- Khi AimBot bị tắt, đặt lại AimBotPart và NearestPlayer
-        AimBotPart = nil
-        NearestPlayer = nil
-    end
+  _G.AimBotEnabled = Value
 end)
 Options.ToggleAimBot:SetValue(false)
 
-task.spawn(function() -- Aim Bot
-    local AimBotPart, NearestPlayer
-    local MouseModule = WaitChilds(ReplicatedStorage, "Mouse")
-    local Skills = {"Z", "X", "C", "V", "F"} -- Aimbot Skills
-    local ActiveSkills = {} -- Bảng để theo dõi kỹ năng đang hoạt động
-
-    task.spawn(function() -- Get Nearest Player
-        local function CheckTeam(plr)
-            return tostring(plr.Team) == "Pirates" or (tostring(plr.Team) ~= tostring(Player.Team))
-        end
-
-        local function GetNear()
-            local Distance, Nearest = math.huge, false
-            for _, plr in pairs(Players:GetPlayers()) do
-                if (plr ~= Player) and CheckTeam(plr) then
-                    local plrPP = plr.Character and plr.Character.PrimaryPart
-                    local Mag = plrPP and Player:DistanceFromCharacter(plrPP.Position)
-
-                    if Mag and Mag <= Distance then
-                        Distance, Nearest = Mag, ({
-                            ["Position"] = (plrPP.Position),
-                            ["PrimaryPart"] = plrPP,
-                            ["DistanceFromCharacter"] = Mag
-                        })
-                    end
-                end
+spawn(function()
+  pcall(function()
+    while wait() do
+      if _G.AimBotEnabled then
+        -- Xác định mục tiêu gần nhất và bật Aim Bot
+        local NearestPlayer, AimBotPart
+        local Distance = math.huge
+        for _, plr in pairs(game:GetService("Players"):GetPlayers()) do
+          if plr ~= game.Players.LocalPlayer then
+            local plrCharacter = plr.Character
+            if plrCharacter and plrCharacter:FindFirstChild("HumanoidRootPart") then
+              local DistanceFromPlayer = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - plrCharacter.HumanoidRootPart.Position).Magnitude
+              if DistanceFromPlayer < Distance then
+                Distance = DistanceFromPlayer
+                NearestPlayer = plr
+                AimBotPart = plrCharacter.HumanoidRootPart
+              end
             end
-            NearestPlayer = Nearest
+          end
         end
 
-        RunService.Stepped:Connect(GetNear)
-    end)
-
-    task.spawn(function() -- Enable Aim Bot
-        local OldHook
-        OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
-            local Method = getnamecallmethod():lower()
-            if not _G.AimBotEnabled then
-                return OldHook(self, V1, V2, ...)
-            end
-            
-            if tostring(self) == "RemoteEvent" and Method == "fireserver" then
-                if typeof(V1) == "Vector3" then
-                    if AimBotPart then
-                        local part = AimBotPart[1]
-                        return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
-                    end
-                    if NearestPlayer then
-                        local pp = NearestPlayer.PrimaryPart
-                        return OldHook(self, pp and pp.Position or NearestPlayer.Position, V2, ...)
-                    end
-                end
-            elseif Method == "invokeserver" then
-                if type(V1) == "string" then
-                    if V1 == "TAP" and typeof(V2) == "Vector3" then
-                        if NearestPlayer then
-                            local pp = NearestPlayer.PrimaryPart
-                            return OldHook(self, "TAP", pp and pp.Position or NearestPlayer.Position, ...)
-                        end
-                    else
-                        local Enemie = ...
-                        if table.find(Skills, V1) and typeof(V2) == "Vector3" and not Enemie then
-                            if AimBotPart then
-                                local part = AimBotPart[1]
-                                return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
-                            end
-                            if NearestPlayer then
-                                local pp = NearestPlayer.PrimaryPart
-                                if pp then
-                                    return OldHook(self, V1, pp.Position, pp, ...)
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-            return OldHook(self, V1, V2, ...)
-        end)
-    end)
-
-    -- Hàm thiết lập AimBotPart
-    Module["AimBotPart"] = function(RootPart)
-        local Mouse = require(MouseModule)
-        Mouse.Hit = CFrame.new(RootPart.Position)
-        Mouse.Target = RootPart
-        AimBotPart = { RootPart, RootPart.Position }
-    end)
-
-    -- Xử lý nhấn phím kỹ năng
-    local UserInputService = game:GetService("UserInputService")
-
-    UserInputService.InputBegan:Connect(function(input, gameProcessed)
-        if gameProcessed or not _G.AimBotEnabled then return end
-        if table.find(Skills, input.KeyCode.Name) then
-            ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
-
-            -- Kích hoạt ngay lập tức cho các kỹ năng
-            local pp = NearestPlayer
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp and pp.Position)
+        -- Điều chỉnh vị trí tấn công theo Aim Bot
+        if NearestPlayer and AimBotPart then
+          local Mouse = game.Players.LocalPlayer:GetMouse()
+          Mouse.Hit = CFrame.new(AimBotPart.Position)
+          Mouse.Target = AimBotPart
         end
-    end)
-
-    UserInputService.InputEnded:Connect(function(input, gameProcessed)
-        if gameProcessed or not _G.AimBotEnabled then return end
-        if table.find(Skills, input.KeyCode.Name) then
-            ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
-        end
-    end)
+      end
+    end
+  end)
 end)
 --------------------------------------------------------------------------------------------------------------------------------------------
 local Mastery = Tabs.Setting:AddSection("Misc")
