@@ -5125,19 +5125,6 @@ Tabs.Player:AddParagraph({
 })
 
 Tabs.Player:AddButton({
-    Title = "Aim Skill",
-    Description = "Aim Chiêu thức hiển thị thông số(beta)",
-    Callback = function()
-        getgenv().setting = {
-            LockPlayers = false,
-            LockPlayersBind = Enum.KeyCode.L,
-            resetPlayersBind = Enum.KeyCode.P,
-        }
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim.lua"))()
-    end
-})
-
-Tabs.Player:AddButton({
     Title = "Aim POV",
     Description = "Aim góc nhìn",
     Callback = function()
@@ -5158,9 +5145,12 @@ end)
 Options.ToggleAimBot:SetValue(false)
 
 -- Biến toàn cục để theo dõi trạng thái AimBot
-local AimBotActive = true
+local AimBotActive = false
 local AimBotPart, NearestPlayer
-local MouseModule = WaitChilds(ReplicatedStorage, "Mouse")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng cho AimBot
 
 -- Hàm tìm người chơi gần nhất
@@ -5170,17 +5160,17 @@ task.spawn(function()
     end
 
     local function GetNear()
-        local Distance, Nearest = math.huge, false
+        local Distance, Nearest = math.huge, nil
         for _, plr in pairs(Players:GetPlayers()) do
-            if (plr ~= Player) and CheckTeam(plr) then
-                local plrPP = plr.Character and plr.Character.PrimaryPart
+            if plr ~= Player and CheckTeam(plr) then
+                local plrPP = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
                 local Mag = plrPP and Player:DistanceFromCharacter(plrPP.Position)
 
-                if Mag and Mag <= Distance then
+                if Mag and Mag < Distance then
                     Distance, Nearest = Mag, {
-                        ["Position"] = plrPP.Position,
-                        ["PrimaryPart"] = plrPP,
-                        ["DistanceFromCharacter"] = Mag
+                        Position = plrPP.Position,
+                        PrimaryPart = plrPP,
+                        DistanceFromCharacter = Mag
                     }
                 end
             end
@@ -5205,12 +5195,10 @@ task.spawn(function()
         -- Xử lý sự kiện khi gọi từ máy chủ
         if tostring(self) == "RemoteEvent" and Method == "fireserver" then
             if typeof(V1) == "Vector3" then
-                -- Khi AimBotPart tồn tại
                 if AimBotPart then
                     local part = AimBotPart[1]
                     return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
                 end
-                -- Xử lý cho người chơi gần nhất
                 if NearestPlayer then
                     local pp = NearestPlayer.PrimaryPart
                     return OldHook(self, pp and pp.Position or NearestPlayer.Position, V2, ...)
@@ -5219,16 +5207,13 @@ task.spawn(function()
         elseif Method == "invokeserver" then
             if type(V1) == "string" then
                 if table.find(Skills, V1) and typeof(V2) == "Vector3" then
-                    -- Kiểm tra nếu kỹ năng AimBot được kích hoạt
                     if AimBotPart then
                         local part = AimBotPart[1]
                         return OldHook(self, part and part.Position or AimBotPart[2], V2, ...)
                     end
                     if NearestPlayer then
                         local pp = NearestPlayer.PrimaryPart
-                        if pp then
-                            return OldHook(self, V1, pp.Position, pp, ...)
-                        end
+                        return OldHook(self, V1, pp.Position, pp, ...)
                     end
                 end
             end
@@ -5239,7 +5224,7 @@ end)
 
 -- Hàm để đặt AimBotPart
 Module["AimBotPart"] = function(RootPart)
-    local Mouse = require(MouseModule)
+    local Mouse = require(ReplicatedStorage:WaitForChild("Mouse"))
     Mouse.Hit = CFrame.new(RootPart.Position)
     Mouse.Target = RootPart
     AimBotPart = { RootPart, RootPart.Position }
