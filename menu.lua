@@ -5142,7 +5142,6 @@ ToggleAimBot:OnChanged(function(Value)
         NearestPlayer = nil
     end
 end)
-
 Options.ToggleAimBot:SetValue(false)
 
 task.spawn(function() -- Aim Bot
@@ -5151,7 +5150,7 @@ task.spawn(function() -- Aim Bot
     local Skills = {"Z", "X", "C", "V", "F"} -- Aimbot Skills
     local ActiveSkills = {} -- Bảng để theo dõi kỹ năng đang hoạt động
 
-    task.spawn(function() -- Lấy người chơi gần nhất
+    task.spawn(function() -- Get Nearest Player
         local function CheckTeam(plr)
             return tostring(plr.Team) == "Pirates" or (tostring(plr.Team) ~= tostring(Player.Team))
         end
@@ -5175,10 +5174,10 @@ task.spawn(function() -- Aim Bot
             NearestPlayer = Nearest
         end
 
-        RunService.Stepped:Connect(GetNear) -- Cập nhật người chơi gần nhất theo từng khung hình
+        RunService.Stepped:Connect(GetNear)
     end)
 
-    task.spawn(function() -- Kích hoạt Aim Bot
+    task.spawn(function() -- Enable Aim Bot
         local OldHook
         OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
             local Method = getnamecallmethod():lower()
@@ -5243,9 +5242,7 @@ task.spawn(function() -- Aim Bot
 
             -- Kích hoạt ngay lập tức cho các kỹ năng
             local pp = NearestPlayer
-            if pp then
-                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp.Position)
-            end
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp and pp.Position)
         end
     end)
 
