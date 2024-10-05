@@ -5120,8 +5120,8 @@ end
 
 local Teleport = Tabs.Player:AddSection("Chiến đấu")
 Tabs.Player:AddParagraph({
-    Title = "Lưu ý!",
-    Content = "Sử dụng aim nên sử dụng 1 trong 2 loại\n Lỗi dell chịu :))) \nCó thể kết hợp 1 với 2 hoặc 3 "
+    Title = "Bật mí!",
+    Content = "Bật cả 3 cho trải nghiệm tốt nhất :)))"
 })
 
 Tabs.Player:AddButton({
@@ -5161,7 +5161,7 @@ spawn(function()
                 local Players = game:GetService("Players")
                 local LocalPlayer = Players.LocalPlayer
                 local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
-                local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot
+                local Skills = {"Z", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot
                 local ActiveSkills = {} -- Bảng để theo dõi kỹ năng đang hoạt động
 
                 -- Hàm kiểm tra đội của người chơi
@@ -5253,7 +5253,7 @@ spawn(function()
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
         local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
-        local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot
+        local Skills = {"X"} -- Các kỹ năng được sử dụng cho AimBot
         local ActiveSkills = {} -- Bảng theo dõi kỹ năng đang hoạt động
         local AimBotPart, NearestPlayer
 
