@@ -5,7 +5,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đang tải script, bình tĩnh:))",
-    Duration = 2
+    Duration = 1
 })
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
@@ -7470,11 +7470,11 @@ end
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
-    Duration = 3
+    Duration = 1
 })
 Fluent:Notify({
     Title = "Facebook:",
     Content = "Dương Lại tùng",
-    Duration = 3
+    Duration = 2
 })
 warn("Exprerador đã tải thành công !!")
