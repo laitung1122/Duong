@@ -5222,7 +5222,6 @@ spawn(function()
         UserInputService.InputBegan:Connect(function(input, gameProcessed)
             if gameProcessed or not _G.EnabledAimBot then return end
             if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
                 -- Kích hoạt ngay lập tức cho các kỹ năng
                 local pp = NearestPlayer
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp and pp.Position)
@@ -5232,7 +5231,7 @@ spawn(function()
         UserInputService.InputEnded:Connect(function(input, gameProcessed)
             if gameProcessed or not _G.EnabledAimBot then return end
             if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+                -- Không cần đánh dấu kỹ năng không còn hoạt động ở đây
             end
         end)
     end)
