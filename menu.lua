@@ -9,9 +9,9 @@ Fluent:Notify({
 })
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
-    SubTitle = "Phiên bản v1.4(đã fix lỗi vặt)",
-    TabWidth = 90,
-    Size = UDim2.fromOffset(450, 300),
+    SubTitle = "Phiên bản v1.5(Thêm 1 số tính năng)",
+    TabWidth = 120,
+    Size = UDim2.fromOffset(480, 300),
     Acrylic = false,
     Theme = "Light",
     MinimizeKey = Enum.KeyCode.End
