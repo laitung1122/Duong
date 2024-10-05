@@ -5145,7 +5145,7 @@ Tabs.Player:AddButton({
     end
 })
 
---Thêm tùy chọn AimBot vào giao diện
+-- Thêm tùy chọn AimBot vào giao diện
 local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Auto AimBot", Description = "Tự động AimBot", Default = false})
 ToggleAimBot:OnChanged(function(Value)
     _G.EnabledAimBot = Value
@@ -5196,7 +5196,7 @@ spawn(function()
             if not _G.EnabledAimBot then
                 return OldHook(self, V1, V2, ...)
             end
-            
+
             if tostring(self) == "RemoteEvent" and Method == "fireserver" then
                 if typeof(V1) == "Vector3" then
                     if AimBotPart and NearestPlayer then
@@ -5228,14 +5228,15 @@ spawn(function()
             AimBotPart = { RootPart, RootPart.Position }
         end
 
-        -- Xử lý nhấn phím kỹ năng
+        -- Xử lý nhấn và giữ kỹ năng
         local UserInputService = game:GetService("UserInputService")
         local ActiveSkills = {} -- Bảng theo dõi kỹ năng đang hoạt động
 
-        -- Hàm để kích hoạt kỹ năng khi giữ phím
+        -- Kích hoạt kỹ năng khi nhấn phím
         local function ActivateSkill(skill)
+            -- Lặp lại kỹ năng cho đến khi phím được thả
             while ActiveSkills[skill] do
-                wait() -- Tạo một khoảng chờ để giữ cho kỹ năng được kích hoạt
+                wait(0.1) -- Để không quá tải máy chủ
                 if NearestPlayer then
                     local pp = NearestPlayer
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(skill, pp and pp.Position)
@@ -5243,24 +5244,26 @@ spawn(function()
             end
         end
 
-        -- Bắt sự kiện khi nhấn giữ phím kỹ năng
+        -- Nhấn phím kỹ năng
         UserInputService.InputBegan:Connect(function(input, gameProcessed)
             if gameProcessed or not _G.EnabledAimBot then return end
             if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+                -- Đánh dấu kỹ năng đang được nhấn giữ
+                ActiveSkills[input.KeyCode.Name] = true
 
-                -- Kích hoạt kỹ năng ngay lập tức
+                -- Kích hoạt kỹ năng ngay lập tức khi nhấn phím
                 spawn(function()
                     ActivateSkill(input.KeyCode.Name)
                 end)
             end
         end)
 
-        -- Bắt sự kiện khi thả phím kỹ năng
+        -- Thả phím kỹ năng
         UserInputService.InputEnded:Connect(function(input, gameProcessed)
             if gameProcessed or not _G.EnabledAimBot then return end
             if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = false -- Dừng kỹ năng khi thả phím
+                -- Ngừng kích hoạt kỹ năng khi thả phím
+                ActiveSkills[input.KeyCode.Name] = false
             end
         end)
     end)
