@@ -5149,7 +5149,7 @@ spawn(function()
                 local LocalPlayer = Players.LocalPlayer
                 local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
                 local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot
-                local ActiveSkills = {} -- Bảng để theo dõi kỹ năng đang hoạt động
+                local ActiveSkills = {}
 
                 -- Hàm kiểm tra đội của người chơi
                 local function CheckTeam(plr)
@@ -5207,14 +5207,14 @@ spawn(function()
                 UserInputService.InputBegan:Connect(function(input, gameProcessed)
                     if gameProcessed then return end
                     if table.find(Skills, input.KeyCode.Name) then
-                        ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+                        ActiveSkills[input.KeyCode.Name] = true
                     end
                 end)
 
                 UserInputService.InputEnded:Connect(function(input, gameProcessed)
                     if gameProcessed then return end
                     if table.find(Skills, input.KeyCode.Name) then
-                        ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+                        ActiveSkills[input.KeyCode.Name] = false
                     end
                 end)
             end
