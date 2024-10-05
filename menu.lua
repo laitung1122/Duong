@@ -5158,7 +5158,7 @@ end)
 Options.ToggleAimBot:SetValue(false)
 
 -- Biến toàn cục để theo dõi trạng thái AimBot
-local AimBotActive = false
+local AimBotActive = true
 local AimBotPart, NearestPlayer
 local MouseModule = WaitChilds(ReplicatedStorage, "Mouse")
 local Skills = {"Z", "X", "C", "V", "F"} -- Các kỹ năng cho AimBot
