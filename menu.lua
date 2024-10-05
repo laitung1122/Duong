@@ -5145,18 +5145,6 @@ Tabs.Player:AddButton({
     end
 })
 
---Thêm tùy chọn AimBot vào giao diện
-local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Auto AimBot", Description = "Tự động AimBot", Default = false})
-ToggleAimBot:OnChanged(function(Value)
-    _G.EnabledAimBot = Value
-    if not Value then
-        -- Khi AimBot bị tắt, đặt lại AimBotPart và NearestPlayer
-        AimBotPart = nil
-        NearestPlayer = nil
-    end
-end)
-Options.ToggleAimBot:SetValue(false)
-
 -- Thêm tùy chọn AimBot vào giao diện
 local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Auto AimBot", Description = "Tự động AimBot", Default = false})
 ToggleAimBot:OnChanged(function(Value)
