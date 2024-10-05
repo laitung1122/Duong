@@ -5121,7 +5121,7 @@ end
 local Teleport = Tabs.Player:AddSection("Chiến đấu")
 Tabs.Player:AddParagraph({
     Title = "Bật mí!",
-    Content = "Bật cả 3 cho trải nghiệm tốt nhất :)))"
+    Content = "Bật 1 trong 2 tính năng \n tránh bị lỗi"
 })
 
 Tabs.Player:AddButton({
@@ -5320,22 +5320,26 @@ spawn(function()
         end
 
         -- Xử lý nhấn phím kỹ năng
-        local UserInputService = game:GetService("UserInputService")
+        Module["AimBotPart"] = function(RootPart)
+                    local Mouse = require(MouseModule)
+                    Mouse.Hit = CFrame.new(RootPart.Position)
+                    Mouse.Target = RootPart
+                    AimBotPart = { RootPart, RootPart.Position }
+                end
 
-        UserInputService.InputBegan:Connect(function(input, gameProcessed)
-            if gameProcessed or not _G.EnabledAimBot then return end
-            if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
-                -- Kích hoạt ngay lập tức cho các kỹ năng
-                local pp = NearestPlayer
-                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(input.KeyCode.Name, pp and pp.Position)
-            end
-        end)
+                -- Theo dõi phím nhấn và thả
+                local UserInputService = game:GetService("UserInputService")
+                UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+                    end
+                end)
 
-        UserInputService.InputEnded:Connect(function(input, gameProcessed)
-            if gameProcessed or not _G.EnabledAimBot then return end
-            if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+                UserInputService.InputEnded:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
             end
         end)
     end)
