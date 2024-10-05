@@ -5143,7 +5143,7 @@ Options.ToggleEspPlayer:SetValue(false)
 -- Thêm tùy chọn AimBot vào giao diện
 local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Aim skill (beta)", Description = "Tự động aim đối tượng gần(not for buddy sword)", Default = false })
 ToggleAimBot:OnChanged(function(Value)
-    _G.EnabledAimBot = Value
+    _G.EnabledAimBotv1 = Value
     if not Value then
         -- Khi AimBot bị tắt, đặt lại AimBotPart và NearestPlayer
         AimBotPart = nil
@@ -5156,7 +5156,7 @@ Options.ToggleAimBot:SetValue(false)
 spawn(function()
     pcall(function()
         while wait() do
-            if _G.EnabledAimBot then
+            if _G.EnabledAimBotv1 then
                 local AimBotPart, NearestPlayer
                 local Players = game:GetService("Players")
                 local LocalPlayer = Players.LocalPlayer
