@@ -5,13 +5,13 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đang tải script, bình tĩnh:))",
-    Duration = 1
+    Duration = 2
 })
 local Window = Fluent:CreateWindow({
     Title = "Exprerador | Dương Modder",
-    SubTitle = "Phiên bản v1.5(Thêm 1 số tính năng)",
-    TabWidth = 120,
-    Size = UDim2.fromOffset(480, 300),
+    SubTitle = "Phiên bản v1.4(đã fix lỗi vặt)",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(500, 320),
     Acrylic = false,
     Theme = "Light",
     MinimizeKey = Enum.KeyCode.End
@@ -5236,9 +5236,9 @@ spawn(function()
 end)
 
 -- Thêm tùy chọn AimBot vào giao diện
-local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Aim buddy sword", Description = "hoạt động nhưng skill không thể giữ chiêu", Default = false})
+local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "Aim skill (beta)", Description = "Tự động aim đối tượng gần (không áp dụng cho buddy sword)", Default = false})
 ToggleAimBot:OnChanged(function(Value)
-    _G.EnabledAimBot = Value
+    _G.EnabledAimBotv1 = Value
     if not Value then
         -- Khi AimBot bị tắt, đặt lại AimBotPart và NearestPlayer
         AimBotPart = nil
@@ -5250,12 +5250,12 @@ Options.ToggleAimBot:SetValue(false)
 -- Chạy quá trình AimBot
 spawn(function()
     pcall(function()
+        local AimBotPart, NearestPlayer
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
         local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
-        local Skills = {"X"} -- Các kỹ năng được sử dụng cho AimBot
+        local Skills = {"X", "Z", "C", "V", "F"} -- Các kỹ năng được sử dụng cho AimBot (kết hợp cả 2 đoạn mã)
         local ActiveSkills = {} -- Bảng theo dõi kỹ năng đang hoạt động
-        local AimBotPart, NearestPlayer
 
         -- Hàm kiểm tra đội của người chơi
         local function CheckTeam(plr)
@@ -5284,27 +5284,16 @@ spawn(function()
         local OldHook
         OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
             local Method = getnamecallmethod():lower()
-            if not _G.EnabledAimBot then
-                return OldHook(self, V1, V2, ...)
-            end
-            
             if tostring(self) == "RemoteEvent" and Method == "fireserver" then
-                if typeof(V1) == "Vector3" then
-                    if AimBotPart and NearestPlayer then
-                        -- Trả về vị trí AimBotPart nếu nó tồn tại
-                        local part = AimBotPart
-                        return OldHook(self, part and part.Position or AimBotPart.Position, V2, ...)
-                    end
-                end
-                if NearestPlayer then
+                if typeof(V1) == "Vector3" and NearestPlayer then
                     local pp = NearestPlayer
-                    return OldHook(self, pp and pp.Position or NearestPlayer.Position, V2, ...)
+                    return OldHook(self, pp.Position, V2, ...)
                 end
             elseif Method == "invokeserver" then
-                if type(V1) == "string" and table.find(Skills, V1) and typeof(V2) == "Vector3" then
-                    if NearestPlayer then
+                if type(V1) == "string" and table.find(Skills, V1) then
+                    if ActiveSkills[V1] and NearestPlayer then
                         local pp = NearestPlayer
-                        return OldHook(self, V1, pp and pp.Position, pp, ...)
+                        return OldHook(self, V1, pp.Position, pp, ...)
                     end
                 end
             end
@@ -5319,27 +5308,19 @@ spawn(function()
             AimBotPart = { RootPart, RootPart.Position }
         end
 
-        -- Xử lý nhấn phím kỹ năng
-        Module["AimBotPart"] = function(RootPart)
-                    local Mouse = require(MouseModule)
-                    Mouse.Hit = CFrame.new(RootPart.Position)
-                    Mouse.Target = RootPart
-                    AimBotPart = { RootPart, RootPart.Position }
-                end
+        -- Theo dõi phím nhấn và thả
+        local UserInputService = game:GetService("UserInputService")
+        UserInputService.InputBegan:Connect(function(input, gameProcessed)
+            if gameProcessed then return end
+            if table.find(Skills, input.KeyCode.Name) then
+                ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+            end
+        end)
 
-                -- Theo dõi phím nhấn và thả
-                local UserInputService = game:GetService("UserInputService")
-                UserInputService.InputBegan:Connect(function(input, gameProcessed)
-                    if gameProcessed then return end
-                    if table.find(Skills, input.KeyCode.Name) then
-                        ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
-                    end
-                end)
-
-                UserInputService.InputEnded:Connect(function(input, gameProcessed)
-                    if gameProcessed then return end
-                    if table.find(Skills, input.KeyCode.Name) then
-                        ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+        UserInputService.InputEnded:Connect(function(input, gameProcessed)
+            if gameProcessed then return end
+            if table.find(Skills, input.KeyCode.Name) then
+                ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
             end
         end)
     end)
@@ -7470,11 +7451,11 @@ end
 Fluent:Notify({
     Title = "Dương Api",
     Content = "Đã tải script thành công!",
-    Duration = 1
+    Duration = 3
 })
 Fluent:Notify({
     Title = "Facebook:",
     Content = "Dương Lại tùng",
-    Duration = 2
+    Duration = 3
 })
 warn("Exprerador đã tải thành công !!")
