@@ -5121,11 +5121,11 @@ end
 local Teleport = Tabs.Player:AddSection("Chiến đấu")
 Tabs.Player:AddParagraph({
     Title = "Bật mí!",
-    Content = "Bật 1 trong 2 tính năng🗿 \n tránh bị lỗi"
+    Content = "Bật 1 trong 2 tính năng🗿 \n tránh bị lỗi🤣"
 })
 
 Tabs.Player:AddButton({
-    Title = "😈Aim POV😈",
+    Title = "😈Aim POV",
     Description = "Aim góc nhìn",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/laitung1122/Duong/main/aim1.lua"))()
@@ -5141,7 +5141,7 @@ end)
 Options.ToggleEspPlayer:SetValue(false)
 
 -- Thêm tùy chọn AimBot vào giao diện
-local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "🎯Aim skill 🎯(beta)", Description = "Tự động aim đối tượng gần(not for buddy sword)", Default = false })
+local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "🎯Aim skill (beta)", Description = "Tự động aim đối tượng gần(not for buddy sword)", Default = false })
 ToggleAimBot:OnChanged(function(Value)
     _G.EnabledAimBotv1 = Value
     if not Value then
@@ -5236,7 +5236,7 @@ spawn(function()
 end)
 
 -- Thêm tùy chọn AimBot vào giao diện
-local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "🗡️Aim buddy sword🗡️", Description = "hoạt động nhưng skill không thể giữ chiêu", Default = false})
+local ToggleAimBot = Tabs.Player:AddToggle("ToggleAimBot", {Title = "🗡️Aim buddy sword", Description = "hoạt động nhưng skill không thể giữ chiêu", Default = false})
 ToggleAimBot:OnChanged(function(Value)
     _G.EnabledAimBot = Value
     if not Value then
@@ -5284,7 +5284,7 @@ spawn(function()
         local OldHook
         OldHook = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
             local Method = getnamecallmethod():lower()
-            if not _G.EnabledAimBot or not ActiveSkills["X"] then
+            if not _G.EnabledAimBot then
                 return OldHook(self, V1, V2, ...)
             end
             
@@ -5311,29 +5311,137 @@ spawn(function()
             return OldHook(self, V1, V2, ...)
         end)
 
-        -- Xử lý nhấn phím kỹ năng
-        local UserInputService = game:GetService("UserInputService")
-        UserInputService.InputBegan:Connect(function(input, gameProcessed)
-            if gameProcessed then return end
-            if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
-            end
-        end)
+        -- Hàm xác định AimBotPart
+        Module["AimBotPart"] = function(RootPart)
+            local Mouse = require(MouseModule)
+            Mouse.Hit = CFrame.new(RootPart.Position)
+            Mouse.Target = RootPart
+            AimBotPart = { RootPart, RootPart.Position }
+        end
 
-        UserInputService.InputEnded:Connect(function(input, gameProcessed)
-            if gameProcessed then return end
-            if table.find(Skills, input.KeyCode.Name) then
-                ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
+        -- Xử lý nhấn phím kỹ năng
+        Module["AimBotPart"] = function(RootPart)
+                    local Mouse = require(MouseModule)
+                    Mouse.Hit = CFrame.new(RootPart.Position)
+                    Mouse.Target = RootPart
+                    AimBotPart = { RootPart, RootPart.Position }
+                end
+
+                -- Theo dõi phím nhấn và thả
+                local UserInputService = game:GetService("UserInputService")
+                UserInputService.InputBegan:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = true -- Đánh dấu kỹ năng đang hoạt động
+                    end
+                end)
+
+                UserInputService.InputEnded:Connect(function(input, gameProcessed)
+                    if gameProcessed then return end
+                    if table.find(Skills, input.KeyCode.Name) then
+                        ActiveSkills[input.KeyCode.Name] = false -- Đánh dấu kỹ năng không còn hoạt động
             end
         end)
     end)
 end)
 
+-- Thêm tùy chọn AimBot vào giao diện
+local ToggleAimBotMelee = Tabs.Player:AddToggle("ToggleAimBotMelee", {Title = "🔫Aim Gun", Description = "Tự động aim đạn đánh thường từ súng", Default = false})
+ToggleAimBotMelee:OnChanged(function(Value)
+    _G.EnabledAimBotMelee = Value
+    if not Value then
+        -- Khi AimBotMelee bị tắt, đặt lại AimBotPart và NearestPlayer
+        AimBotPartMelee = nil
+        NearestPlayerMelee = nil
+    end
+end)
+Options.ToggleAimBotMelee:SetValue(false)
+
+-- Chạy quá trình AimBot đánh thường
+spawn(function()
+    pcall(function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local MouseModule = require(game:GetService("ReplicatedStorage"):WaitForChild("Mouse")) -- Đảm bảo WaitForChild được sử dụng
+        local ActiveMeleeAim = false -- Trạng thái của AimBot đánh thường
+        local AimBotPartMelee, NearestPlayerMelee
+
+        -- Hàm kiểm tra đội của người chơi
+        local function CheckTeam(plr)
+            return tostring(plr.Team) == "Pirates" or (tostring(plr.Team) ~= tostring(LocalPlayer.Team))
+        end
+
+        -- Hàm tìm người chơi gần nhất
+        local function GetNearestPlayerMelee()
+            local Distance, Nearest = math.huge, nil
+            for _, plr in pairs(Players:GetPlayers()) do
+                if plr ~= LocalPlayer and CheckTeam(plr) then
+                    local plrPP = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+                    local Mag = plrPP and LocalPlayer:DistanceFromCharacter(plrPP.Position)
+                    if Mag and Mag <= Distance then
+                        Distance, Nearest = Mag, plrPP
+                    end
+                end
+            end
+            NearestPlayerMelee = Nearest
+        end
+
+        -- Cập nhật vị trí người chơi gần nhất cho AimBot đánh thường
+        game:GetService("RunService").Stepped:Connect(GetNearestPlayerMelee)
+
+        -- Kích hoạt AimBot khi đánh thường
+        local OldHookMelee
+        OldHookMelee = hookmetamethod(game, "__namecall", function(self, V1, V2, ...)
+            local Method = getnamecallmethod():lower()
+            if not _G.EnabledAimBotMelee or not ActiveMeleeAim then
+                return OldHookMelee(self, V1, V2, ...)
+            end
+            
+            if tostring(self) == "RemoteEvent" and Method == "fireserver" then
+                if NearestPlayerMelee then
+                    local pp = NearestPlayerMelee
+                    return OldHookMelee(self, pp.Position, V2, ...) -- Trả về vị trí của người chơi gần nhất
+                end
+            end
+            return OldHookMelee(self, V1, V2, ...)
+        end)
+
+        -- Xử lý nhấn và thả phím để kích hoạt AimBot cho đòn đánh thường
+        local UserInputService = game:GetService("UserInputService")
+        
+        -- Nhấn chuột trái
+        UserInputService.InputBegan:Connect(function(input, gameProcessed)
+            if gameProcessed then return end
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                ActiveMeleeAim = true -- Kích hoạt AimBot khi chuột trái được nhấn
+            end
+        end)
+
+        UserInputService.InputEnded:Connect(function(input, gameProcessed)
+            if gameProcessed then return end
+            if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                ActiveMeleeAim = false -- Tắt AimBot khi chuột trái được thả
+            end
+        end)
+
+        -- Xử lý chạm trên màn hình cho điện thoại
+        UserInputService.TouchStarted:Connect(function(touch, gameProcessed)
+            if gameProcessed then return end
+            ActiveMeleeAim = true -- Kích hoạt AimBot khi chạm vào màn hình
+        end)
+
+        UserInputService.TouchEnded:Connect(function(touch, gameProcessed)
+            if gameProcessed then return end
+            ActiveMeleeAim = false -- Tắt AimBot khi không còn chạm vào màn hình
+        end)
+    end)
+end)
+
 --------------------------------------------------------------------------------------------------------------------------------------------
-local Mastery = Tabs.Setting:AddSection("Misc")
+local Mastery = Tabs.Setting:AddSection("🛠Tính năng")
 
 
-local ToggleNoClip = Tabs.Setting:AddToggle("ToggleNoClip", {Title = "No Clip",Description = "Xuyên Tường", Default = false })
+local ToggleNoClip = Tabs.Setting:AddToggle("ToggleNoClip", {Title = "👻No Clip",Description = "Xuyên Tường", Default = false })
 ToggleNoClip:OnChanged(function(value)
     _G.LOf = value
 end)
@@ -5353,7 +5461,7 @@ spawn(function()
 end)
 
 
-local ToggleWalkonWater = Tabs.Setting:AddToggle("ToggleWalkonWater", {Title = "Walk on Water",Description = "Đi Trên nước", Default = true })
+local ToggleWalkonWater = Tabs.Setting:AddToggle("ToggleWalkonWater", {Title = "👣Walk on Water",Description = "Đi Trên nước", Default = true })
 ToggleWalkonWater:OnChanged(function(Value)
   _G.WalkonWater = Value
 end)
@@ -5371,7 +5479,7 @@ spawn(function()
 end)
 
 
-local ToggleSpeedRun = Tabs.Setting:AddToggle("ToggleSpeedRun", {Title = "Run Speed",Description = "Chạy Nhanh", Default = true })
+local ToggleSpeedRun = Tabs.Setting:AddToggle("ToggleSpeedRun", {Title = "🚀Run Speed",Description = "Chạy Nhanh", Default = true })
 ToggleSpeedRun:OnChanged(function(Value)
     InfAbility = Value
     if Value == false then
