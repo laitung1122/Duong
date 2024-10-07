@@ -2568,6 +2568,14 @@ end)
 --// auto chest
 
 Tabs.Main:AddButton({
+    Title = "Chạy main Redz Hub",
+    Description = "Lưu ý là khi bật redz hub thì kết hợp để pvp hoặc làm nhiệm vụ đặc biệt\n không nên mở tính năng trùng nhau",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+    end
+})
+
+Tabs.Main:AddButton({
     Title = "Auto Chest",
     Description = "Nhặt rương",
     Callback = function()
