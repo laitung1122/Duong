@@ -2571,6 +2571,11 @@ Tabs.Main:AddButton({
     Title = "Chạy main Redz Hub",
     Description = "Lưu ý là khi bật redz hub thì kết hợp để pvp hoặc làm nhiệm vụ đặc biệt\n không nên mở tính năng trùng nhau",
     Callback = function()
+        Fluent:Notify({
+    Title = "Dương Api",
+    Content = "Đang chạy script, vui lòng đợi.",
+    Duration = 3
+})
         loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
     end
 })
