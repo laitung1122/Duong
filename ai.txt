@@ -164,7 +164,7 @@ ImageButton1.BorderSizePixel = 0;
 ImageButton1.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0);
 ImageButton1.Size = UDim2.new(0, 50, 0, 50);
 ImageButton1.Draggable = true;
-ImageButton1.Image = "rbxassetid://13717478897";
+ImageButton1.Image = "rbxassetid://18915999121";
 ImageButton1.MouseButton1Down:connect(function()
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, 305, false, game);
 	game:GetService("VirtualInputManager"):SendKeyEvent(false, 305, false, game);
@@ -303,7 +303,7 @@ Update.Window = function(self, text, logo, keybind)
 	Ping.Position = UDim2.new(0.28, 0, 0.074, 0);
 	Ping.Size = UDim2.new(0, 225, 0, 25);
 	Ping.Font = Enum.Font.GothamSemibold;
-	Ping.Text = "Blox Fruit | discord.gg/Dg5nr8CrVV          [RightControl]";
+	Ping.Text = "Mod by Dương Modder";
 	Ping.TextColor3 = Color3.fromRGB(255, 255, 255);
 	Ping.TextSize = 14;
 	Ping.TextXAlignment = Enum.TextXAlignment.Left;
@@ -323,7 +323,7 @@ Update.Window = function(self, text, logo, keybind)
 	UserText.TextColor3 = Color3.fromRGB(255, 255, 255);
 	UserText.Size = UDim2.new(0, 80, 0, 25);
 	UserText.Font = Enum.Font.GothamSemibold;
-	UserText.Text = "Min Gaming Hub";
+	UserText.Text = "EXPRERADOR-DUONG";
 	UserText.TextScaled = true;
 	UserText.TextSize = 17;
 	UserText.TextWrapped = true;
@@ -337,7 +337,7 @@ Update.Window = function(self, text, logo, keybind)
 	UserImage.BackgroundTransparency = 0;
 	UserImage.Position = UDim2.new(0, 10, 0, -15);
 	UserImage.Size = UDim2.new(0, 25, 0, 25);
-	UserImage.Image = "rbxassetid://13717478897";
+	UserImage.Image = "rbxassetid://18915999121";
 	local UserImageCorner = Instance.new("UICorner");
 	UserImageCorner.CornerRadius = UDim.new(0, 100);
 	UserImageCorner.Name = "UserImageCorner";
@@ -349,7 +349,7 @@ Update.Window = function(self, text, logo, keybind)
 	Logo.BackgroundTransparency = 1;
 	Logo.Position = UDim2.new(0, -5, 0, -5);
 	Logo.Size = UDim2.new(0, 135, 0, 135);
-	Logo.Image = "rbxassetid://";
+	Logo.Image = "rbxassetid://18915999121";
 	local Tab = Instance.new("Frame");
 	Tab.Name = "Tab";
 	Tab.Parent = Main;
@@ -672,7 +672,7 @@ Update.Window = function(self, text, logo, keybind)
 			ImageButton.BorderSizePixel = 0;
 			ImageButton.Position = UDim2.new(0, 350, 0, 6);
 			ImageButton.Size = UDim2.new(0, 20, 0, 20);
-			ImageButton.Image = "rbxassetid://13717478897";
+			ImageButton.Image = "rbxassetid://18915999121";
 			ImageButton.ImageColor3 = Color3.fromRGB(255, 255, 255);
 			UICorner_2.CornerRadius = UDim.new(0, 5);
 			UICorner_2.Parent = TextBtn;
@@ -752,7 +752,7 @@ Update.Window = function(self, text, logo, keybind)
 			ImageLabel.BorderSizePixel = 0;
 			ImageLabel.Position = UDim2.new(0, 5, 0, 6);
 			ImageLabel.Size = UDim2.new(0, 20, 0, 20);
-			ImageLabel.Image = "rbxassetid://13717478897";
+			ImageLabel.Image = "rbxassetid://18915999121";
 			ImageLabel.ImageColor3 = Color3.fromRGB(255, 255, 255);
 			Space.Name = "Space";
 			Space.Parent = CheckFrame2;
@@ -1003,7 +1003,7 @@ Update.Window = function(self, text, logo, keybind)
 			ImageLabel.BorderSizePixel = 0;
 			ImageLabel.Position = UDim2.new(0, 7.5, 0, 7.5);
 			ImageLabel.Size = UDim2.new(0, 30, 0, 30);
-			ImageLabel.Image = "rbxassetid://13717478897";
+			ImageLabel.Image = "rbxassetid://18915999121";
 			Title.Parent = SliderFrame_2;
 			Title.BackgroundColor3 = Color3.fromRGB(150, 150, 150);
 			Title.BackgroundTransparency = 1;
@@ -5133,39 +5133,39 @@ spawn(function()
 							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDeathStep");
 						end
 					else
-						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Superhuman",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Superhuman",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 					end
 					if (game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDeathStep", true) == 1) then
 						if ((game.Players.LocalPlayer.Backpack:FindFirstChild("Death Step") and (game.Players.LocalPlayer.Backpack:FindFirstChild("Death Step").Level.Value >= 400)) or (game.Players.LocalPlayer.Character:FindFirstChild("Death Step") and (game.Players.LocalPlayer.Character:FindFirstChild("Death Step").Level.Value >= 400))) then
 							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySharkmanKarate");
 						end
 					else
-						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Death Step",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Death Step",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 					end
 					if (game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySharkmanKarate", true) == 1) then
 						if ((game.Players.LocalPlayer.Backpack:FindFirstChild("Sharkman Karate") and (game.Players.LocalPlayer.Backpack:FindFirstChild("Sharkman Karate").Level.Value >= 400)) or (game.Players.LocalPlayer.Character:FindFirstChild("Sharkman Karate") and (game.Players.LocalPlayer.Character:FindFirstChild("Sharkman Karate").Level.Value >= 400))) then
 							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw");
 						end
 					else
-						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have SharkMan Karate",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have SharkMan Karate",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 					end
 					if (game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyElectricClaw", true) == 1) then
 						if ((game.Players.LocalPlayer.Backpack:FindFirstChild("Electric Claw") and (game.Players.LocalPlayer.Backpack:FindFirstChild("Electric Claw").Level.Value >= 400)) or (game.Players.LocalPlayer.Character:FindFirstChild("Electric Claw") and (game.Players.LocalPlayer.Character:FindFirstChild("Electric Claw").Level.Value >= 400))) then
 							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon");
 						end
 					else
-						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Electric Claw",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Electric Claw",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 					end
 					if (game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon", true) == 1) then
 						if ((game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Talon") and (game.Players.LocalPlayer.Backpack:FindFirstChild("Dragon Talon").Level.Value >= 400)) or (game.Players.LocalPlayer.Character:FindFirstChild("Dragon Talon") and (game.Players.LocalPlayer.Character:FindFirstChild("Dragon Talon").Level.Value >= 400))) then
 							if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman", true), "Bring") then
-								game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Enough Material",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+								game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Enough Material",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 							else
 								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman");
 							end
 						end
 					else
-						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Dragon Talon",Icon="http://www.roblox.com/asset/?id=13717478897",Duration=2.5});
+						game.StarterGui:SetCore("SendNotification", {Title="Notification",Text="Not Have Dragon Talon",Icon="http://www.roblox.com/asset/?id=18915999121",Duration=2.5});
 					end
 				else
 					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySuperhuman");
