@@ -22,7 +22,7 @@ Hide_UI(screen_gui);
 local frame = Instance.new("Frame");
 frame.AnchorPoint = Vector2.new(0.5, 0.949999988079071);
 frame.BackgroundColor3 = Color3.new(1, 1, 1);
-frame.BackgroundTransparency = 0.5;
+frame.BackgroundTransparency = 1;
 frame.BorderColor3 = Color3.new(0, 0, 0);
 frame.BorderSizePixel = 0;
 frame.Position = UDim2.new(0.5, 0, 0.954999983, 0);
@@ -39,7 +39,7 @@ Notif.New = function(text, timee)
 	frame_2.BackgroundColor3 = Color3.new(1, 1, 1);
 	frame_2.BorderColor3 = Color3.new(0, 0, 0);
 	frame_2.BorderSizePixel = 0;
-	frame_2.BackgroundTransparency = 0.5;
+	frame_2.BackgroundTransparency = 1;
 	frame_2.Size = UDim2.new(0, 100, 0, 0);
 	frame_2.Visible = true;
 	frame_2.Parent = frame;
@@ -173,7 +173,7 @@ UICorner.Parent = ImageButton1;
 UIStroke.Color = Color3.fromRGB(232, 0, 2);
 UIStroke.Thickness = 1.5;
 UIStroke.Parent = ImageButton1;
-UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 132, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 0))});
+UIGradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 132, 255)),ColorSequenceKeypoint.new(1, Color3.fromRGB(245, 245, 245))});
 UIGradient.Parent = UIStroke;
 if game:GetService("CoreGui"):FindFirstChild("AppleHub") then
 	game:GetService("CoreGui"):FindFirstChild("AppleHub"):Destroy();
@@ -261,7 +261,7 @@ Update.Window = function(self, text, logo, keybind)
 	BtnStroke.Name = "BtnStroke";
 	BtnStroke.Parent = Main;
 	BtnStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-	BtnStroke.Color = Color3.fromRGB(0, 255, 0);
+	BtnStroke.Color = Color3.fromRGB(245, 245, 245);
 	BtnStroke.LineJoinMode = Enum.LineJoinMode.Round;
 	BtnStroke.Thickness = 1;
 	BtnStroke.Transparency = 0;
@@ -367,7 +367,7 @@ Update.Window = function(self, text, logo, keybind)
 	ScrollTab.Name = "ScrollTab";
 	ScrollTab.Parent = Tab;
 	ScrollTab.Active = true;
-	ScrollTab.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+	ScrollTab.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 	ScrollTab.BackgroundTransparency = 1;
 	ScrollTab.Size = UDim2.new(0, 133, 0, 203);
 	ScrollTab.CanvasSize = UDim2.new(0, 0, 0, 0);
@@ -466,7 +466,7 @@ Update.Window = function(self, text, logo, keybind)
 		BtnStroke.Name = "BtnStroke";
 		BtnStroke.Parent = TabButton;
 		BtnStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-		BtnStroke.Color = Color3.fromRGB(0, 255, 0);
+		BtnStroke.Color = Color3.fromRGB(245, 245, 245);
 		BtnStroke.LineJoinMode = Enum.LineJoinMode.Round;
 		BtnStroke.Thickness = 1;
 		BtnStroke.Transparency = 0;
@@ -533,7 +533,7 @@ Update.Window = function(self, text, logo, keybind)
 			local Line = Instance.new("Frame");
 			NotificationHold.Name = "NotificationHold";
 			NotificationHold.Parent = Main;
-			NotificationHold.BackgroundColor3 = Color3.new(0, 255, 0);
+			NotificationHold.BackgroundColor3 = Color3.new(245, 245, 245);
 			NotificationHold.BackgroundTransparency = 1;
 			NotificationHold.BorderSizePixel = 0;
 			NotificationHold.Size = UDim2.new(0, 589, 0, 378);
@@ -600,7 +600,7 @@ Update.Window = function(self, text, logo, keybind)
 			NotificationTitle.ZIndex = 3;
 			NotificationTitle.Font = Enum.Font.GothamSemibold;
 			NotificationTitle.Text = "Notification";
-			NotificationTitle.TextColor3 = Color3.fromRGB(0, 255, 0);
+			NotificationTitle.TextColor3 = Color3.fromRGB(245, 245, 245);
 			NotificationTitle.TextSize = 22;
 			Line.Name = "Line";
 			Line.Parent = NotificationFrame;
@@ -651,7 +651,7 @@ Update.Window = function(self, text, logo, keybind)
 			local UICorner_3 = Instance.new("UICorner");
 			Button.Name = "Button";
 			Button.Parent = MainFramePage;
-			Button.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			Button.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			Button.Size = UDim2.new(0, 387, 0, 31);
 			UICorner.CornerRadius = UDim.new(0, 5);
 			UICorner.Parent = Button;
@@ -737,7 +737,7 @@ Update.Window = function(self, text, logo, keybind)
 			UIStroke.Name = "UIStroke";
 			UIStroke.Parent = CheckFrame2;
 			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-			UIStroke.Color = Color3.fromRGB(0, 255, 0);
+			UIStroke.Color = Color3.fromRGB(245, 245, 245);
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Round;
 			UIStroke.Thickness = 1;
 			UIStroke.Transparency = 0;
@@ -824,7 +824,7 @@ Update.Window = function(self, text, logo, keybind)
 			UIStroke.Name = "UIStroke";
 			UIStroke.Parent = Dropdown;
 			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-			UIStroke.Color = Color3.fromRGB(0, 255, 0);
+			UIStroke.Color = Color3.fromRGB(245, 245, 245);
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Round;
 			UIStroke.Thickness = 1;
 			UIStroke.Transparency = 0;
@@ -844,7 +844,7 @@ Update.Window = function(self, text, logo, keybind)
 			DropScroll.Name = "DropScroll";
 			DropScroll.Parent = DropTitle;
 			DropScroll.Active = true;
-			DropScroll.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			DropScroll.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			DropScroll.BackgroundTransparency = 1;
 			DropScroll.BorderSizePixel = 0;
 			DropScroll.Position = UDim2.new(0, 0, 0, 31);
@@ -859,7 +859,7 @@ Update.Window = function(self, text, logo, keybind)
 			UIPadding.PaddingTop = UDim.new(0, 5);
 			DropButton.Name = "DropButton";
 			DropButton.Parent = Dropdown;
-			DropButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			DropButton.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			DropButton.BackgroundTransparency = 1;
 			DropButton.Size = UDim2.new(0, 385, 0, 31);
 			DropButton.Font = Enum.Font.SourceSans;
@@ -974,7 +974,7 @@ Update.Window = function(self, text, logo, keybind)
 			local UICorner_3 = Instance.new("UICorner");
 			SliderFrame.Name = slidertitle or "SliderFrame";
 			SliderFrame.Parent = MainFramePage;
-			SliderFrame.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			SliderFrame.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			SliderFrame.BackgroundTransparency = 1;
 			SliderFrame.BorderSizePixel = 0;
 			SliderFrame.Size = UDim2.new(0, 387, 0, 60);
@@ -988,7 +988,7 @@ Update.Window = function(self, text, logo, keybind)
 			UIStroke.Name = "UIStroke";
 			UIStroke.Parent = SliderFrame_2;
 			UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-			UIStroke.Color = Color3.fromRGB(0, 255, 0);
+			UIStroke.Color = Color3.fromRGB(245, 245, 245);
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Round;
 			UIStroke.Thickness = 1;
 			UIStroke.Transparency = 0;
@@ -1032,7 +1032,7 @@ Update.Window = function(self, text, logo, keybind)
 			SliderButton.Size = UDim2.new(0, 346, 0, 25);
 			SliderCount.Name = "SliderCount";
 			SliderCount.Parent = SliderButton;
-			SliderCount.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			SliderCount.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			SliderCount.BackgroundTransparency = 0.3;
 			SliderCount.BorderSizePixel = 0;
 			SliderCount.Position = UDim2.new(0, start, 0, 0);
@@ -1057,7 +1057,7 @@ Update.Window = function(self, text, logo, keybind)
 			SliderStroke.Name = "SliderStroke";
 			SliderStroke.Parent = BoxFrame;
 			SliderStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border;
-			SliderStroke.Color = Color3.fromRGB(0, 255, 0);
+			SliderStroke.Color = Color3.fromRGB(245, 245, 245);
 			SliderStroke.LineJoinMode = Enum.LineJoinMode.Round;
 			SliderStroke.Thickness = 1;
 			SliderStroke.Transparency = 0.5;
@@ -1266,7 +1266,7 @@ Update.Window = function(self, text, logo, keybind)
 			local UICorner = Instance.new("UICorner");
 			Textbox.Name = "Textbox";
 			Textbox.Parent = MainFramePage;
-			Textbox.BackgroundColor3 = Color3.new(0, 255, 0);
+			Textbox.BackgroundColor3 = Color3.new(245, 245, 245);
 			Textbox.BackgroundTransparency = 0;
 			Textbox.Size = UDim2.new(0, 387, 0, 31);
 			TextboxCorner.CornerRadius = UDim.new(0, 5);
@@ -1377,7 +1377,7 @@ Update.Window = function(self, text, logo, keybind)
 			local UICorner = Instance.new("UICorner");
 			Textbox.Name = "Textbox";
 			Textbox.Parent = MainFramePage;
-			Textbox.BackgroundColor3 = Color3.new(0, 255, 0);
+			Textbox.BackgroundColor3 = Color3.new(245, 245, 245);
 			Textbox.BackgroundTransparency = 0;
 			Textbox.Size = UDim2.new(0, 387, 0, 31);
 			TextboxCorner.CornerRadius = UDim.new(0, 5);
@@ -1393,7 +1393,7 @@ Update.Window = function(self, text, logo, keybind)
 			TextboxxCorner.Parent = Textboxx;
 			TextboxLabel.Name = "TextboxLabel";
 			TextboxLabel.Parent = Textbox;
-			TextboxLabel.BackgroundColor3 = Color3.fromRGB(0, 255, 0);
+			TextboxLabel.BackgroundColor3 = Color3.fromRGB(245, 245, 245);
 			TextboxLabel.BackgroundTransparency = 1;
 			TextboxLabel.Position = UDim2.new(0, 15, 0, 0);
 			TextboxLabel.Text = text;
@@ -1421,7 +1421,7 @@ Update.Window = function(self, text, logo, keybind)
 			RealTextbox.Size = UDim2.new(0, 100, 0, 24);
 			RealTextbox.Font = Enum.Font.GothamSemibold;
 			RealTextbox.Text = "";
-			RealTextbox.TextColor3 = Color3.fromRGB(0, 255, 0);
+			RealTextbox.TextColor3 = Color3.fromRGB(245, 245, 245);
 			RealTextbox.TextSize = 11;
 			RealTextbox.TextTransparency = 0;
 			RealTextbox.FocusLost:Connect(function()
@@ -1522,7 +1522,7 @@ Update.Window = function(self, text, logo, keybind)
 			Seperator.Size = UDim2.new(0, 310, 0, 20);
 			Sep1.Name = "Sep1";
 			Sep1.Parent = Seperator;
-			Sep1.BackgroundColor3 = Color3.new(0, 255, 0);
+			Sep1.BackgroundColor3 = Color3.new(245, 245, 245);
 			Sep1.BorderSizePixel = 0;
 			Sep1.Position = UDim2.new(0, 0, 0, 10);
 			Sep1.Size = UDim2.new(0, 80, 0, 1);
@@ -1538,7 +1538,7 @@ Update.Window = function(self, text, logo, keybind)
 			Sep2.TextSize = 14;
 			Sep3.Name = "Sep3";
 			Sep3.Parent = Seperator;
-			Sep3.BackgroundColor3 = Color3.new(0, 255, 0);
+			Sep3.BackgroundColor3 = Color3.new(245, 245, 245);
 			Sep3.BorderSizePixel = 0;
 			Sep3.Position = UDim2.new(0, 300, 0, 10);
 			Sep3.Size = UDim2.new(0, 80, 0, 1);
@@ -1554,7 +1554,7 @@ Update.Window = function(self, text, logo, keybind)
 			Linee.Size = UDim2.new(0, 310, 0, 20);
 			Line.Name = "Line";
 			Line.Parent = Linee;
-			Line.BackgroundColor3 = Color3.new(0, 255, 0);
+			Line.BackgroundColor3 = Color3.new(245, 245, 245);
 			Line.BorderSizePixel = 0;
 			Line.Position = UDim2.new(0, 0, 0, 10);
 			Line.Size = UDim2.new(0, 410, 0, 1);
@@ -2321,7 +2321,7 @@ function UpdatePlayerChams()
 						name.BackgroundTransparency = 1;
 						name.TextStrokeTransparency = 0.5;
 						if (v.Team == game.Players.LocalPlayer.Team) then
-							name.TextColor3 = Color3.new(0, 255, 0);
+							name.TextColor3 = Color3.new(245, 245, 245);
 						else
 							name.TextColor3 = Color3.new(255, 0, 0);
 						end
@@ -2431,14 +2431,14 @@ function UpdateFlowerChams()
 						name.TextYAlignment = "Top";
 						name.BackgroundTransparency = 1;
 						name.TextStrokeTransparency = 0.5;
-						name.TextColor3 = Color3.fromRGB(0, 255, 0);
+						name.TextColor3 = Color3.fromRGB(245, 245, 245);
 						if (v.Name == "Flower1") then
 							name.Text = "Blue Flower" .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
 							name.TextColor3 = Color3.fromRGB(0, 0, 255);
 						end
 						if (v.Name == "Flower2") then
 							name.Text = "Red Flower" .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
-							name.TextColor3 = Color3.fromRGB(0, 255, 0);
+							name.TextColor3 = Color3.fromRGB(245, 245, 245);
 						end
 					else
 						v["NameEsp" .. Number].TextLabel.Text = v.Name .. "   \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
@@ -2469,7 +2469,7 @@ function UpdateRealFruitChams()
 					name.TextYAlignment = "Top";
 					name.BackgroundTransparency = 1;
 					name.TextStrokeTransparency = 0.5;
-					name.TextColor3 = Color3.fromRGB(0, 255, 0);
+					name.TextColor3 = Color3.fromRGB(245, 245, 245);
 					name.Text = v.Name .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3) .. " Distance";
 				else
 					v.Handle["NameEsp" .. Number].TextLabel.Text = v.Name .. " " .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3) .. " Distance";
@@ -2596,7 +2596,7 @@ function UpdatePlayerChams()
 						name.BackgroundTransparency = 1;
 						name.TextStrokeTransparency = 0.5;
 						if (v.Team == game.Players.LocalPlayer.Team) then
-							name.TextColor3 = Color3.new(0, 255, 0);
+							name.TextColor3 = Color3.new(245, 245, 245);
 						else
 							name.TextColor3 = Color3.new(255, 0, 0);
 						end
@@ -2706,14 +2706,14 @@ function UpdateFlowerChams()
 						name.TextYAlignment = "Top";
 						name.BackgroundTransparency = 1;
 						name.TextStrokeTransparency = 0.5;
-						name.TextColor3 = Color3.fromRGB(0, 255, 0);
+						name.TextColor3 = Color3.fromRGB(245, 245, 245);
 						if (v.Name == "Flower1") then
 							name.Text = "Blue Flower" .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
 							name.TextColor3 = Color3.fromRGB(0, 0, 255);
 						end
 						if (v.Name == "Flower2") then
 							name.Text = "Red Flower" .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
-							name.TextColor3 = Color3.fromRGB(0, 255, 0);
+							name.TextColor3 = Color3.fromRGB(245, 245, 245);
 						end
 					else
 						v["NameEsp" .. Number].TextLabel.Text = v.Name .. "   \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Position).Magnitude / 3) .. " Distance";
@@ -2744,7 +2744,7 @@ function UpdateRealFruitChams()
 					name.TextYAlignment = "Top";
 					name.BackgroundTransparency = 1;
 					name.TextStrokeTransparency = 0.5;
-					name.TextColor3 = Color3.fromRGB(0, 255, 0);
+					name.TextColor3 = Color3.fromRGB(245, 245, 245);
 					name.Text = v.Name .. " \n" .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3) .. " Distance";
 				else
 					v.Handle["NameEsp" .. Number].TextLabel.Text = v.Name .. " " .. round((game:GetService("Players").LocalPlayer.Character.Head.Position - v.Handle.Position).Magnitude / 3) .. " Distance";
