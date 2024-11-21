@@ -2576,7 +2576,7 @@ Tabs.Main:AddButton({
     Content = "Đang chạy script, vui lòng đợi.",
     Duration = 3
 })
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/BloxFruits/main/redz9999"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/refs/heads/main/Source.lua"))()
     end
 })
 
